@@ -16,29 +16,29 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 /**
+ * FXML Controller class
  *
  * @author Sweetpink
  */
 public class FXMLMainMenuController implements Initializable {
+
+    
     
     @FXML
-    public void logInScene(ActionEvent event){
-        
+    public void newGameMenu(ActionEvent event){
         try{
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLLogInMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLGame.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        
-        
+                
         }catch(IOException ex){
-            System.out.println("Error while changing scene to log in menu");
+                    
         }
     }
     

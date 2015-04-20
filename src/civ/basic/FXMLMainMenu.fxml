@@ -6,12 +6,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="347.0" prefWidth="277.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="civ.basic.FXMLMainMenuController">
-    <children>
-        <Button layoutX="69.0" layoutY="32.0" onAction="#logInScene" prefHeight="49.0" prefWidth="139.0" text="Log in" />
-      <Button fx:id="button1" layoutX="69.0" layoutY="88.0" prefHeight="49.0" prefWidth="139.0" text="Option" />
-      <Button fx:id="button2" layoutX="69.0" layoutY="143.0" prefHeight="49.0" prefWidth="139.0" text="nått" />
-      <Button fx:id="button3" layoutX="69.0" layoutY="199.0" prefHeight="49.0" prefWidth="139.0" text="nått" />
-      <Button fx:id="button4" layoutX="69.0" layoutY="254.0" prefHeight="49.0" prefWidth="139.0" text="Exit" />
-    </children>
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLMainMenuController">
+   <children>
+      <Button layoutX="56.0" layoutY="40.0" onAction="#newGameMenu" prefHeight="49.0" prefWidth="139.0" text="New Game" />
+      <Button layoutX="56.0" layoutY="95.0" prefHeight="49.0" prefWidth="139.0" text="Load Game" />
+      <Button layoutX="56.0" layoutY="151.0" prefHeight="49.0" prefWidth="139.0" text="Option" />
+      <Button layoutX="56.0" layoutY="208.0" prefHeight="49.0" prefWidth="139.0" text="Log Out" />
+      <Button layoutX="56.0" layoutY="263.0" prefHeight="49.0" prefWidth="139.0" text="Exit" />
+   </children>
 </AnchorPane>

@@ -20,7 +20,7 @@ public class CivBasic extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLMainMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLLogInMenu.fxml"));
         
         Scene scene = new Scene(root);
         

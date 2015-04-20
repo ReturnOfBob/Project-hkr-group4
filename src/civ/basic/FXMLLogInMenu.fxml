@@ -6,13 +6,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="civ.basic.FXMLLogInMenuController">
-   <children>
-      <Button layoutX="56.0" layoutY="40.0" onAction="#newGameMenu" prefHeight="49.0" prefWidth="139.0" text="New Game" />
-      <Button layoutX="56.0" layoutY="95.0" prefHeight="49.0" prefWidth="139.0" text="Load Game" />
-      <Button layoutX="56.0" layoutY="151.0" prefHeight="49.0" prefWidth="139.0" text="nått" />
-      <Button layoutX="56.0" layoutY="208.0" prefHeight="49.0" prefWidth="139.0" text="nått" />
-      <Button layoutX="56.0" layoutY="263.0" prefHeight="49.0" prefWidth="139.0" text="Back" />
-   </children>
+<AnchorPane id="AnchorPane" fx:id="createCheck" prefHeight="200" prefWidth="320" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLLogInMenuController">
+    <children>
+        <Button fx:id="button" layoutX="195.0" layoutY="14.0" onAction="#handleChangeToMenu" text="log in" />
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <TextField fx:id="userName" layoutX="14.0" layoutY="14.0" />
+      <TextField fx:id="userPassword" layoutX="14.0" layoutY="54.0" />
+      <Button fx:id="createAccount" layoutX="180.0" layoutY="54.0" mnemonicParsing="false" onAction="#handleButtonToCreateAccount" text="Create new account" />
+      <Button fx:id="lostPassword" layoutX="180.0" layoutY="88.0" mnemonicParsing="false" onAction="#handleButtonLostPassword" prefHeight="25.0" prefWidth="121.0" text="Lost my password" />
+    </children>
 </AnchorPane>
