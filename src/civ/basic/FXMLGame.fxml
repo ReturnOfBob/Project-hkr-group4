@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="680.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLGameController">
+   <children>
+      <Button layoutX="254.0" layoutY="55.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="120.0" text="Woodmill" />
+      <TextArea layoutX="14.0" layoutY="33.0" prefHeight="200.0" prefWidth="218.0" text="Wood   10&#10;Stone    40&#10;" />
+      <TextArea layoutX="14.0" layoutY="233.0" prefHeight="200.0" prefWidth="218.0" />
+      <TextArea layoutX="810.0" layoutY="33.0" prefHeight="651.0" prefWidth="200.0" />
+      <Button fx:id="testButton" layoutX="392.0" layoutY="55.0" mnemonicParsing="false" onAction="#testMethod" prefHeight="49.0" prefWidth="120.0" text="Woodmill" />
+      <Button layoutX="531.0" layoutY="55.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="120.0" text="Woodmill" />
+      <Button layoutX="670.0" layoutY="55.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="120.0" text="Woodmill" />
+      <Label layoutX="14.0" layoutY="14.0" text="Resources" />
+      <Label layoutX="810.0" layoutY="14.0" text="EventLog" />
+   </children>
+</AnchorPane>
