@@ -38,7 +38,7 @@ public class FXMLLostPasswordController implements Initializable {
     @FXML
     private TextField inputRequiredText;
     PreparedStatement stt = null;
-    String URL = "jdbc:mysql://127.0.0.1:3306/basic-civ?user=root&password=root";
+    String URL = "jdbc:mysql://127.0.0.1:3306/civ-basic?user=root&password=root";
     private String storedName;
     @Override
     public void initialize(URL url, ResourceBundle rb) {

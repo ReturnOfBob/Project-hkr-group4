@@ -40,7 +40,7 @@ public class FXMLLogInMenuController implements Initializable {
     @FXML
     private TextField userPassword;
     PreparedStatement stt = null;
-    String URL = "jdbc:mysql://127.0.0.1:3306/basic-civ?user=root&password=root";
+    String URL = "jdbc:mysql://127.0.0.1:3306/civ-basic?user=root&password=root";
     private boolean userCorrectCheck = false;
 
     @FXML
