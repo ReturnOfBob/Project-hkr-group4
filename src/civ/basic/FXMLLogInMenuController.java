@@ -41,6 +41,7 @@ public class FXMLLogInMenuController implements Initializable {
     private TextField userPassword;
     PreparedStatement stt = null;
     String URL = "jdbc:mysql://127.0.0.1:3306/basicciv?user=root&password=root";
+    private boolean userCorrectCheck = false;
 
     @FXML
     public void handleButtonToCreateAccount(ActionEvent event) {
@@ -78,12 +79,13 @@ public class FXMLLogInMenuController implements Initializable {
                 System.out.println("Dina uppgifter är rätt. Du är inloggad");
                 storedName = userName.getText();
                 System.out.println("Active user is:  " + storedName);
+                userCorrectCheck = true;
 
             } else {
                 System.out.println("Fel användarnamn eller lösenord!");
             }
 
-          // if(s.setString(1, userName.getText())&&  s.setString(2, userPassword.getText())){
+            // if(s.setString(1, userName.getText())&&  s.setString(2, userPassword.getText())){
             //  st.executeQuery(dataCheck);
             //}u
             //      else {  //else if isselected == true
@@ -111,8 +113,7 @@ public class FXMLLogInMenuController implements Initializable {
 
     public void handleButtonLostPassword(ActionEvent event) {
 
-   
-             try {
+        try {
             Node node = (Node) event.getSource();
             Stage stage = (Stage) node.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLLostPassword.fxml"));
@@ -121,23 +122,22 @@ public class FXMLLogInMenuController implements Initializable {
             stage.setScene(scene);
 
         } catch (IOException ex) {
-         
-            
-            
 
-        }}
+        }
+    }
 
     @FXML
     public void handleChangeToMenu(ActionEvent event) {
         try {
             handleButtonLogin();
-            if (!"".equals(storedName)) {
+            if (userCorrectCheck == true) {
                 Node node = (Node) event.getSource();
                 Stage stage = (Stage) node.getScene().getWindow();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLMainMenu.fxml"));
                 Parent root = loader.load();
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
+                userCorrectCheck = false;
             }
         } catch (IOException ex) {
 
