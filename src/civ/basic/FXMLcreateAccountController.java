@@ -43,7 +43,7 @@ public class FXMLcreateAccountController implements Initializable {
     private TextField questionAnswer;
     private boolean userExistCheck = true;
 
-    String URL = "jdbc:mysql://127.0.0.1:3306/basicciv?user=root&password=root";
+    String URL = "jdbc:mysql://127.0.0.1:3306/basic-civ?user=root&password=root";
     PreparedStatement stt = null;
 
     @FXML
