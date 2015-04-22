@@ -55,8 +55,8 @@ public class FXMLcreateAccountController implements Initializable {
             Connection c = DriverManager.getConnection(URL);
             Statement st = c.createStatement();
 
-            String inputData = "INSERT INTO userlogin (userName,userPassword,passwordHint,passwordHintAnswer,userPrivilege) VALUES (?,?,?,?,?)";
-            String dataCheck = "SELECT * FROM userlogin WHERE userName = '" + name.getText() + "'";
+            String inputData = "INSERT INTO accounts (Username,Password,Security_Question,Answer,Privilege) VALUES (?,?,?,?,?)";
+            String dataCheck = "SELECT * FROM accounts WHERE Username = '" + name.getText() + "'";
 
             userExistCheck = true;
             ResultSet rs = st.executeQuery(dataCheck);

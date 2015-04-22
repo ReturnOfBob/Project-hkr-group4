@@ -68,7 +68,7 @@ public class FXMLLostPasswordController implements Initializable {
         
        Connection c = DriverManager.getConnection(URL);
         Statement st = c.createStatement();
-        String questionCheck = "SELECT  passwordHint FROM userlogin WHERE userName = '" + inputRequiredText.getText() + "'";//Ändra:   inputRequiredText.getText() istället för Henrik. Hämta även svar i samma kod så att det är gjort
+        String questionCheck = "SELECT  Security_Question FROM accounts WHERE Username = '" + inputRequiredText.getText() + "'";//Ändra:   inputRequiredText.getText() istället för Henrik. Hämta även svar i samma kod så att det är gjort
       
 
          ResultSet rs = st.executeQuery(questionCheck);
@@ -98,8 +98,8 @@ public class FXMLLostPasswordController implements Initializable {
         try{
             Connection c = DriverManager.getConnection(URL);
         Statement st = c.createStatement();
-             String questionAnswer = "SELECT passwordHintAnswer FROM userlogin WHERE userName = '" + inputRequiredText.getText() + "'"; //Ändra till ett kommando istället för två se AND
-             String passwordGetter = "SELECT userPassword FROM userlogin WHERE userName = '" + storedName + "'";
+             String questionAnswer = "SELECT Security_Question FROM accounts WHERE Username = '" + inputRequiredText.getText() + "'"; //Ändra till ett kommando istället för två se AND
+             String passwordGetter = "SELECT Password FROM accounts WHERE Username = '" + storedName + "'";
              ResultSet rt = st.executeQuery(passwordGetter); 
              ResultSet rs = st.executeQuery(questionAnswer);
             if (rs.next()) {

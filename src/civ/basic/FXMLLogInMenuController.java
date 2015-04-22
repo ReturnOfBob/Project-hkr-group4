@@ -71,7 +71,7 @@ public class FXMLLogInMenuController implements Initializable {
             //   String inputData = "INSERT INTO ´userlogin´ (userName,userPassword) VALUES (?,?";
             //st =inputData.prepareStatement(sql);
             //st.(userName.getText(), userPassword.getText());
-            String dataCheck = "SELECT * FROM userlogin WHERE userName = '" + userName.getText() + "' AND userPassword = '" + userPassword.getText() + "'";
+            String dataCheck = "SELECT * FROM accounts WHERE Username = '" + userName.getText() + "' AND Password = '" + userPassword.getText() + "'";
             //
             //PreparedStatement s = c.prepareStatement(dataCheck);
             ResultSet rs = st.executeQuery(dataCheck);
