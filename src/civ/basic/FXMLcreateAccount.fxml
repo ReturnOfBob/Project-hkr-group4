@@ -10,9 +10,9 @@
    <children>
       <TextField fx:id="name" layoutX="68.0" layoutY="80.0" prefHeight="25.0" prefWidth="362.0" promptText="Name" />
       <TextField fx:id="password" layoutX="68.0" layoutY="121.0" prefHeight="25.0" prefWidth="362.0" promptText="Password" />
+      <TextField fx:id="passwordAgain" layoutX="68.0" layoutY="155.0" prefHeight="25.0" prefWidth="362.0" promptText="Rewrite Password" />
       <TextField fx:id="question" layoutX="68.0" layoutY="188.0" prefHeight="25.0" prefWidth="362.0" promptText="Security Question" />
       <TextField fx:id="questionAnswer" layoutX="65.0" layoutY="223.0" prefHeight="25.0" prefWidth="368.0" promptText="Security Question Answer" />
-      <TextField fx:id="passwordAgain" layoutX="68.0" layoutY="155.0" prefHeight="25.0" prefWidth="362.0" promptText="Rewrite Password" />
       <Button fx:id="createAccount" layoutX="61.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleButtonCreateAccount" text="Create Account" />
       <Button fx:id="backToLogin" layoutX="232.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleButtonBackToLogin" text="Back to login" />
    </children>
