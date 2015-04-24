@@ -5,7 +5,6 @@
  */
 package civ.basic;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,50 +14,64 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 /**
  *
  * @author Henrik
  */
 public class FXMLLogInMenuController implements Initializable {
-
-    //@FXML
-    //private CheckBox  createCheck;
+//------------------------------VARIABLES-------------------------------------\\
     private String storedName;
+    private String buttonText;
+
+    private boolean userCorrectCheck = false;
+//---------------------------------GUI----------------------------------------\\   
     @FXML
-    private Label label;
-    @FXML
-    private TextField userName;
-    @FXML
-    private TextField userPassword;
+    private TextField userName, userPassword;
+//-----------------------------MYSQL CONNECTION-------------------------------\\    
     PreparedStatement stt = null;
     String URL = "jdbc:mysql://127.0.0.1:3306/civ-basic?user=root&password=root";
-    private boolean userCorrectCheck = false;
+    
+//----------------------------ON SCENE LOADUP---------------------------------\\
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
 
-    @FXML
-    public void handleButtonToCreateAccount(ActionEvent event) {
+    }
+//------------------------------FXML METHODS----------------------------------\\    
+    @FXML //This method handles all buttonclicks in this scene
+    private void menuClick(ActionEvent event){
+        buttonText = ((Button)event.getSource()).getText();
+        
+        if(buttonText.equals("log in")){
+            handleButtonLogin();
+            
+            if (userCorrectCheck == true) {
+                userCorrectCheck = false;
+                DataStorage.getInstance().setNewSceneIs("FXMLMainMenu.fxml");
+                DataStorage.getInstance().sceneSwitch(event);
+            }
 
-        try {
-            Node node = (Node) event.getSource();
-            Stage stage = (Stage) node.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLcreateAccount.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-
-        } catch (IOException ex) {
-            System.out.println("Error while changing scene to create account scene");
         }
+        else if(buttonText.equals("Create new account")){
+            DataStorage.getInstance().setNewSceneIs("FXMLcreateAccount.fxml");
+            DataStorage.getInstance().sceneSwitch(event);
+        }
+        else if(buttonText.equals("Lost my password")){
+            DataStorage.getInstance().setNewSceneIs("FXMLLostPassword.fxml");
+            DataStorage.getInstance().sceneSwitch(event);
+        }
+        else{
+            System.out.println("ERROR");
+        }
+    
     }
 
+//----------------------------NON-FXML METHODS--------------------------------\\
+    //This method checks if the users login info is correct
     private void handleButtonLogin() {
         try {
 
@@ -109,44 +122,6 @@ public class FXMLLogInMenuController implements Initializable {
         } catch (Exception e) {
             System.err.println("ERROR: " + e);
         }
-    }
-
-    public void handleButtonLostPassword(ActionEvent event) {
-
-        try {
-            Node node = (Node) event.getSource();
-            Stage stage = (Stage) node.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLLostPassword.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-
-        } catch (IOException ex) {
-
-        }
-    }
-
-    @FXML
-    public void handleChangeToMenu(ActionEvent event) {
-        try {
-            handleButtonLogin();
-            if (userCorrectCheck == true) {
-                Node node = (Node) event.getSource();
-                Stage stage = (Stage) node.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLMainMenu.fxml"));
-                Parent root = loader.load();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                userCorrectCheck = false;
-            }
-        } catch (IOException ex) {
-
-        }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-    }
+    }    
 
 }

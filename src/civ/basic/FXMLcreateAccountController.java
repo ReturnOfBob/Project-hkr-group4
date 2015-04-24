@@ -5,7 +5,6 @@
  */
 package civ.basic;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,13 +14,9 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -30,26 +25,40 @@ import javafx.stage.Stage;
  *
  */
 public class FXMLcreateAccountController implements Initializable {
-
-    @FXML
-    private TextField name;
-    @FXML
-    private TextField password;
-    @FXML
-    private TextField passwordAgain;
-    @FXML
-    private TextField question;
-    @FXML
-    private TextField questionAnswer;
+//--------------------------------VARIABLES-----------------------------------\\     
+    private String buttonText;
     private boolean userExistCheck = true;
-
+//-----------------------------------GUI--------------------------------------\\     
+    @FXML
+    private TextField name, password, passwordAgain, question, questionAnswer;
+//-----------------------------MYSQL CONNECTION-------------------------------\\ 
     String URL = "jdbc:mysql://127.0.0.1:3306/civ-basic?user=root&password=root";
     PreparedStatement stt = null;
+//---------------------------ON SCENE LOAD-UP---------------------------------\\
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
 
+    }
+//------------------------------FXML METHODS----------------------------------\\    
     @FXML
-    private void handleButtonCreateAccount(ActionEvent event) {
+    private void menuClick(ActionEvent event){
+        buttonText = ((Button)event.getSource()).getText();
+        
+        if(buttonText.equals("Create Account")){
+            handleButtonCreateAccount();
+        }
+        else if(buttonText.equals("Back to login")){
+            DataStorage.getInstance().setNewSceneIs("FXMLLogInMenu.fxml");
+            DataStorage.getInstance().sceneSwitch(event);
+        }
+        else{
+            System.out.println("ERROR!");
+        }
+    }
+    
+//----------------------------NON-FXML METHODS--------------------------------\\     
+    private void handleButtonCreateAccount() {
         try {
-
             Class.forName("com.mysql.jdbc.Driver").newInstance();
 
             Connection c = DriverManager.getConnection(URL);
@@ -60,65 +69,43 @@ public class FXMLcreateAccountController implements Initializable {
 
             userExistCheck = true;
             ResultSet rs = st.executeQuery(dataCheck);
+            
             if (rs.next()) {
                 System.out.println("Användare finns redan");
                 userExistCheck = false;
-
             }
 
-            if (!"".equals(name.getText()) && !"".equals(password.getText()) && !"".equals(question.getText())
-                    && !"".equals(questionAnswer.getText()) && password.getText().equals(passwordAgain.getText())) {
-
+            if (!"".equals(name.getText()) && !"".equals(password.getText()) && !"".equals(question.getText()) && !"".equals(questionAnswer.getText()) && password.getText().equals(passwordAgain.getText())) {
                 PreparedStatement prepSt = c.prepareStatement(inputData);
+                
                 prepSt.setString(1, name.getText());
                 prepSt.setString(2, password.getText());
                 prepSt.setString(3, question.getText());
                 prepSt.setString(4, questionAnswer.getText());
                 prepSt.setString(5, "Basic user");
+                
                 prepSt.executeUpdate();
                 System.out.println("Acccount created");
-            } else if(!password.getText().equals(passwordAgain.getText())){
+            }else if(!password.getText().equals(passwordAgain.getText())){
                 System.out.println("Lösenorden matchar inte*!");
             }
-            else {
+            else{
                 System.out.println("Du måste fylla i alla fält!");
-
             }
-
-        } // while(rs.next()){
-        //   String pasw = rs.getString("userPassword");
-        //  String name = rs.getString("userName");
-        //System.out.println(name);
-        //System.out.println(pasw);
-        // c.close();
-        // System.out.println("Pressed ok");
-        //}
-        //if(userName.getText(){
-        // }
-        //} 
-        catch (Exception e) {
+        }       // while(rs.next()){
+                //   String pasw = rs.getString("userPassword");
+                //  String name = rs.getString("userName");
+                //System.out.println(name);
+                //System.out.println(pasw);
+                // c.close();
+                // System.out.println("Pressed ok");
+                //}
+                //if(userName.getText(){
+                // }
+                //} 
+        catch (Exception e){
             System.err.println("ERROR: " + e);
         }
     }
 
-    @FXML
-    public void handleButtonBackToLogin(ActionEvent event) {
-
-        try {
-            Node node = (Node) event.getSource();
-            Stage stage = (Stage) node.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLLogInMenu.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-
-        } catch (IOException ex) {
-            System.out.println("Error while changing scene to create account scene");
-        }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-    }
 }

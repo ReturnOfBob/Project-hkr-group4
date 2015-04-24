@@ -8,10 +8,10 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLMainMenuController">
    <children>
-      <Button layoutX="56.0" layoutY="40.0" onAction="#newGameMenu" prefHeight="49.0" prefWidth="139.0" text="New Game" />
-      <Button layoutX="56.0" layoutY="95.0" prefHeight="49.0" prefWidth="139.0" text="Load Game" />
-      <Button layoutX="56.0" layoutY="151.0" prefHeight="49.0" prefWidth="139.0" text="Option" />
-      <Button layoutX="56.0" layoutY="208.0" prefHeight="49.0" prefWidth="139.0" text="Log Out" />
-      <Button layoutX="56.0" layoutY="263.0" prefHeight="49.0" prefWidth="139.0" text="Exit" />
+      <Button layoutX="56.0" layoutY="40.0" onAction="#menuClick" prefHeight="49.0" prefWidth="139.0" text="New Game" />
+      <Button layoutX="56.0" layoutY="95.0" onAction="#menuClick" prefHeight="49.0" prefWidth="139.0" text="Load Game" />
+      <Button layoutX="56.0" layoutY="151.0" onAction="#menuClick" prefHeight="49.0" prefWidth="139.0" text="Options" />
+      <Button layoutX="56.0" layoutY="208.0" onAction="#menuClick" prefHeight="49.0" prefWidth="139.0" text="Log Out" />
+      <Button layoutX="56.0" layoutY="263.0" onAction="#menuClick" prefHeight="49.0" prefWidth="139.0" text="Exit" />
    </children>
 </AnchorPane>

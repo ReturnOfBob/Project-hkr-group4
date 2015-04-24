@@ -13,7 +13,7 @@
       <TextField fx:id="passwordAgain" layoutX="68.0" layoutY="155.0" prefHeight="25.0" prefWidth="362.0" promptText="Rewrite Password" />
       <TextField fx:id="question" layoutX="68.0" layoutY="188.0" prefHeight="25.0" prefWidth="362.0" promptText="Security Question" />
       <TextField fx:id="questionAnswer" layoutX="65.0" layoutY="223.0" prefHeight="25.0" prefWidth="368.0" promptText="Security Question Answer" />
-      <Button fx:id="createAccount" layoutX="61.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleButtonCreateAccount" text="Create Account" />
-      <Button fx:id="backToLogin" layoutX="232.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleButtonBackToLogin" text="Back to login" />
+      <Button fx:id="createAccount" layoutX="61.0" layoutY="330.0" mnemonicParsing="false" onAction="#menuClick" text="Create Account" />
+      <Button fx:id="backToLogin" layoutX="232.0" layoutY="330.0" mnemonicParsing="false" onAction="#menuClick" text="Back to login" />
    </children>
 </AnchorPane>

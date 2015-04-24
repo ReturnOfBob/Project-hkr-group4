@@ -5,7 +5,6 @@
  */
 package civ.basic;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,14 +17,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -33,92 +28,98 @@ import javafx.stage.Stage;
  * @author Henrik
  */
 public class FXMLLostPasswordController implements Initializable {
+//------------------------------VARIABLES-------------------------------------\\    
+    private String storedName;
+    private String buttonText;
+//---------------------------------GUI----------------------------------------\\     
     @FXML
     private Label showInfo;
     @FXML
     private TextField inputRequiredText;
+//-----------------------------MYSQL CONNECTION-------------------------------\\    
     PreparedStatement stt = null;
     String URL = "jdbc:mysql://127.0.0.1:3306/civ-basic?user=root&password=root";
-    private String storedName;
+//----------------------------ON SCENE LOADUP---------------------------------\\
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
     }
+//------------------------------FXML METHODS----------------------------------\\    
+    @FXML //This method handles all buttonclicks in this scene
+    private void menuClick(ActionEvent event) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
+        buttonText = ((Button)event.getSource()).getText();
+        
+        if(buttonText.equals("Get clue")){
+            handleButtonRetriveClue();
 
-    @FXML
-    public void handleButtonBackToLogin(ActionEvent event) {
-
-        try {
-            Node node = (Node) event.getSource();
-            Stage stage = (Stage) node.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLLogInMenu.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-
-        } catch (IOException ex) {
-            System.out.println("Error while changing scene to create account scene");
         }
+        else if(buttonText.equals("Retrive password")){
+            handleButtonRetrivePassword();
+        }
+        else if(buttonText.equals("Back to Log in")){
+            DataStorage.getInstance().setNewSceneIs("FXMLLogInMenu.fxml");
+            DataStorage.getInstance().sceneSwitch(event);
+        }
+        else{
+            System.out.println("ERROR");
+        }
+        
     }
 
-    @FXML
-    public void handleButtonRetriveClue(ActionEvent event) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+//----------------------------NON-FXML METHODS--------------------------------\\    
+    private void handleButtonRetriveClue() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         try{
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
         
-       Connection c = DriverManager.getConnection(URL);
-        Statement st = c.createStatement();
-        String questionCheck = "SELECT  Security_Question FROM accounts WHERE Username = '" + inputRequiredText.getText() + "'";//Ändra:   inputRequiredText.getText() istället för Henrik. Hämta även svar i samma kod så att det är gjort
+            Connection c = DriverManager.getConnection(URL);
+            Statement st = c.createStatement();
+            String questionCheck = "SELECT  Security_Question FROM accounts WHERE Username = '" + inputRequiredText.getText() + "'";//Ändra:   inputRequiredText.getText() istället för Henrik. Hämta även svar i samma kod så att det är gjort
       
-
-         ResultSet rs = st.executeQuery(questionCheck);
+            ResultSet rs = st.executeQuery(questionCheck);
+            
             if (rs.next()) {
                
                 storedName = inputRequiredText.getText();
                 System.out.println(rs.getString(1));
-               showInfo.setText(rs.getString(1));
-         // c.close();
-           } 
-            
-            
+                showInfo.setText(rs.getString(1));
+                // c.close();
+            } 
             else{
                 System.out.println("Hittar inte användarnamnet");
             }
-            //ResultSet rst = st.executeQuery(questionAnswer);
-            //if(rs.next()){
-              //  if(questionAnswer.equals(inputRequiredText.getText())){
+                //ResultSet rst = st.executeQuery(questionAnswer);
+                //if(rs.next()){
+                //  if(questionAnswer.equals(inputRequiredText.getText())){
                 //   showInfo.setText(questionAnswer);
                 //}
-       
-            }catch (SQLException ex) {
+        }
+        catch (SQLException ex) {
             Logger.getLogger(FXMLLostPasswordController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-     public void handleButtonRetrivePassword(ActionEvent event)  {
+    
+    private void handleButtonRetrivePassword()  {
         try{
             Connection c = DriverManager.getConnection(URL);
-        Statement st = c.createStatement();
-             String questionAnswer = "SELECT Security_Question FROM accounts WHERE Username = '" + inputRequiredText.getText() + "'"; //Ändra till ett kommando istället för två se AND
-             String passwordGetter = "SELECT Password FROM accounts WHERE Username = '" + storedName + "'";
-             ResultSet rt = st.executeQuery(passwordGetter); 
-             ResultSet rs = st.executeQuery(questionAnswer);
+            Statement st = c.createStatement();
+            
+            String questionAnswer = "SELECT Security_Question FROM accounts WHERE Username = '" + inputRequiredText.getText() + "'"; //Ändra till ett kommando istället för två se AND
+            String passwordGetter = "SELECT Password FROM accounts WHERE Username = '" + storedName + "'";
+            
+            ResultSet rt = st.executeQuery(passwordGetter); 
+            ResultSet rs = st.executeQuery(questionAnswer);
+            
             if (rs.next()) {
-               
-        
-               if(rs.getString(1).equals(inputRequiredText)){   //Här ska man få lösenordet. Om hintsvar stämmer med hintlagrat svar så ska nedan göras
-                   
-                showInfo.setText(rt.getString(1));
-                System.out.println(rt.getString(1));
-            
+                if(rs.getString(1).equals(inputRequiredText)){   //Här ska man få lösenordet. Om hintsvar stämmer med hintlagrat svar så ska nedan göras
+                    showInfo.setText(rt.getString(1));
+                    System.out.println(rt.getString(1));
                 }
-             
-          //c.close();
-           } 
-            
+                //c.close();
+            } 
         }
-            
         catch(Exception ex){
             
         }
     }
+
 }

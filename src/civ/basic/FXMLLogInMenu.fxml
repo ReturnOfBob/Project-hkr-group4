@@ -8,11 +8,10 @@
 
 <AnchorPane id="AnchorPane" fx:id="createCheck" prefHeight="200" prefWidth="320" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLLogInMenuController">
     <children>
-        <Button fx:id="button" layoutX="195.0" layoutY="14.0" onAction="#handleChangeToMenu" text="log in" />
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+        <Button fx:id="button" layoutX="195.0" layoutY="14.0" onAction="#menuClick" text="log in" />
       <TextField fx:id="userName" layoutX="14.0" layoutY="14.0" />
       <TextField fx:id="userPassword" layoutX="14.0" layoutY="54.0" />
-      <Button fx:id="createAccount" layoutX="180.0" layoutY="54.0" mnemonicParsing="false" onAction="#handleButtonToCreateAccount" text="Create new account" />
-      <Button fx:id="lostPassword" layoutX="180.0" layoutY="88.0" mnemonicParsing="false" onAction="#handleButtonLostPassword" prefHeight="25.0" prefWidth="121.0" text="Lost my password" />
+      <Button fx:id="createAccount" layoutX="180.0" layoutY="54.0" mnemonicParsing="false" onAction="#menuClick" text="Create new account" />
+      <Button fx:id="lostPassword" layoutX="180.0" layoutY="88.0" mnemonicParsing="false" onAction="#menuClick" prefHeight="25.0" prefWidth="121.0" text="Lost my password" />
     </children>
 </AnchorPane>
