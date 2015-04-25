@@ -16,6 +16,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 /**
@@ -30,7 +32,13 @@ public class FXMLcreateAccountController implements Initializable {
     private boolean userExistCheck = true;
 //-----------------------------------GUI--------------------------------------\\     
     @FXML
-    private TextField name, password, passwordAgain, question, questionAnswer;
+    private TextField name, question, questionAnswer;
+    
+    @FXML 
+    private PasswordField password, passwordAgain;
+    
+    @FXML 
+    private Label createAccountDoneLabel, createAccountErrorLabel;
 //-----------------------------MYSQL CONNECTION-------------------------------\\ 
     String URL = "jdbc:mysql://127.0.0.1:3306/civ-basic?user=root&password=root";
     PreparedStatement stt = null;
@@ -85,12 +93,20 @@ public class FXMLcreateAccountController implements Initializable {
                 prepSt.setString(5, "Basic user");
                 
                 prepSt.executeUpdate();
+                createAccountErrorLabel.setText("");
                 System.out.println("Acccount created");
+                createAccountDoneLabel.setText("Acccount created");
             }else if(!password.getText().equals(passwordAgain.getText())){
-                System.out.println("Lösenorden matchar inte*!");
+                System.out.println("Lösenorden matchar inte!");
+                createAccountDoneLabel.setText("");
+                createAccountErrorLabel.setText("");
+                createAccountErrorLabel.setText("Lösenorden matchar inte!");
             }
             else{
+                createAccountDoneLabel.setText("");
+                createAccountErrorLabel.setText("");
                 System.out.println("Du måste fylla i alla fält!");
+                createAccountErrorLabel.setText("Du måste fylla i alla fält!");
             }
         }       // while(rs.next()){
                 //   String pasw = rs.getString("userPassword");

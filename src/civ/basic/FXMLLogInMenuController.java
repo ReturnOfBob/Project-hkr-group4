@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 /**
@@ -31,7 +32,13 @@ public class FXMLLogInMenuController implements Initializable {
     private boolean userCorrectCheck = false;
 //---------------------------------GUI----------------------------------------\\   
     @FXML
-    private TextField userName, userPassword;
+    private TextField userName;
+    
+    @FXML 
+    private PasswordField userPassword;
+    
+    @FXML 
+    private Label loginErrorLabel;
 //-----------------------------MYSQL CONNECTION-------------------------------\\    
     PreparedStatement stt = null;
     String URL = "jdbc:mysql://127.0.0.1:3306/civ-basic?user=root&password=root";
@@ -96,6 +103,7 @@ public class FXMLLogInMenuController implements Initializable {
 
             } else {
                 System.out.println("Fel användarnamn eller lösenord!");
+                loginErrorLabel.setText("Fel användarnamn eller lösenord!");
             }
 
             // if(s.setString(1, userName.getText())&&  s.setString(2, userPassword.getText())){
@@ -121,6 +129,7 @@ public class FXMLLogInMenuController implements Initializable {
             //} 
         } catch (Exception e) {
             System.err.println("ERROR: " + e);
+            loginErrorLabel.setText("ERROR: " + e);
         }
     }    
 

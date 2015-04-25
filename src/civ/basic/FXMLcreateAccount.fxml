@@ -6,14 +6,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLcreateAccountController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="503.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLcreateAccountController">
    <children>
       <TextField fx:id="name" layoutX="68.0" layoutY="80.0" prefHeight="25.0" prefWidth="362.0" promptText="Name" />
-      <TextField fx:id="password" layoutX="68.0" layoutY="121.0" prefHeight="25.0" prefWidth="362.0" promptText="Password" />
-      <TextField fx:id="passwordAgain" layoutX="68.0" layoutY="155.0" prefHeight="25.0" prefWidth="362.0" promptText="Rewrite Password" />
+      <PasswordField fx:id="password" layoutX="68.0" layoutY="115.0" prefHeight="25.0" prefWidth="362.0" promptText="Password" />
+      <PasswordField fx:id="passwordAgain" layoutX="68.0" layoutY="154.0" prefHeight="25.0" prefWidth="362.0" promptText="Rewrite Password" />
       <TextField fx:id="question" layoutX="68.0" layoutY="188.0" prefHeight="25.0" prefWidth="362.0" promptText="Security Question" />
-      <TextField fx:id="questionAnswer" layoutX="65.0" layoutY="223.0" prefHeight="25.0" prefWidth="368.0" promptText="Security Question Answer" />
+      <TextField fx:id="questionAnswer" layoutX="68.0" layoutY="223.0" prefHeight="25.0" prefWidth="362.0" promptText="Security Question Answer" />
       <Button fx:id="createAccount" layoutX="61.0" layoutY="330.0" mnemonicParsing="false" onAction="#menuClick" text="Create Account" />
       <Button fx:id="backToLogin" layoutX="232.0" layoutY="330.0" mnemonicParsing="false" onAction="#menuClick" text="Back to login" />
+      <Label fx:id="createAccountDoneLabel" layoutX="68.0" layoutY="286.0" prefHeight="17.0" prefWidth="362.0" />
+      <Label fx:id="createAccountErrorLabel" layoutX="68.0" layoutY="263.0" prefHeight="17.0" prefWidth="362.0" textFill="RED" />
    </children>
 </AnchorPane>
