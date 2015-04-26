@@ -32,8 +32,8 @@ public class FXMLMainMenuController implements Initializable {
         buttonText = ((Button)event.getSource()).getText();
         
         if(buttonText.equals("New Game")){
-            DataStorage.getInstance().setNewSceneIs("FXMLGame.fxml");
-            DataStorage.getInstance().sceneSwitch(event);
+           // DataStorage.getInstance().setNewSceneIs("FXMLGame.fxml");
+            DataStorage.getInstance().sceneSwitch(event, "FXMLGame.fxml");
             
         }
         else if(buttonText.equals("Load Game")){
@@ -46,8 +46,8 @@ public class FXMLMainMenuController implements Initializable {
         }
         else if(buttonText.equals("Log Out")){
             //Temporary sceneswitch back to login
-            DataStorage.getInstance().setNewSceneIs("FXMLLogInMenu.fxml");
-            DataStorage.getInstance().sceneSwitch(event);
+            //DataStorage.getInstance().setNewSceneIs("FXMLLogInMenu.fxml");
+            DataStorage.getInstance().sceneSwitch(event, "FXMLLogInMenu.fxml");
             
         }
         else if(buttonText.equals("Exit")){

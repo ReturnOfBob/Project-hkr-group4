@@ -56,8 +56,8 @@ public class FXMLcreateAccountController implements Initializable {
             handleButtonCreateAccount();
         }
         else if(buttonText.equals("Back to login")){
-            DataStorage.getInstance().setNewSceneIs("FXMLLogInMenu.fxml");
-            DataStorage.getInstance().sceneSwitch(event);
+            //DataStorage.getInstance().setNewSceneIs("FXMLLogInMenu.fxml");
+            DataStorage.getInstance().sceneSwitch(event, "FXMLLogInMenu.fxml");
         }
         else{
             System.out.println("ERROR!");

@@ -35,7 +35,10 @@ public class DataStorage {
     }
 //--------------------------------METHODS-------------------------------------\\    
     //This method is used everywhere in the program switch between different scenes
-    public void sceneSwitch(ActionEvent event){
+    public void sceneSwitch(ActionEvent event, String newSceneIs){
+        
+        this.newSceneIs = newSceneIs;
+        
         try {
             Node node = (Node) event.getSource();
             Stage stage = (Stage) node.getScene().getWindow();

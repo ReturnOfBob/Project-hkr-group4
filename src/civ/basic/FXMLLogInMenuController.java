@@ -58,18 +58,18 @@ public class FXMLLogInMenuController implements Initializable {
             
             if (userCorrectCheck == true) {
                 userCorrectCheck = false;
-                DataStorage.getInstance().setNewSceneIs("FXMLMainMenu.fxml");
-                DataStorage.getInstance().sceneSwitch(event);
+                //DataStorage.getInstance().setNewSceneIs("FXMLMainMenu.fxml");
+                DataStorage.getInstance().sceneSwitch(event, "FXMLMainMenu.fxml");
             }
 
         }
         else if(buttonText.equals("Create new account")){
-            DataStorage.getInstance().setNewSceneIs("FXMLcreateAccount.fxml");
-            DataStorage.getInstance().sceneSwitch(event);
+            //DataStorage.getInstance().setNewSceneIs("FXMLcreateAccount.fxml");
+            DataStorage.getInstance().sceneSwitch(event,"FXMLcreateAccount.fxml" );
         }
         else if(buttonText.equals("Lost my password")){
-            DataStorage.getInstance().setNewSceneIs("FXMLLostPassword.fxml");
-            DataStorage.getInstance().sceneSwitch(event);
+            //DataStorage.getInstance().setNewSceneIs("FXMLLostPassword.fxml");
+            DataStorage.getInstance().sceneSwitch(event, "FXMLLostPassword.fxml");
         }
         else{
             System.out.println("ERROR");
