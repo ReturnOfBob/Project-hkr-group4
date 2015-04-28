@@ -103,22 +103,22 @@ public class FXMLLostPasswordController implements Initializable {
             Connection c = DriverManager.getConnection(URL);
             Statement st = c.createStatement();
             
-            String questionAnswer = "SELECT Security_Question FROM accounts WHERE Username = '" + inputRequiredText.getText() + "'"; //Ändra till ett kommando istället för två se AND
+            String questionAnswer = "SELECT Answer FROM accounts WHERE Username = '" + storedName + "'"; //Ändra till ett kommando istället för två se AND
             String passwordGetter = "SELECT Password FROM accounts WHERE Username = '" + storedName + "'";
             
-            ResultSet rt = st.executeQuery(passwordGetter); 
             ResultSet rs = st.executeQuery(questionAnswer);
-            
-            if (rs.next()) {
-                if(rs.getString(1).equals(inputRequiredText)){   //Här ska man få lösenordet. Om hintsvar stämmer med hintlagrat svar så ska nedan göras
-                    showInfo.setText(rt.getString(1));
-                    System.out.println(rt.getString(1));
+             
+            if (rs.next()){
+                if(rs.getString(1).equals(inputRequiredText.getText())){
+                    ResultSet rt = st.executeQuery(passwordGetter);
+                    if(rt.next()){
+                        showInfo.setText(rt.getString(1));
+                    }
                 }
-                //c.close();
             } 
         }
         catch(Exception ex){
-            
+            ex.printStackTrace();
         }
     }
 
