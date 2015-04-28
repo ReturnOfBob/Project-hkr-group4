@@ -11,6 +11,9 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 
 /**
  * FXML Controller class
@@ -20,15 +23,19 @@ import javafx.scene.control.Button;
 public class FXMLGameController implements Initializable {
     
     @FXML
-    private Button testButton;
+    private Label goldLabel, woodLabel, stoneLabel, foodLabel, humanLabel, ironLabel, coalLabel, steelLabel;
     
     @FXML
-    public void testMethod(){
-        System.out.println("blab");
-        //testButton.setOpacity(0);
-        //testButton.setDisable(true);
-        testButton.setVisible(false);
-    }
+    private Button houseButton, woodmillButton, farmButton, stonemasonryButton, nextturnButton;
+    
+    @FXML
+    private TableView resourcesTableview, buildingsTableview, statviewTableview;
+    
+    @FXML
+    private TextArea eventlogTextArea;
+    
+    //@FXML
+    //private TableColumn<> nameColumn, amountColumn; 
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
