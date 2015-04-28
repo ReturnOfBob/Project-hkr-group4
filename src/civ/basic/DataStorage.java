@@ -21,6 +21,7 @@ public class DataStorage {
 //------------------------------VARIABLES-------------------------------------\\   
     private static DataStorage dataStorage;
     private String newSceneIs;
+    private String newActiveUser;
 //------------------------------CONSTRUCTOR-----------------------------------\\    
     private DataStorage(){
     
@@ -60,5 +61,13 @@ public class DataStorage {
     public String getNewSceneIs(){
         return newSceneIs;
     }
+      public void setNewActiveUser(String newActiveUser) {
+        this.newActiveUser = newActiveUser;
+    }
+
+    public String getNewActiveUser() {
+        return newActiveUser;
+    }
+
     
 }

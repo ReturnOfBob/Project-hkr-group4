@@ -26,55 +26,52 @@ import javafx.scene.control.TextField;
  */
 public class FXMLLogInMenuController implements Initializable {
 //------------------------------VARIABLES-------------------------------------\\
-    private String storedName;
-    private String buttonText;
 
+    private String buttonText;
     private boolean userCorrectCheck = false;
 //---------------------------------GUI----------------------------------------\\   
     @FXML
     private TextField userName;
-    
-    @FXML 
+
+    @FXML
     private PasswordField userPassword;
-    
-    @FXML 
+
+    @FXML
     private Label loginErrorLabel;
 //-----------------------------MYSQL CONNECTION-------------------------------\\    
     PreparedStatement stt = null;
     String URL = "jdbc:mysql://127.0.0.1:3306/civ-basic?user=root&password=root";
-    
+
 //----------------------------ON SCENE LOADUP---------------------------------\\
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
     }
 //------------------------------FXML METHODS----------------------------------\\    
+
     @FXML //This method handles all buttonclicks in this scene
-    private void menuClick(ActionEvent event){
-        buttonText = ((Button)event.getSource()).getText();
-        
-        if(buttonText.equals("log in")){
+    private void menuClick(ActionEvent event) {
+        buttonText = ((Button) event.getSource()).getText();
+
+        if (buttonText.equals("log in")) {
             handleButtonLogin();
-            
+
             if (userCorrectCheck == true) {
                 userCorrectCheck = false;
                 //DataStorage.getInstance().setNewSceneIs("FXMLMainMenu.fxml");
                 DataStorage.getInstance().sceneSwitch(event, "FXMLMainMenu.fxml");
             }
 
-        }
-        else if(buttonText.equals("Create new account")){
+        } else if (buttonText.equals("Create new account")) {
             //DataStorage.getInstance().setNewSceneIs("FXMLcreateAccount.fxml");
-            DataStorage.getInstance().sceneSwitch(event,"FXMLcreateAccount.fxml" );
-        }
-        else if(buttonText.equals("Lost my password")){
+            DataStorage.getInstance().sceneSwitch(event, "FXMLcreateAccount.fxml");
+        } else if (buttonText.equals("Lost my password")) {
             //DataStorage.getInstance().setNewSceneIs("FXMLLostPassword.fxml");
             DataStorage.getInstance().sceneSwitch(event, "FXMLLostPassword.fxml");
-        }
-        else{
+        } else {
             System.out.println("ERROR");
         }
-    
+
     }
 
 //----------------------------NON-FXML METHODS--------------------------------\\
@@ -97,8 +94,8 @@ public class FXMLLogInMenuController implements Initializable {
             ResultSet rs = st.executeQuery(dataCheck);
             if (rs.next()) {
                 System.out.println("Dina uppgifter är rätt. Du är inloggad");
-                storedName = userName.getText();
-                System.out.println("Active user is:  " + storedName);
+                DataStorage.getInstance().setNewActiveUser(userName.getText());
+                System.out.println("Active user is:  " + DataStorage.getInstance().getNewActiveUser());
                 userCorrectCheck = true;
 
             } else {
@@ -131,6 +128,6 @@ public class FXMLLogInMenuController implements Initializable {
             System.err.println("ERROR: " + e);
             loginErrorLabel.setText("ERROR: " + e);
         }
-    }    
+    }
 
 }

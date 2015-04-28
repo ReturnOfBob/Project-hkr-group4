@@ -54,7 +54,7 @@ public class FXMLLostPasswordController implements Initializable {
 
         }
         else if(buttonText.equals("Retrive password")){
-            handleButtonRetrivePassword();
+            handleButtonRetrievePassword();
         }
         else if(buttonText.equals("Back to Log in")){
             //DataStorage.getInstance().setNewSceneIs("FXMLLogInMenu.fxml");
@@ -98,7 +98,7 @@ public class FXMLLostPasswordController implements Initializable {
         }
     }
     
-    private void handleButtonRetrivePassword()  {
+    private void handleButtonRetrievePassword()  {
         try{
             Connection c = DriverManager.getConnection(URL);
             Statement st = c.createStatement();

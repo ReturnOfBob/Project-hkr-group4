@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="civ.basic.FXMLOptionController">
+   <children>
+      <Button fx:id="Back" layoutX="426.0" layoutY="303.0" mnemonicParsing="false" onAction="#menuClick" text="Back" />
+      <Button fx:id="Music1" layoutX="210.0" layoutY="157.0" mnemonicParsing="false" onAction="#menuClick" text="Music1" />
+      <Button fx:id="Music2" layoutX="330.0" layoutY="145.0" mnemonicParsing="false" onAction="#menuClick" text="Music2" />
+   </children>
+</AnchorPane>
