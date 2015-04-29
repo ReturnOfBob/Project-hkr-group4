@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -34,7 +36,7 @@
       <Label fx:id="coalLabel" layoutX="683.0" layoutY="62.0" text="Coal" />
       <Label fx:id="ironLabel" layoutX="610.0" layoutY="62.0" text="Iron" />
       <Label fx:id="steelLabel" layoutX="743.0" layoutY="62.0" text="Steel" />
-      <Button fx:id="nextturnButton" layoutX="809.0" layoutY="567.0" mnemonicParsing="false" prefHeight="103.0" prefWidth="200.0" text="Next Turn">
+      <Button fx:id="nextTurnButton" layoutX="809.0" layoutY="567.0" mnemonicParsing="false" onAction="#nextTurn" prefHeight="103.0" prefWidth="200.0" text="Next Turn">
          <font>
             <Font size="34.0" />
          </font>
@@ -47,7 +49,7 @@
       </TableView>
       <Label layoutX="14.0" layoutY="269.0" text="Buildings" />
       <Label fx:id="activeuserLabel" layoutX="14.0" layoutY="17.0" text="Activeuser" />
-      <Label fx:id="currentturnLabel" layoutX="424.0" layoutY="26.0" text="Current turn" />
+      <Label fx:id="currentTurnLabel" layoutX="424.0" layoutY="26.0" text="Current turn" />
       <Label layoutX="547.0" layoutY="26.0" text="Score" />
    </children>
 </AnchorPane>
