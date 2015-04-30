@@ -27,28 +27,24 @@ public class FXMLMainMenuController implements Initializable {
         // TODO
     }    
 //------------------------------FXML METHODS----------------------------------\\    
-    @FXML //This method handles all buttonclicks in this scene
+    @FXML //This method handles all of the clicks in the menu clicks in this scene
     private void menuClick(ActionEvent event){
         buttonText = ((Button)event.getSource()).getText();
         
         if(buttonText.equals("New Game")){
-           // DataStorage.getInstance().setNewSceneIs("FXMLGame.fxml");
-            DataStorage.getInstance().sceneSwitch(event, "FXMLGame.fxml");
-            
+           DataStorage.getInstance().sceneSwitch(event, "FXMLGame.fxml");
         }
         else if(buttonText.equals("Load Game")){
             //Code will come here eventually
             System.out.println("Load Game");
         }
         else if(buttonText.equals("Options")){
-            //Codde will come here eventually
+            //Code will come here eventually
             System.out.println("Options");
         }
         else if(buttonText.equals("Log Out")){
             //Temporary sceneswitch back to login
-            //DataStorage.getInstance().setNewSceneIs("FXMLLogInMenu.fxml");
             DataStorage.getInstance().sceneSwitch(event, "FXMLLogInMenu.fxml");
-            
         }
         else if(buttonText.equals("Exit")){
             try {

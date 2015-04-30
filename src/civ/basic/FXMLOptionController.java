@@ -7,10 +7,7 @@ package civ.basic;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 
 /**
  * FXML Controller class
@@ -18,46 +15,15 @@ import javafx.scene.control.Button;
  * @author Henrik
  */
 public class FXMLOptionController implements Initializable {
-
+//--------------------------------VARIABLES-----------------------------------\\ 
     private String buttonText;
 
-    /**
-     * Initializes the controller class.
-     */
+//---------------------------ON SCENE LOAD-UP---------------------------------\\
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
         // TODO
 
     }}
-
-    //------------------------------FXML METHODS----------------------------------\\    
-    //@FXML //This method handles all buttonclicks in this scene
-   /** private void menuClick(ActionEvent event) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        buttonText = ((Button) event.getSource()).getText();
-
-        if (buttonText.equals("Back")) {
-            DataStorage.getInstance().setNewSceneIs("FXMLMainMenu.fxml");
-            DataStorage.getInstance().sceneSwitch(event);
-
-        }
-        else if (buttonText.equals("Music1")) {
-            DataStorage.getInstance().setNewActiveMusic(1);
-
-        }
-             else if (buttonText.equals("Music2")) {
-           DataStorage.getInstance().setNewActiveMusic(2);
-
-        }
-       
-        
-        
-        
-        else {
-            System.out.println("ERROR");
-        }
-    }*/
-
-    
 
 

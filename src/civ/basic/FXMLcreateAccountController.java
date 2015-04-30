@@ -29,7 +29,6 @@ import javafx.scene.control.TextField;
 public class FXMLcreateAccountController implements Initializable {
 //--------------------------------VARIABLES-----------------------------------\\     
     private String buttonText;
-    private boolean userExistCheck = true;
 //-----------------------------------GUI--------------------------------------\\     
     @FXML
     private TextField name, question, questionAnswer;
@@ -40,15 +39,15 @@ public class FXMLcreateAccountController implements Initializable {
     @FXML 
     private Label createAccountDoneLabel, createAccountErrorLabel;
 //-----------------------------MYSQL CONNECTION-------------------------------\\ 
-    String URL = "jdbc:mysql://127.0.0.1:3306/civ-basic?user=root&password=root";
-    PreparedStatement stt = null;
+    private final String URL = "jdbc:mysql://127.0.0.1:3306/civ-basic?user=root&password=root";
+    private final PreparedStatement stt = null;
 //---------------------------ON SCENE LOAD-UP---------------------------------\\
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
     }
 //------------------------------FXML METHODS----------------------------------\\    
-    @FXML
+    @FXML //This method handles all of the clicks in the menu in this scene
     private void menuClick(ActionEvent event){
         buttonText = ((Button)event.getSource()).getText();
         
@@ -56,14 +55,12 @@ public class FXMLcreateAccountController implements Initializable {
             handleButtonCreateAccount();
         }
         else if(buttonText.equals("Back to login")){
-            //DataStorage.getInstance().setNewSceneIs("FXMLLogInMenu.fxml");
             DataStorage.getInstance().sceneSwitch(event, "FXMLLogInMenu.fxml");
         }
         else{
             System.out.println("ERROR!");
         }
     }
-    
 //----------------------------NON-FXML METHODS--------------------------------\\     
     private void handleButtonCreateAccount() {
         try {
@@ -75,15 +72,14 @@ public class FXMLcreateAccountController implements Initializable {
             String inputData = "INSERT INTO accounts (Username,Password,Security_Question,Answer,Privilege) VALUES (?,?,?,?,?)";
             String dataCheck = "SELECT * FROM accounts WHERE Username = '" + name.getText() + "'";
 
-            userExistCheck = true;
             ResultSet rs = st.executeQuery(dataCheck);
             
             if (rs.next()) {
                 System.out.println("Användare finns redan");
-                userExistCheck = false;
             }
 
             if (!"".equals(name.getText()) && !"".equals(password.getText()) && !"".equals(question.getText()) && !"".equals(questionAnswer.getText()) && password.getText().equals(passwordAgain.getText())) {
+                
                 PreparedStatement prepSt = c.prepareStatement(inputData);
                 
                 prepSt.setString(1, name.getText());
@@ -108,17 +104,7 @@ public class FXMLcreateAccountController implements Initializable {
                 System.out.println("Du måste fylla i alla fält!");
                 createAccountErrorLabel.setText("Du måste fylla i alla fält!");
             }
-        }       // while(rs.next()){
-                //   String pasw = rs.getString("userPassword");
-                //  String name = rs.getString("userName");
-                //System.out.println(name);
-                //System.out.println(pasw);
-                // c.close();
-                // System.out.println("Pressed ok");
-                //}
-                //if(userName.getText(){
-                // }
-                //} 
+        }
         catch (Exception e){
             System.err.println("ERROR: " + e);
         }

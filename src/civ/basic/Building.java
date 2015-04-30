@@ -5,7 +5,7 @@ package civ.basic;
  * @author Henrik
  */
 public abstract class Building {
-
+//------------------------------VARIABLES-------------------------------------\\ 
     private double initialGold;
     private double initialWood;
     private double initialStone;
@@ -14,7 +14,7 @@ public abstract class Building {
     private double initialSteel;
     private double initialFood;
     private double initialHuman;
-
+//------------------------------CONSTRUCTOR-----------------------------------\\
     public Building(double initialGold, double initialWood, double initialStone, double initialIron, double initialCoal, 
             double initialSteel, double initialFood, double initialHuman) {
         this.initialGold = initialGold;
@@ -25,6 +25,5 @@ public abstract class Building {
         this.initialSteel = initialSteel;
         this.initialFood = initialFood;
         this.initialHuman = initialHuman;
-
     }
 }

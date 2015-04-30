@@ -21,7 +21,7 @@ public class DataStorage {
 //------------------------------VARIABLES-------------------------------------\\   
     private static DataStorage dataStorage;
     private String newSceneIs;
-    private String newActiveUser;
+    private String newActiveUser;   
 //------------------------------CONSTRUCTOR-----------------------------------\\    
     private DataStorage(){
     
@@ -48,16 +48,13 @@ public class DataStorage {
             Scene scene = new Scene(root);
             stage.setScene(scene);
 
-        } catch (IOException ex) {
+        }catch (IOException ex) {
             System.out.println("ERROR SCENESWITCH!");
+        }catch(Exception ex){
             ex.printStackTrace();
         }
     }
 //-------------------------GETTERS AND SETTERS--------------------------------\\    
-    public void setNewSceneIs(String newSceneIs){
-        this.newSceneIs = newSceneIs;
-    }
-    
     public String getNewSceneIs(){
         return newSceneIs;
     }
@@ -68,6 +65,5 @@ public class DataStorage {
     public String getNewActiveUser() {
         return newActiveUser;
     }
-
     
 }

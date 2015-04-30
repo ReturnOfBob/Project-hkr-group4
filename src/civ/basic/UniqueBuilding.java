@@ -5,7 +5,7 @@ package civ.basic;
  * @author Henrik
  */
 public class UniqueBuilding extends Building {
-
+//--------------------------------VARIABLES-----------------------------------\\     
     private double bonusGold;
     private double bonusWood;
     private double bonusStone;
@@ -14,10 +14,11 @@ public class UniqueBuilding extends Building {
     private double bonusSteel;
     private double bonusFood;
     private double bonusHuman;
-
+//------------------------------CONSTRUCTOR-----------------------------------\\        
     public UniqueBuilding(double initialGold, double initialWood, double initialStone, double initialIron, double initialCoal,
             double initialSteel, double initialFood, double initialHuman, double bonusGold, double bonusWood, double bonusStone, double bonusIron,
             double bonusCoal, double bonusSteel, double bonusFood, double bonusHuman) {
+        
         super(initialGold, initialWood, initialStone, initialIron, initialCoal, initialSteel, initialFood, initialHuman);
         this.bonusGold = bonusGold;
         this.bonusWood = bonusWood;
@@ -27,7 +28,6 @@ public class UniqueBuilding extends Building {
         this.bonusSteel = bonusSteel;
         this.bonusFood = bonusFood;
         this.bonusHuman = bonusHuman;
-
     }
 
 }

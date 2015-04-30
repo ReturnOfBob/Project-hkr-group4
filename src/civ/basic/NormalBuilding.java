@@ -10,30 +10,29 @@ package civ.basic;
  * @author Henrik
  */
 public class NormalBuilding extends Building {
-
-    private double Gold;
-    private double Wood;
-    private double Stone;
-    private double Iron;
-    private double Coal;
-    private double Steel;
-    private double Food;
-    private double Human;
-
+//--------------------------------VARIABLES-----------------------------------\\ 
+    private double gold;
+    private double wood;
+    private double stone;
+    private double iron;
+    private double coal;
+    private double steel;
+    private double food;
+    private double human;
+//------------------------------CONSTRUCTOR-----------------------------------\\        
     public NormalBuilding(double initialGold, double initialGoldWood, double initialGoldStone, double initialGoldIron, double initialGoldCoal, 
-            double initialGoldSteel, double initialGoldFood, double initialGoldHuman,double Gold, 
-            double Wood, double Stone, double Iron, double Coal, double Steel, double Food, double Human) {
+            double initialGoldSteel, double initialGoldFood, double initialGoldHuman,double gold, 
+            double wood, double stone, double iron, double coal, double steel, double food, double human) {
+        
         super(initialGold,initialGoldWood,initialGoldStone, initialGoldIron, initialGoldCoal, initialGoldSteel, initialGoldFood, initialGoldHuman );
-        this.Gold = Gold;
-        this.Wood = Wood;
-        this.Stone = Stone;
-        this.Iron = Iron;
-        this.Coal = Coal;
-        this.Steel = Steel;
-        this.Food = Food;
-        this.Human = Human;
-      
-
+        this.gold = gold;
+        this.wood = wood;
+        this.stone = stone;
+        this.iron = iron;
+        this.coal = coal;
+        this.steel = steel;
+        this.food = food;
+        this.human = human;
     }
 
 }

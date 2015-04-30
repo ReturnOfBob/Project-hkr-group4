@@ -32,8 +32,7 @@ public class FXMLGameController implements Initializable {
     private double amountOfCoal = 0;
     private double amountOfSteel = 0;
     private int currentTurn = 0;
-    
-    
+//---------------------------------GUI----------------------------------------\\    
     @FXML
     private Label goldLabel, woodLabel, stoneLabel, foodLabel, humanLabel, ironLabel, coalLabel, steelLabel, currentTurnLabel;
     
@@ -48,13 +47,12 @@ public class FXMLGameController implements Initializable {
     
     //@FXML
     //private TableColumn<> nameColumn, amountColumn; 
-    
+//----------------------------ON SCENE LOADUP---------------------------------\\    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         onNewGame();
     }    
-    
-    //------------------------------FXML METHODS----------------------------------\\
+//------------------------------FXML METHODS----------------------------------\\
     @FXML
     private void nextTurn(ActionEvent event){
         currentTurn++;
@@ -67,10 +65,8 @@ public class FXMLGameController implements Initializable {
         }
 
     }
-    
-    //----------------------------NON-FXML METHODS--------------------------------\\
+//----------------------------NON-FXML METHODS--------------------------------\\
     private void refreshResources(){
-        
         goldLabel.setText("Gold: " + amountOfGold);
         woodLabel.setText("Wood: " + amountOfWood);
         stoneLabel.setText("Stone: " + amountOfStone);
@@ -86,7 +82,6 @@ public class FXMLGameController implements Initializable {
         currentTurnLabel.setText("Current turn: " + currentTurn);
         
         refreshResources();
-        
     }
     
 }

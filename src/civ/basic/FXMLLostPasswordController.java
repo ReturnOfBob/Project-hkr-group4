@@ -37,15 +37,15 @@ public class FXMLLostPasswordController implements Initializable {
     @FXML
     private TextField inputRequiredText;
 //-----------------------------MYSQL CONNECTION-------------------------------\\    
-    PreparedStatement stt = null;
-    String URL = "jdbc:mysql://127.0.0.1:3306/civ-basic?user=root&password=root";
+    private final PreparedStatement stt = null;
+    private final String URL = "jdbc:mysql://127.0.0.1:3306/civ-basic?user=root&password=root";
 //----------------------------ON SCENE LOADUP---------------------------------\\
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
     }
 //------------------------------FXML METHODS----------------------------------\\    
-    @FXML //This method handles all buttonclicks in this scene
+    @FXML //This method handles all of the clicks in the menu in this scene
     private void menuClick(ActionEvent event) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
         buttonText = ((Button)event.getSource()).getText();
         
@@ -57,7 +57,6 @@ public class FXMLLostPasswordController implements Initializable {
             handleButtonRetrievePassword();
         }
         else if(buttonText.equals("Back to Log in")){
-            //DataStorage.getInstance().setNewSceneIs("FXMLLogInMenu.fxml");
             DataStorage.getInstance().sceneSwitch(event, "FXMLLogInMenu.fxml");
         }
         else{
@@ -65,33 +64,26 @@ public class FXMLLostPasswordController implements Initializable {
         }
         
     }
-
 //----------------------------NON-FXML METHODS--------------------------------\\    
     private void handleButtonRetriveClue() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         try{
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-        
+
             Connection c = DriverManager.getConnection(URL);
             Statement st = c.createStatement();
+            
             String questionCheck = "SELECT  Security_Question FROM accounts WHERE Username = '" + inputRequiredText.getText() + "'";//Ändra:   inputRequiredText.getText() istället för Henrik. Hämta även svar i samma kod så att det är gjort
       
             ResultSet rs = st.executeQuery(questionCheck);
             
             if (rs.next()) {
-               
                 storedName = inputRequiredText.getText();
                 System.out.println(rs.getString(1));
                 showInfo.setText(rs.getString(1));
-                // c.close();
             } 
             else{
                 System.out.println("Hittar inte användarnamnet");
             }
-                //ResultSet rst = st.executeQuery(questionAnswer);
-                //if(rs.next()){
-                //  if(questionAnswer.equals(inputRequiredText.getText())){
-                //   showInfo.setText(questionAnswer);
-                //}
         }
         catch (SQLException ex) {
             Logger.getLogger(FXMLLostPasswordController.class.getName()).log(Level.SEVERE, null, ex);
