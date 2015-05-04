@@ -18,14 +18,14 @@
       <Label layoutX="809.0" layoutY="296.0" prefHeight="17.0" prefWidth="49.0" text="EventLog" />
       <TableView fx:id="resourcesTableview" layoutX="14.0" layoutY="62.0" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="resourceNameColumn" prefWidth="75.0" text="C1" />
+          <TableColumn fx:id="resourceByTurnColumn" prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
       <TableView fx:id="buildingsTableview" layoutX="14.0" layoutY="288.0" prefHeight="248.0" prefWidth="200.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="buildingNameColumn" prefWidth="75.0" text="C1" />
+          <TableColumn fx:id="buildingAmountColumn" prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
       <Label fx:id="goldLabel" layoutX="250.0" layoutY="62.0" text="Gold" />

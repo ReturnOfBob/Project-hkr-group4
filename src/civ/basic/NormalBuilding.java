@@ -11,20 +11,21 @@ package civ.basic;
  */
 public class NormalBuilding extends Building {
 //--------------------------------VARIABLES-----------------------------------\\ 
-    private double gold;
-    private double wood;
-    private double stone;
-    private double iron;
-    private double coal;
-    private double steel;
-    private double food;
-    private double human;
+    private int gold;
+    private int wood;
+    private int stone;
+    private int iron;
+    private int coal;
+    private int steel;
+    private int food;
+    private int human;
 //------------------------------CONSTRUCTOR-----------------------------------\\        
-    public NormalBuilding(double initialGold, double initialGoldWood, double initialGoldStone, double initialGoldIron, double initialGoldCoal, 
-            double initialGoldSteel, double initialGoldFood, double initialGoldHuman,double gold, 
-            double wood, double stone, double iron, double coal, double steel, double food, double human) {
+    public NormalBuilding(String name, int initialGold, int initialWood, int initialStone, int initialIron, int initialCoal, 
+            int initialSteel, int initialFood, int initialHuman, int amount, int gold, 
+            int wood, int stone, int iron, int coal, int steel, int food, int human) {
         
-        super(initialGold,initialGoldWood,initialGoldStone, initialGoldIron, initialGoldCoal, initialGoldSteel, initialGoldFood, initialGoldHuman );
+        super(name, initialGold,initialWood,initialStone, initialIron, initialCoal, initialSteel, 
+                initialFood, initialHuman, amount );
         this.gold = gold;
         this.wood = wood;
         this.stone = stone;
