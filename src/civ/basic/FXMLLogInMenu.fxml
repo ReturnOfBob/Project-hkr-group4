@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -10,9 +12,9 @@
     <children>
       <TextField fx:id="userName" layoutX="14.0" layoutY="14.0" promptText="User" />
       <PasswordField fx:id="userPassword" layoutX="14.0" layoutY="54.0" promptText="Password" />
-      <Button fx:id="button" layoutX="195.0" layoutY="14.0" onAction="#menuClick" text="log in" />
+      <Button fx:id="button" layoutX="195.0" layoutY="14.0" onAction="#menuClick" text="Log in" />
       <Button fx:id="createAccount" layoutX="180.0" layoutY="54.0" mnemonicParsing="false" onAction="#menuClick" text="Create new account" />
       <Button fx:id="lostPassword" layoutX="180.0" layoutY="88.0" mnemonicParsing="false" onAction="#menuClick" prefHeight="25.0" prefWidth="121.0" text="Lost my password" />
-      <Label fx:id="loginErrorLabel" layoutX="14.0" layoutY="133.0" prefHeight="45.0" prefWidth="289.0" textFill="RED" />
+      <Label fx:id="loginErrorLabel" layoutX="19.0" layoutY="141.0" prefHeight="45.0" prefWidth="289.0" textFill="RED" />
     </children>
 </AnchorPane>

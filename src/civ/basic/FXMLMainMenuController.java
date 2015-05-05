@@ -45,6 +45,8 @@ public class FXMLMainMenuController implements Initializable {
         else if(buttonText.equals("Log Out")){
             //Temporary sceneswitch back to login
             DataStorage.getInstance().sceneSwitch(event, "FXMLLogInMenu.fxml");
+            DataStorage.getInstance().setNewActiveUser("");
+            System.out.println(DataStorage.getInstance().getNewActiveUser());
         }
         else if(buttonText.equals("Exit")){
             try {

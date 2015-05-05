@@ -48,9 +48,9 @@ public class FXMLLogInMenuController implements Initializable {
 //------------------------------FXML METHODS----------------------------------\\    
     @FXML //This method handles all of the clicks in the menu in this scene
     private void menuClick(ActionEvent event) {
-        buttonText = ((Button) event.getSource()).getText();
+        buttonText = ((Button)event.getSource()).getText();
 
-        if (buttonText.equals("log in")) {
+        if (buttonText.equals("Log in")) {
             handleButtonLogin();
 
             if (userCorrectCheck == true) {

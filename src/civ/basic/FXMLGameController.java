@@ -44,10 +44,10 @@ public class FXMLGameController implements Initializable {
     
 //---------------------------------GUI----------------------------------------\\    
     @FXML
-    private Label goldLabel, woodLabel, stoneLabel, foodLabel, humanLabel, ironLabel, coalLabel, steelLabel, currentTurnLabel;
+    private Label goldLabel, woodLabel, stoneLabel, foodLabel, humanLabel, ironLabel, coalLabel, steelLabel, currentTurnLabel, activeUserLabel;
     
     @FXML
-    private Button houseButton, woodmillButton, farmButton, stonemasonryButton, nextTurnButton;
+    private Button houseButton, woodmillButton, farmButton, stonemasonryButton, bankButton, marketButton, ironMineButton, coalMineButton, storageButton, steelworksButton, cottageButton, nextTurnButton;
     
     @FXML
     private TableView /*resourcesTableview, buildingsTableview,*/ statviewTableview;
@@ -83,14 +83,17 @@ public class FXMLGameController implements Initializable {
 //----------------------------ON SCENE LOADUP---------------------------------\\    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         resourceAdder();  //method calls must be in this order, otherwise a crash will occur
         buildingAdder();
         onNewGame();
+
+
     }    
 //------------------------------FXML METHODS----------------------------------\\
     @FXML
     private void nextTurn(ActionEvent event){
+        
         currentTurn++;
         currentTurnLabel.setText("Current turn: " + currentTurn);
         
@@ -101,6 +104,7 @@ public class FXMLGameController implements Initializable {
         }
 
     }
+
 //----------------------------NON-FXML METHODS--------------------------------\\
     private void refreshResources(){
         amountOfGold += resourceList.get(0).getByTurn().getValue();
@@ -116,10 +120,12 @@ public class FXMLGameController implements Initializable {
     }
     
     private void onNewGame(){
+        
         currentTurn++;
         currentTurnLabel.setText("Current turn: " + currentTurn);
         
         refreshResources();
+        activeUserLabel.setText(DataStorage.getInstance().getNewActiveUser());
     }
     
     private void rngHandler(){
