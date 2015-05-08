@@ -7,6 +7,7 @@
 package civ.basic;
 
 import java.net.URL;
+import static java.sql.Types.NULL;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.beans.property.IntegerProperty;
@@ -99,7 +100,11 @@ public class FXMLGameController implements Initializable {
         
         refreshResources();
         
-        if(currentTurn > 20){
+        if(DataStorage.getInstance().getRoundLimit().equals(NULL)){
+            DataStorage.getInstance().setRoundLimit(20);
+        }
+        
+        if(currentTurn > DataStorage.getInstance().getRoundLimit()){
             DataStorage.getInstance().sceneSwitch(event, "FXMLMainMenu.fxml");
         }
 

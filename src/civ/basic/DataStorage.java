@@ -21,7 +21,9 @@ public class DataStorage {
 //------------------------------VARIABLES-------------------------------------\\   
     private static DataStorage dataStorage;
     private String newSceneIs;
-    private String newActiveUser;   
+    private String newActiveUser;
+    private String difficulty;
+    private int RoundLimit;
 //------------------------------CONSTRUCTOR-----------------------------------\\    
     private DataStorage(){
     
@@ -64,6 +66,20 @@ public class DataStorage {
 
     public String getNewActiveUser() {
         return newActiveUser;
+    }
+       public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+       public void setRoundLimit(Integer RoundLimit) {
+        this.RoundLimit = RoundLimit;
+    }
+
+    public Integer getRoundLimit() {
+        return RoundLimit;
     }
     
 }

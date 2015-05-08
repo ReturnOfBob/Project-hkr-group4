@@ -6,11 +6,7 @@
 package civ.basic;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,84 +24,77 @@ import javafx.scene.control.TextField;
  */
 public class FXMLcreateAccountController implements Initializable {
 //--------------------------------VARIABLES-----------------------------------\\     
+
     private String buttonText;
 //-----------------------------------GUI--------------------------------------\\     
     @FXML
     private TextField name, question, questionAnswer;
-    
-    @FXML 
+
+    @FXML
     private PasswordField password, passwordAgain;
-    
-    @FXML 
+
+    @FXML
     private Label createAccountDoneLabel, createAccountErrorLabel;
 //-----------------------------MYSQL CONNECTION-------------------------------\\ 
-    private final String URL = "jdbc:mysql://127.0.0.1:3306/civ-basic?user=root&password=root";
-    private final PreparedStatement stt = null;
+    private final DataBaseConnector connector = new DataBaseConnector();
 //---------------------------ON SCENE LOAD-UP---------------------------------\\
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
     }
 //------------------------------FXML METHODS----------------------------------\\    
+
     @FXML //This method handles all of the clicks in the menu in this scene
-    private void menuClick(ActionEvent event){
-        buttonText = ((Button)event.getSource()).getText();
-        
-        if(buttonText.equals("Create Account")){
+    private void menuClick(ActionEvent event) {
+        buttonText = ((Button) event.getSource()).getText();
+
+        if (buttonText.equals("Create Account")) {
             handleButtonCreateAccount();
-        }
-        else if(buttonText.equals("Back to login")){
+        } else if (buttonText.equals("Back to login")) {
             DataStorage.getInstance().sceneSwitch(event, "FXMLLogInMenu.fxml");
-        }
-        else{
+        } else {
             System.out.println("ERROR!");
         }
     }
 //----------------------------NON-FXML METHODS--------------------------------\\     
+
     private void handleButtonCreateAccount() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-            Connection c = DriverManager.getConnection(URL);
-            Statement st = c.createStatement();
-
             String inputData = "INSERT INTO accounts (Username,Password,Security_Question,Answer,Privilege) VALUES (?,?,?,?,?)";
             String dataCheck = "SELECT * FROM accounts WHERE Username = '" + name.getText() + "'";
 
-            ResultSet rs = st.executeQuery(dataCheck);
-            
-            if (rs.next()) {
+            if (connector.getResult(dataCheck).next()) {
                 System.out.println("Användare finns redan");
             }
 
             if (!"".equals(name.getText()) && !"".equals(password.getText()) && !"".equals(question.getText()) && !"".equals(questionAnswer.getText()) && password.getText().equals(passwordAgain.getText())) {
-                
-                PreparedStatement prepSt = c.prepareStatement(inputData);
-                
+
+                PreparedStatement prepSt = connector.getConnection().prepareStatement(inputData);
                 prepSt.setString(1, name.getText());
                 prepSt.setString(2, password.getText());
                 prepSt.setString(3, question.getText());
                 prepSt.setString(4, questionAnswer.getText());
                 prepSt.setString(5, "Basic user");
-                
+
                 prepSt.executeUpdate();
                 createAccountErrorLabel.setText("");
                 System.out.println("Acccount created");
                 createAccountDoneLabel.setText("Acccount created");
-            }else if(!password.getText().equals(passwordAgain.getText())){
+            } else if (!password.getText().equals(passwordAgain.getText())) {
                 System.out.println("Lösenorden matchar inte!");
                 createAccountDoneLabel.setText("");
                 createAccountErrorLabel.setText("");
                 createAccountErrorLabel.setText("Lösenorden matchar inte!");
-            }
-            else{
+            } else {
                 createAccountDoneLabel.setText("");
                 createAccountErrorLabel.setText("");
                 System.out.println("Du måste fylla i alla fält!");
                 createAccountErrorLabel.setText("Du måste fylla i alla fält!");
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.err.println("ERROR: " + e);
         }
     }

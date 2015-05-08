@@ -39,7 +39,7 @@ public class FXMLMainMenuController implements Initializable {
             System.out.println("Load Game");
         }
         else if(buttonText.equals("Options")){
-            //Code will come here eventually
+            DataStorage.getInstance().sceneSwitch(event, "FXMLOption.fxml");
             System.out.println("Options");
         }
         else if(buttonText.equals("Log Out")){
