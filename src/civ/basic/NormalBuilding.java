@@ -35,5 +35,29 @@ public class NormalBuilding extends Building {
         this.food = food;
         this.human = human;
     }
+    public int getGold(){
+        return gold;
+    }
+    public int getWood(){
+        return wood;
+    }
+    public int getStone(){
+        return stone;
+    }
+    public int getIron(){
+        return iron;
+    }
+    public int getCoal(){
+        return coal;
+    }
+    public int getSteel(){
+        return steel;
+    }
+    public int getFood(){
+        return food;
+    }
+    public int getHuman(){
+        return human;
+    }
 
 }
