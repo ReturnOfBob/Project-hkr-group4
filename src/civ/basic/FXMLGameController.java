@@ -32,7 +32,7 @@ import javafx.scene.control.TextArea;
 public class FXMLGameController implements Initializable {
 //------------------------------VARIABLES-------------------------------------\\    
     private int amountOfGold = 0;
-    private int amountOfWood = 3/2;
+    private int amountOfWood = 0;
     private int amountOfStone = 0;
     private int amountOfFood = 0;
     private int amountOfHuman = 0;
@@ -146,7 +146,7 @@ public class FXMLGameController implements Initializable {
         resourceNameColumn.setCellValueFactory(cellData -> cellData.getValue().getName());
         resourceByTurnColumn.setCellValueFactory(cellData -> cellData.getValue().getByTurn());
 
-        resourceList.add(new Resource("Gold",0));
+        resourceList.add(new Resource("Gold", 10));
         resourceList.add(new Resource("Wood", 10));
         resourceList.add(new Resource("stone", 5));
         resourceList.add(new Resource("Food", 10));
@@ -163,7 +163,55 @@ public class FXMLGameController implements Initializable {
         
         buildingList.add(new NormalBuilding("House", 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2));
         buildingList.add(new NormalBuilding("Woodmill", 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, -1));
+    } 
+        public int getamountOfGold(){
+        return amountOfGold;
     }
-  
+      public void setamountGold(int amountOfGold) {
+        this.amountOfGold = amountOfGold;
+    }
+        public int getamountOfWood(){
+        return amountOfWood;
+    }
+      public void setamountOfWood(int amountOfWood) {
+        this.amountOfWood = amountOfWood;
+    }
+      public int getamountOfStone(){
+        return amountOfWood;
+    }
+      public void setamountOfStone(int amountOfStone) {
+        this.amountOfStone = amountOfStone;
+    }
+      public int getamountOfFood(){
+        return amountOfFood;
+    }
+      public void setamountOfFood(int amountOfFood) {
+        this.amountOfFood = amountOfFood;
+    }
+      public int getamountOfHuman(){
+        return amountOfHuman;
+    }
+      public void setamountOfHuman(int amountOfHuman) {
+        this.amountOfHuman = amountOfHuman;
+    }
+      public int getamountOfIron(){
+        return amountOfIron;
+    }
+      public void setamountOfIron(int amountOfIron) {
+        this.amountOfIron = amountOfIron;
+    }
+      public int getamountOfCoal(){
+        return amountOfCoal;
+    }
+      public void setamountOfCoal(int amountOfCoal) {
+        this.amountOfCoal = amountOfCoal;
+    }
+      public int getamountOfSteel(){
+        return amountOfSteel;
+    }
+      public void setamountOfSteel(int amountOfSteel) {
+        this.amountOfSteel = amountOfSteel;
+    }
 }
+
 
