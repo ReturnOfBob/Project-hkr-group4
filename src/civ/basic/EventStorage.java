@@ -15,8 +15,8 @@ public class EventStorage {
 
     
     //---------------------------------EVENTS-----------------------------------\\
-    private void Events(){
-    switch () {
+    private void Events(int eventID){
+    switch (eventID) {
             case 1:
     
                 eventText = "One of your citys guards helps a old man on the road, as a reward the old man give your city 10 Gold pices.";
@@ -27,7 +27,7 @@ public class EventStorage {
                 break;
             case 2:
     
-                eventText ="A evil little dwarf comes and steals 20% of your gold! All you can do is with a sobbing voice screm: You have violated the law, come back here you little lawbreaking halfman!! At which he answer: I'm guilty of a far more monstrous crime: I'm guilty of being a dwarf!";
+                eventText ="A evil little dwarf comes and steals 20% of your gold! All you can do is with a sobbing voice screm: You have violated the law, come back here you little lawbreaking halfman!! At which you can hear a fleeting voice answer back: I'm guilty of a far more monstrous crime: I'm guilty of being a dwarf!";
                 eventResultProcentage = (int) (resource.getamountOfGold() * 0.8);
                 resource.setamountGold((int) eventResultProcentage);
                 break;
@@ -46,55 +46,66 @@ public class EventStorage {
     
             case 5:
     
-                eventText =
-                eventResult =
-                eventResultProcentage =
+                eventText = "The holy Bob have arived, you get 10 of all resources!";
+                eventResult = 10 + resource.getamountOfIron();
+                resource.setamountOfIron(eventResult);
+                eventResult = 10 + resource.getamountOfFood();
+                resource.setamountOfFood(eventResult);
+                eventResult = 10 + resource.getamountOfSteel();
+                resource.setamountOfSteel(eventResult);
+                eventResult = 10 + resource.getamountOfHuman();
+                resource.setamountOfHuman(eventResult);
+                eventResult = 10 + resource.getamountOfCoal();
+                resource.setamountOfCoal(eventResult);
+                eventResult = 10 + resource.getamountOfWood();
+                resource.setamountOfWood(eventResult);
+                eventResult = 10 + resource.getamountOfStone();
+                resource.setamountOfStone(eventResult);
     
                 break;
             case 6:
     
-                eventText =
-                eventResult =
-                eventResultProcentage =
+                eventText ="Sacrifice 10 food to appease the holy Bob!!";
+                eventResult = 10 + resource.getamountOfFood();
+                resource.setamountOfFood(eventResult);
     
                 break;
             case 7:
     
-                eventText =
-                eventResult =
-                eventResultProcentage =
+                eventText = "One of the kids in the town found a chest under a rock outside of the town, he now wants to give the town all 10 iron ingots that was inside!";
+                eventResult = 10 + resource.getamountOfIron();
+                resource.setamountOfIron(eventResult);
     
                 break;
             case 8:
     
-                eventText =
-                eventResult =
-                eventResultProcentage =
+                eventText = "The traders that was in the town forgot 5 steel, none would care... right? RIGHT??";
+                eventResult = 5 + resource.getamountOfSteel();
+                resource.setamountOfSteel(eventResult);
     
                 break;
     
             case 9:
     
-                eventText =
-                eventResult =
-                eventResultProcentage =
+                eventText = "Bandits attack and steals all your gold!";
+                resource.setamountGold(0);
     
                 break;
             case 10:
     
-                eventText =
-                eventResult =
-                eventResultProcentage =
+                eventText = "You where out and walking, when it hit you! The pebbels on the ground is made out of... stone, so you gather some and takes it home in your pockets, you recive 15 stone!";
+                eventResult = 10 + resource.getamountOfStone();
+                resource.setamountOfStone(eventResult);
     
                 break;
             case 11:
     
-                eventText =
-                eventResult =
-                eventResultProcentage =
+                eventText = "5 people have heard of your town! So they want to move in!";
+                eventResult = 15 + resource.getamountOfHuman();
+                resource.setamountOfHuman(eventResult);
     
                 break;
-            case 12:
+            /*case 12:
     
                 eventText =
                 eventResult =
@@ -246,7 +257,7 @@ public class EventStorage {
             default:
                 
     
-                break;
+                break;*/
         }
-}
+    }
 }
