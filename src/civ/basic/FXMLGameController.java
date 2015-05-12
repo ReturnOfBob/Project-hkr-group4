@@ -304,6 +304,8 @@ public class FXMLGameController implements Initializable {
             
             try{
 
+           // String initialGold = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Gold");   
+           // String initialWood = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Wood"); 
             String initialGold = "SELECT Initial_Cost FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Gold'";
             String initialWood = "SELECT Initial_Cost FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Wood'";
             String initialStone = "SELECT Initial_Cost FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Stone'";
@@ -320,7 +322,9 @@ public class FXMLGameController implements Initializable {
             String steel = "SELECT Turn_Resource_Gain FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Steel'";
             String food = "SELECT Turn_Resource_Gain FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Food'";
             String human = "SELECT Turn_Resource_Gain FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Human'";
-       
+           
+            
+            
             if(connector.getResult(initialGold).next()){
                 initialGoldint = connector.getResultSet().getInt(1);
             }

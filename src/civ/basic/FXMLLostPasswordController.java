@@ -78,7 +78,7 @@ public class FXMLLostPasswordController implements Initializable {
 
     private void handleButtonRetrievePassword() {
         try {
-
+// if (connector.getResult(connector.getGenericCommand("Answer", "accounts", "Username", storedName)).next()) {
             if (connector.getResult(connector.getSecurityQuestionAnswerCommand(storedName)).next()) {
                 if (connector.getResultSet().getString(1).equals(inputRequiredText.getText())) {
 

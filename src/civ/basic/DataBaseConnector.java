@@ -71,4 +71,15 @@ public class DataBaseConnector {
         String insertScoreCommand = "SELECT UserName AND Score FROM leaderboard WHERE UserName =  '" + name + "'";
         return insertScoreCommand;
     }
+    public String getRescourseCommand(String selectWhat, String nameList, String rescourseNames ){
+        String rescourseCommand = "SELECT '" + selectWhat + "' FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList + "' AND Resources_Name = '" + rescourseNames + "'";
+        return rescourseCommand;
+    }
+    public String getGenericCommand(String attribute, String Table, String whereCondition, String name){
+        String genericCommand =  " SELECT " + attribute + " FROM " + Table + " WHERE " + whereCondition + " = '" + name + "'";
+        return genericCommand;
+    }
+    
+    
+
 }
