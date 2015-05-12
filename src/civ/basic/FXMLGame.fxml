@@ -10,7 +10,7 @@
 <AnchorPane id="AnchorPane" prefHeight="680.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLGameController">
    <children>
       <Button fx:id="houseButton" layoutX="310.0" layoutY="148.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" prefHeight="49.0" prefWidth="120.0" text="House" />
-      <TextArea fx:id="eventlogTextArea" layoutX="810.0" layoutY="316.0" prefHeight="242.0" prefWidth="200.0" />
+      <TextArea fx:id="eventlogTextArea" editable="false" layoutX="810.0" layoutY="316.0" prefHeight="242.0" prefWidth="200.0" />
       <Button fx:id="woodmillButton" layoutX="310.0" layoutY="213.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" prefHeight="49.0" prefWidth="120.0" text="Woodmill" />
       <Button fx:id="farmButton" layoutX="467.0" layoutY="148.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" prefHeight="49.0" prefWidth="120.0" text="Farm" />
       <Button fx:id="stonemasonryButton" layoutX="310.0" layoutY="280.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" prefHeight="49.0" prefWidth="120.0" text="Stonemason" />
