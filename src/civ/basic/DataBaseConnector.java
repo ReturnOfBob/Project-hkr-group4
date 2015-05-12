@@ -39,47 +39,24 @@ public class DataBaseConnector {
         return rs;
     }
 
-    public String getUserLoginCheckCommand(String name, String password) {
-        String userLoginCheck = "SELECT * FROM accounts WHERE Username = '" + name + "' AND Password = '" + password + "'";
-        return userLoginCheck;
-    }
-
     public String getInputUserDataCommand() {
         return inputUserDataCommand;
+
     }
 
-    public String getAllUserInfoCommand(String name) {
-        String allUserInfo = "SELECT * FROM accounts WHERE Username = '" + name + "'";
-        return allUserInfo;
-    }
-
-    public String getSecuityQuestionCommand(String name) {
-        String secuityQuestion = "SELECT Security_Question FROM accounts WHERE Username = '" + name + "'";
-        return secuityQuestion;
-    }
-
-    public String getSecurityQuestionAnswerCommand(String name) {
-        String questionAnswer = "SELECT Answer FROM accounts WHERE Username = '" + name + "'";
-        return questionAnswer;
-    }
-
-    public String getUserPasswordCommand(String name) {
-        String userPasswordCommand = "SELECT Password FROM accounts WHERE Username = '" + name + "'";
-        return userPasswordCommand;
-    }
-    public String getScoreCommand(String name){
-        String insertScoreCommand = "SELECT UserName AND Score FROM leaderboard WHERE UserName =  '" + name + "'";
-        return insertScoreCommand;
-    }
-    public String getRescourseCommand(String selectWhat, String nameList, String rescourseNames ){
-        String rescourseCommand = "SELECT '" + selectWhat + "' FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList + "' AND Resources_Name = '" + rescourseNames + "'";
+    public String getRescourseCommand(String selectWhat, String nameList, String rescourseNames) {
+        String rescourseCommand = " SELECT " + selectWhat + " FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList + "' AND Resources_Name = '" + rescourseNames + "'";
         return rescourseCommand;
     }
-    public String getGenericCommand(String attribute, String Table, String whereCondition, String name){
-        String genericCommand =  " SELECT " + attribute + " FROM " + Table + " WHERE " + whereCondition + " = '" + name + "'";
+
+    public String getGenericCommand(String attribute, String Table, String whereCondition, String name) {
+        String genericCommand = " SELECT " + attribute + " FROM " + Table + " WHERE " + whereCondition + " = '" + name + "'";
         return genericCommand;
     }
-    
-    
+
+    public String getGenericAndCommand(String attribute, String Table, String whereCondition, String name, String password) {
+        String GenericAndCommand = " SELECT " + attribute + " FROM " + Table + " WHERE " + whereCondition + " = '" + name + "' AND '" + password + "'";
+        return GenericAndCommand;
+    }
 
 }

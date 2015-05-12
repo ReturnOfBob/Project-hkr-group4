@@ -327,24 +327,24 @@ public class FXMLGameController implements Initializable {
             
             try{
 
-           // String initialGold = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Gold");   
-           // String initialWood = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Wood"); 
-            String initialGold = "SELECT Initial_Cost FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Gold'";
-            String initialWood = "SELECT Initial_Cost FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Wood'";
-            String initialStone = "SELECT Initial_Cost FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Stone'";
-            String initialIron = "SELECT Initial_Cost FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Iron'";
-            String initialCoal = "SELECT Initial_Cost FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Coal'";
-            String initialSteel = "SELECT Initial_Cost FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Steel'";
-            String initialFood = "SELECT Initial_Cost FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Food'";
-            String initialHuman = "SELECT Initial_Cost FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Human'";
-            String gold = "SELECT Turn_Resource_Gain FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Gold'";
-            String wood = "SELECT Turn_Resource_Gain FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Wood'";
-            String stone = "SELECT Turn_Resource_Gain FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Stone'";
-            String iron = "SELECT Turn_Resource_Gain FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Iron'";
-            String coal = "SELECT Turn_Resource_Gain FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Coal'";
-            String steel = "SELECT Turn_Resource_Gain FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Steel'";
-            String food = "SELECT Turn_Resource_Gain FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Food'";
-            String human = "SELECT Turn_Resource_Gain FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList.get(i) + "' AND Resources_Name = 'Human'";
+           String initialGold = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Gold");   
+           String initialWood = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Wood"); 
+           String initialStone = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Stone");   
+           String initialIron = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Iron"); 
+           String initialCoal = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Coal");   
+           String initialSteel = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Steel"); 
+           String initialFood = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Food");   
+           String initialHuman = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Human"); 
+           String gold = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Gold");   
+           String wood = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Wood"); 
+           String stone = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Stone");   
+           String iron = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Iron"); 
+           String coal = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Coal");   
+           String steel = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Steel"); 
+           String food = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Food"); 
+           String human = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Human"); 
+           
+            
            
             
             

@@ -64,7 +64,7 @@ public class FXMLLostPasswordController implements Initializable {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-            if (connector.getResult(connector.getSecuityQuestionCommand(inputRequiredText.getText())).next()) {
+            if (connector.getResult(connector.getGenericCommand("Security_Question", "accounts", "Username", inputRequiredText.getText())).next()) {
                 storedName = inputRequiredText.getText();
                 System.out.println(connector.getResultSet().getString(1));
                 showInfo.setText(connector.getResultSet().getString(1));
@@ -78,11 +78,11 @@ public class FXMLLostPasswordController implements Initializable {
 
     private void handleButtonRetrievePassword() {
         try {
-// if (connector.getResult(connector.getGenericCommand("Answer", "accounts", "Username", storedName)).next()) {
-            if (connector.getResult(connector.getSecurityQuestionAnswerCommand(storedName)).next()) {
+
+            if (connector.getResult(connector.getGenericCommand("Answer", "accounts", "Username", storedName)).next()) {
                 if (connector.getResultSet().getString(1).equals(inputRequiredText.getText())) {
 
-                    if (connector.getResult(connector.getUserPasswordCommand(storedName)).next()) {
+                    if (connector.getResult(connector.getGenericCommand("Password", "accounts", "Username", storedName)).next()) {
                         showInfo.setText(connector.getResultSet().getString(1));
                     }
                 }
