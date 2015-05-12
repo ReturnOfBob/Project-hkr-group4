@@ -64,9 +64,7 @@ public class FXMLLostPasswordController implements Initializable {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-            String questionCheck = "SELECT  Security_Question FROM accounts WHERE Username = '" + inputRequiredText.getText() + "'";//Ändra:   inputRequiredText.getText() istället för Henrik. Hämta även svar i samma kod så att det är gjort
-
-            if (connector.getResult(questionCheck).next()) {
+            if (connector.getResult(connector.getSecuityQuestionCommand(inputRequiredText.getText())).next()) {
                 storedName = inputRequiredText.getText();
                 System.out.println(connector.getResultSet().getString(1));
                 showInfo.setText(connector.getResultSet().getString(1));
@@ -81,13 +79,10 @@ public class FXMLLostPasswordController implements Initializable {
     private void handleButtonRetrievePassword() {
         try {
 
-            String questionAnswer = "SELECT Answer FROM accounts WHERE Username = '" + storedName + "'"; //Ändra till ett kommando istället för två se AND
-            String passwordGetter = "SELECT Password FROM accounts WHERE Username = '" + storedName + "'";
-
-            if (connector.getResult(questionAnswer).next()) {
+            if (connector.getResult(connector.getSecurityQuestionAnswerCommand(storedName)).next()) {
                 if (connector.getResultSet().getString(1).equals(inputRequiredText.getText())) {
 
-                    if (connector.getResult(passwordGetter).next()) {
+                    if (connector.getResult(connector.getUserPasswordCommand(storedName)).next()) {
                         showInfo.setText(connector.getResultSet().getString(1));
                     }
                 }

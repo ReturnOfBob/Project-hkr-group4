@@ -72,9 +72,7 @@ public class FXMLLogInMenuController implements Initializable {
 
             Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-            String dataCheck = "SELECT * FROM accounts WHERE Username = '" + userName.getText() + "' AND Password = '" + userPassword.getText() + "'";
-
-            if (connector.getResult(dataCheck).next()) {
+            if (connector.getResult(connector.getUserLoginCheckCommand(userName.getText(), userPassword.getText())).next()) {
                 System.out.println("Dina uppgifter är rätt. Du är inloggad");
                 DataStorage.getInstance().setNewActiveUser(userName.getText());
                 System.out.println("Active user is:  " + DataStorage.getInstance().getNewActiveUser());
