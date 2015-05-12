@@ -36,13 +36,38 @@ public abstract class Building {
         this.amount = new SimpleIntegerProperty(amount);
     }
     
-    public void setAmount(int amount){
-        this.amount = new SimpleIntegerProperty(amount);
+    public void setAmount(int add){
+        int amount = add + this.amount.getValue();
+        this.amount.set(amount);
     }
     public IntegerProperty getAmount(){
         return amount;
     }
     public StringProperty getName(){
         return name;
+    }
+    public int getInitialGold(){
+        return initialGold;
+    }
+    public int getInitialWood(){
+        return initialWood;
+    }
+    public int getInitialStone(){
+        return initialStone;
+    }
+    public int getInitialFood(){
+        return initialFood;
+    }
+    public int getInitialHuman(){
+        return initialHuman;
+    }
+    public int getInitialIron(){
+        return initialIron;
+    }
+    public int getInitialCoal(){
+        return initialCoal;
+    }
+    public int getInitialSteel(){
+        return initialSteel;
     }
 }
