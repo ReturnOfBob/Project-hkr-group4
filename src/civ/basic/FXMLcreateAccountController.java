@@ -29,10 +29,10 @@ public class FXMLcreateAccountController implements Initializable {
 //-----------------------------------GUI--------------------------------------\\     
     @FXML
     private TextField name, question, questionAnswer;
-
+    
     @FXML
     private PasswordField password, passwordAgain;
-
+    
     @FXML
     private Label createAccountDoneLabel, createAccountErrorLabel;
 //-----------------------------MYSQL CONNECTION-------------------------------\\ 
@@ -41,14 +41,14 @@ public class FXMLcreateAccountController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
     }
 //------------------------------FXML METHODS----------------------------------\\    
 
     @FXML //This method handles all of the clicks in the menu in this scene
     private void menuClick(ActionEvent event) {
         buttonText = ((Button) event.getSource()).getText();
-
+        
         if (buttonText.equals("Create Account")) {
             handleButtonCreateAccount();
         } else if (buttonText.equals("Back to login")) {
@@ -62,23 +62,20 @@ public class FXMLcreateAccountController implements Initializable {
     private void handleButtonCreateAccount() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-
-            String inputData = "INSERT INTO accounts (Username,Password,Security_Question,Answer,Privilege) VALUES (?,?,?,?,?)";
-            String dataCheck = "SELECT * FROM accounts WHERE Username = '" + name.getText() + "'";
-
-            if (connector.getResult(dataCheck).next()) {
+            
+            if (connector.getResult(connector.getAllUserInfoCommand(name.getText())).next()) {
                 System.out.println("Användare finns redan");
             }
-
+            
             if (!"".equals(name.getText()) && !"".equals(password.getText()) && !"".equals(question.getText()) && !"".equals(questionAnswer.getText()) && password.getText().equals(passwordAgain.getText())) {
-
-                PreparedStatement prepSt = connector.getConnection().prepareStatement(inputData);
+                
+                PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getInputUserDataCommand());
                 prepSt.setString(1, name.getText());
                 prepSt.setString(2, password.getText());
                 prepSt.setString(3, question.getText());
                 prepSt.setString(4, questionAnswer.getText());
                 prepSt.setString(5, "Basic user");
-
+                
                 prepSt.executeUpdate();
                 createAccountErrorLabel.setText("");
                 System.out.println("Acccount created");
@@ -98,5 +95,5 @@ public class FXMLcreateAccountController implements Initializable {
             System.err.println("ERROR: " + e);
         }
     }
-
+    
 }

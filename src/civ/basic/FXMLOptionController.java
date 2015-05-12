@@ -12,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 
 /**
  * FXML Controller class
@@ -25,6 +24,7 @@ public class FXMLOptionController implements Initializable {
     @FXML
     private RadioButton noobDifficulty, normalDifficulty, asianDifficulty, lowTurnLimit, mediumTurnLimit, highTurnLimit, musicOn,musicOff ;
     private String buttonText;
+    private final SoundPlayer player = new SoundPlayer();
 
 //---------------------------ON SCENE LOAD-UP---------------------------------\\
     @Override
@@ -64,6 +64,12 @@ public class FXMLOptionController implements Initializable {
             DataStorage.getInstance().setRoundLimit(50);
         } else {
             DataStorage.getInstance().setRoundLimit(100);
+        }
+        if (musicOn.isSelected()){
+            //("Länk till music class med  setter för music on")
+        }
+        else{
+            //Länk till music class med setter för music off
         }
 
         System.out.println("submitOption");

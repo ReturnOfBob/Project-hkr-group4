@@ -38,7 +38,7 @@
          </toggleGroup>
       </RadioButton>
       <RadioButton fx:id="musicOff" layoutX="271.0" layoutY="136.0" mnemonicParsing="false" text="Off" toggleGroup="$musicGroup" />
-      <Slider layoutX="113.0" layoutY="216.0" prefHeight="14.0" prefWidth="381.0" />
+      <Slider fx:id="musicChange" layoutX="113.0" layoutY="216.0" prefHeight="14.0" prefWidth="381.0" />
       <Label layoutX="110.0" layoutY="245.0" text="ImageView här" />
       <Label layoutX="251.0" layoutY="245.0" text="ImageView här" />
       <Label layoutX="396.0" layoutY="231.0" prefHeight="45.0" prefWidth="79.0" text="ImageView här" />
