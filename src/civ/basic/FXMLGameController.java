@@ -38,13 +38,21 @@ public class FXMLGameController implements Initializable {
     private int amountOfCoal = 0;
     private int amountOfSteel = 0;
     private int currentTurn = 0;
+    private int eventGoldMultiplier = 1;
+    private int eventWoodMultiplier = 1;
+    private int eventStoneMultiplier = 1;
+    private int eventFoodMultiplier = 1;
+    private int eventHumanMultiplier = 1;
+    private int eventIronMultiplier = 1;
+    private int eventCoalMultiplier = 1;
+    private int eventSteelMultiplier = 1;
+    
     private int resourceCap = 500;
     private boolean resourceAmountCheck = false;
     
     final private ObservableList<Resource> resourceList = FXCollections.observableArrayList();
     final private ObservableList<NormalBuilding> buildingList = FXCollections.observableArrayList();
     final private DataBaseConnector connector = new DataBaseConnector();
-    
 //---------------------------------GUI----------------------------------------\\    
     @FXML
     private Label goldLabel, woodLabel, stoneLabel, foodLabel, humanLabel, ironLabel, coalLabel, steelLabel, currentTurnLabel, activeUserLabel;
@@ -89,17 +97,25 @@ public class FXMLGameController implements Initializable {
         resourceAdder();  //method calls must be in this order, otherwise a crash will occur
         buildingAdder();
         onNewGame();
-    }    
+    }  
 //------------------------------FXML METHODS----------------------------------\\
     @FXML
     private void nextTurn(ActionEvent event){
-        
         currentTurn++;
         currentTurnLabel.setText("Current turn: " + currentTurn);
         
+        //Events starts after the 5th turn
+        if(currentTurn > 5){
+            generateEvent();
+        }
+        //Handles the resources gain/lost after events
+        addEventResources();
+        addEventPercentageResources();
+        //Resets the event resource values to their default values
+        EventStorage.getInstance().resetEventResources();
+        
         addResourcesToAmount();
         refreshResources();
-        resourcePerTurnCalc();
         
         if(DataStorage.getInstance().getRoundLimit().equals(NULL)){
             DataStorage.getInstance().setRoundLimit(20);
@@ -152,14 +168,14 @@ public class FXMLGameController implements Initializable {
             resourceList.get(i).resetByTurn();
         }
         for(int i = 0; i < buildingList.size(); i++){
-            resourceList.get(0).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getGold());
-            resourceList.get(1).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getWood());
-            resourceList.get(2).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getStone());
-            resourceList.get(3).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getFood());
-            resourceList.get(4).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getHuman());
-            resourceList.get(5).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getIron());
-            resourceList.get(6).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getCoal());
-            resourceList.get(7).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getSteel());
+            resourceList.get(0).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getGold() * eventGoldMultiplier);
+            resourceList.get(1).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getWood() * eventWoodMultiplier);
+            resourceList.get(2).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getStone() * eventStoneMultiplier);
+            resourceList.get(3).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getFood() * eventFoodMultiplier);
+            resourceList.get(4).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getHuman() * eventHumanMultiplier);
+            resourceList.get(5).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getIron() * eventIronMultiplier);
+            resourceList.get(6).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getCoal() * eventCoalMultiplier);
+            resourceList.get(7).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getSteel() * eventSteelMultiplier);
         }
     }
     
@@ -224,14 +240,21 @@ public class FXMLGameController implements Initializable {
         activeUserLabel.setText(DataStorage.getInstance().getNewActiveUser());
     }
     
-    private void rngHandler(){
+    private void generateEvent(){
+
         Random random = new Random();
         int randomNum = random.nextInt(1000);
+        System.out.println(randomNum);
         
-        if(randomNum < 3){
-            System.out.println("Kaboom, en meteorit small ner");
+        if(EventHandler.getInstance().getEventDuration() < 1){
+            EventHandler.getInstance().setEventIsActive(false);
+            
         }
+        
+        EventHandler.getInstance().calculateEvent(randomNum);
+        System.out.println(EventStorage.getInstance().getEventText());
     }
+    
     private void resourceAdder(){
         resourcesTableview.setItems(resourceList);
         resourceNameColumn.setCellValueFactory(cellData -> cellData.getValue().getName());
@@ -395,53 +418,28 @@ public class FXMLGameController implements Initializable {
             }
         }
     }
-                public int getamountOfGold(){
-        return amountOfGold;
+    
+    private void addEventResources(){
+        
+        amountOfGold += EventStorage.getInstance().getEventChangeGold();
+        amountOfWood += EventStorage.getInstance().getEventChangeWood();
+        amountOfStone += EventStorage.getInstance().getEventChangeStone();
+        amountOfFood += EventStorage.getInstance().getEventChangeFood();
+        amountOfHuman += EventStorage.getInstance().getEventChangeHuman();
+        amountOfIron += EventStorage.getInstance().getEventChangeIron();
+        amountOfCoal += EventStorage.getInstance().getEventChangeCoal();
+        amountOfSteel += EventStorage.getInstance().getEventChangeSteel();
     }
-      public void setamountGold(int amountOfGold) {
-        this.amountOfGold = amountOfGold;
+    
+    private void addEventPercentageResources(){
+        amountOfGold = (int) (amountOfGold * EventStorage.getInstance().getEventPercentageChangeGold());
+        amountOfWood = (int) (amountOfWood * EventStorage.getInstance().getEventPercentageChangeWood());
+        amountOfStone = (int) (amountOfStone * EventStorage.getInstance().getEventPercentageChangeStone());
+        amountOfFood = (int) (amountOfFood * EventStorage.getInstance().getEventPercentageChangeFood());
+        amountOfHuman = (int) (amountOfHuman * EventStorage.getInstance().getEventPercentageChangeHuman());
+        amountOfIron = (int) (amountOfIron * EventStorage.getInstance().getEventPercentageChangeIron());
+        amountOfCoal = (int) (amountOfCoal * EventStorage.getInstance().getEventPercentageChangeCoal());
+        amountOfSteel = (int) (amountOfSteel * EventStorage.getInstance().getEventPercentageChangeSteel());
     }
-        public int getamountOfWood(){
-        return amountOfWood;
-    }
-      public void setamountOfWood(int amountOfWood) {
-        this.amountOfWood = amountOfWood;
-    }
-      public int getamountOfStone(){
-        return amountOfWood;
-    }
-      public void setamountOfStone(int amountOfStone) {
-        this.amountOfStone = amountOfStone;
-    }
-      public int getamountOfFood(){
-        return amountOfFood;
-    }
-      public void setamountOfFood(int amountOfFood) {
-        this.amountOfFood = amountOfFood;
-    }
-      public int getamountOfHuman(){
-        return amountOfHuman;
-    }
-      public void setamountOfHuman(int amountOfHuman) {
-        this.amountOfHuman = amountOfHuman;
-    }
-      public int getamountOfIron(){
-        return amountOfIron;
-    }
-      public void setamountOfIron(int amountOfIron) {
-        this.amountOfIron = amountOfIron;
-    }
-      public int getamountOfCoal(){
-        return amountOfCoal;
-    }
-      public void setamountOfCoal(int amountOfCoal) {
-        this.amountOfCoal = amountOfCoal;
-    }
-      public int getamountOfSteel(){
-        return amountOfSteel;
-    }
-      public void setamountOfSteel(int amountOfSteel) {
-        this.amountOfSteel = amountOfSteel;
-    }
+    
 }
-
