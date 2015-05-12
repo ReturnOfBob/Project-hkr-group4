@@ -31,8 +31,11 @@ public class Resource {
     public IntegerProperty getByTurn(){
         return byTurn;
     }
-    public void setByTurn(int byTurn){
+    public void setByTurn(int add){
+        int byTurn = add + this.byTurn.getValue();
         this.byTurn.set(byTurn);
     }
-    
+    public void resetByTurn(){
+        this.byTurn.set(0);
+    }
 }
