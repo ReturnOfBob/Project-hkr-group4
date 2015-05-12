@@ -20,14 +20,7 @@ public class FXMLLeaderboardController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
-}
-
-  /*public int calculateRescourseScore(int gold, int wood, int stone, int food, int human, int iron, int coal, int steel) {
+      /*public int calculateRescourseScore(int gold, int wood, int stone, int food, int human, int iron, int coal, int steel) {
         int rescourseScore = gold * 2 + wood * 2 + stone * 2 + +food * 2 + human * 3 + iron * 2 + coal * 2 + steel * 2;
         return rescourseScore;
     }
@@ -42,3 +35,11 @@ public class FXMLLeaderboardController implements Initializable {
         int finalScore = rescourseScore + buildingAmountScore + technologyScore + ArmyScore;
         return finalScore;
     }
+
+*/
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }    }
+    
