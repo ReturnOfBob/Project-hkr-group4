@@ -64,6 +64,27 @@ public class EventHandler {
             else if(randomGeneratedNumber > 101 && randomGeneratedNumber < 110){
                 EventStorage.getInstance().Events(11);
             }
+             else if(randomGeneratedNumber > 121 && randomGeneratedNumber < 130){ 
+                EventStorage.getInstance().Events(13);                           
+            }
+              else if(randomGeneratedNumber > 131 && randomGeneratedNumber < 140){ 
+                EventStorage.getInstance().Events(14);                           
+            }
+              else if(randomGeneratedNumber > 141 && randomGeneratedNumber < 150){ 
+                EventStorage.getInstance().Events(15);                           
+            }
+              else if(randomGeneratedNumber > 151 && randomGeneratedNumber < 160){ 
+                EventStorage.getInstance().Events(16);                           
+            }
+              else if(randomGeneratedNumber > 161 && randomGeneratedNumber < 170){ 
+                EventStorage.getInstance().Events(17);                           
+            }
+               else if(randomGeneratedNumber > 171 && randomGeneratedNumber < 180){ 
+                EventStorage.getInstance().Events(18);                           
+            }
+               else if(randomGeneratedNumber > 181 && randomGeneratedNumber < 190){ 
+                EventStorage.getInstance().Events(19);                           
+            }
             else{
                 //No event will occur
             }
