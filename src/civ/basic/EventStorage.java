@@ -50,103 +50,63 @@ public class EventStorage {
 //-------------------------------------EVENTS---------------------------------\\
     public void Events(int eventID){
     switch (eventID) {
-            case 1:
-    
+            case 1:   
                 eventText = "One of your citys guards helps a old man on the road, as a reward the old man give your city 10 Gold pices.\n+10 Gold";
                 eventChangeGold = 10;
                 break;
             case 2:
-    
                 eventText ="A evil little dwarf comes and steals 20% of your gold! All you can do is with a sobbing voice screm: You have violated the law, come back here you little lawbreaking halfman!! At which you can hear a fleeting voice answer back: I'm guilty of a far more monstrous crime: I'm guilty of being a dwarf!\n-20% Gold";
                 eventPercentageChangeGold = 0.8;
                 break;
-            case 3:
-    
-                eventText = "It's been a very good year for wood, so you get extra.";
+            case 3:   
+                eventText = "It's been a very good year for wood, so you get extra.\n+10 Wood";
                 eventChangeWood = 10;
                 break;
             case 4:
+                eventText = "Oh nooes, 20% of all your stored wood just went bad, so you have to throw it away!";
+                eventPercentageChangeFood = 0.8;
+                break;
+            case 5: 
+                eventText = "The holy Bob have arived, you get 20 of all resources!";
+                eventChangeSteel = 20;
+                eventChangeWood = 20;
+                eventChangeStone = 20;
+                eventChangeFood = 20;
+                eventChangeIron = 20;
+                eventChangeCoal = 20;
+                eventChangeGold = 20;
+                break;
+            case 6:  
+                eventText ="Sacrifice 20 food to appease the holy Bob!!";
+                eventChangeFood = -20;
+                break;
+            case 7:
+                eventText = "One of the kids in the town found a chest under a rock outside of the town, he now wants to give the town all 10 iron ingots that was inside!";
+                eventChangeSteel = 10;
+                break;
+            case 8:
+                eventText = "The traders that was in the town forgot 15 steel, none would care... right? RIGHT??";
+                eventChangeSteel = 15;
+                break;
+            case 9:
+                eventText = "Bandits attack and steals all your gold!";
+                eventChangeGoldMultiplier = 0;
+                break;
+            case 10:
+                eventText = "You where out and walking, when it hit you! The pebbels on the ground is made out of... stone, so you gather some and takes it home in your pockets, you recive 15 stone!";
+                eventChangeStone = 15;
+                break;
+            case 11:
+                eventText = "5 people have heard of your town! So they want to move in!";
+                eventChangeHuman = 5;
+                break;
+            case 12:
                 EventHandler.getInstance().setEventIsActive(true);
                 EventHandler.getInstance().setEventDuration(5);
                 eventText = "Your lumberjack have found a huge forest with plenty of trees in it, you will have 20% more wood per turn for 5 turns.\n+20% Wood/p turn";
                 eventChangeWoodMultiplier = 1.2;
-                
                 break;
-         /*   case 4:
-    
-                eventText = "Oh nooes, 20% of all your stored wood just went bad, so you have to throw it away!";
-                eventResultProcentage = (int) (FXMLGameController.getInstance().getamountOfWood() * 0.8);
-                FXMLGameController.getInstance().setamountOfWood((int) eventResultProcentage);
-                break;
-    
-            case 5:
-    
-                eventText = "The holy Bob have arived, you get 10 of all resources!";
-                eventResult = 10 + FXMLGameController.getInstance().getamountOfIron();
-                FXMLGameController.getInstance().setamountOfIron(eventResult);
-                eventResult = 10 + FXMLGameController.getInstance().getamountOfFood();
-                FXMLGameController.getInstance().setamountOfFood(eventResult);
-                eventResult = 10 + FXMLGameController.getInstance().getamountOfSteel();
-                FXMLGameController.getInstance().setamountOfSteel(eventResult);
-                eventResult = 10 + FXMLGameController.getInstance().getamountOfHuman();
-                FXMLGameController.getInstance().setamountOfHuman(eventResult);
-                eventResult = 10 + FXMLGameController.getInstance().getamountOfCoal();
-                FXMLGameController.getInstance().setamountOfCoal(eventResult);
-                eventResult = 10 + FXMLGameController.getInstance().getamountOfWood();
-                FXMLGameController.getInstance().setamountOfWood(eventResult);
-                eventResult = 10 + FXMLGameController.getInstance().getamountOfStone();
-                FXMLGameController.getInstance().setamountOfStone(eventResult);
-    
-                break;
-            case 6:
-    
-                eventText ="Sacrifice 10 food to appease the holy Bob!!";
-                eventResult = 10 + FXMLGameController.getInstance().getamountOfFood();
-                FXMLGameController.getInstance().setamountOfFood(eventResult);
-    
-                break;
-            case 7:
-    
-                eventText = "One of the kids in the town found a chest under a rock outside of the town, he now wants to give the town all 10 iron ingots that was inside!";
-                eventResult = 10 + FXMLGameController.getInstance().getamountOfIron();
-                FXMLGameController.getInstance().setamountOfIron(eventResult);
-    
-                break;
-            case 8:
-    
-                eventText = "The traders that was in the town forgot 5 steel, none would care... right? RIGHT??";
-                eventResult = 5 + FXMLGameController.getInstance().getamountOfSteel();
-                FXMLGameController.getInstance().setamountOfSteel(eventResult);
-    
-                break;
-    
-            case 9:
-    
-                eventText = "Bandits attack and steals all your gold!";
-                FXMLGameController.getInstance().setamountGold(0);
-    
-                break;
-            case 10:
-    
-                eventText = "You where out and walking, when it hit you! The pebbels on the ground is made out of... stone, so you gather some and takes it home in your pockets, you recive 15 stone!";
-                eventResult = 10 + FXMLGameController.getInstance().getamountOfStone();
-                FXMLGameController.getInstance().setamountOfStone(eventResult);
-    
-                break;
-            case 11:
-    
-                eventText = "5 people have heard of your town! So they want to move in!";
-                eventResult = 15 + FXMLGameController.getInstance().getamountOfHuman();
-                FXMLGameController.getInstance().setamountOfHuman(eventResult);
-    
-                break;*/
-            /*case 12:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
-                break;
+                            /*
             case 13:
     
                 eventText =

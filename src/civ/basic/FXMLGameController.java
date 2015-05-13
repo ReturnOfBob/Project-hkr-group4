@@ -101,8 +101,8 @@ public class FXMLGameController implements Initializable {
             System.out.println("Event dur: " + EventHandler.getInstance().getEventDuration());
         }
         
-        //Events starts after the 5th turn
-        if(currentTurn > 5){
+        //Events starts after the 1th turn
+        if(currentTurn > 1){
             generateEvent();
         }
         
@@ -244,7 +244,7 @@ public class FXMLGameController implements Initializable {
     private void generateEvent(){
 
         Random random = new Random();
-        int randomNum = random.nextInt(1000);
+        int randomNum = random.nextInt(300);
         System.out.println(randomNum);
         
         if(EventHandler.getInstance().getEventDuration() < 1){
@@ -254,6 +254,7 @@ public class FXMLGameController implements Initializable {
         
         EventHandler.getInstance().calculateEvent(randomNum);
         System.out.println(EventStorage.getInstance().getEventText());
+        EventStorage.getInstance().setEventText("");
     }
     
     private void resourceAdder(){

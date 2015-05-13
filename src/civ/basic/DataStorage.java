@@ -28,7 +28,7 @@ public class DataStorage {
     private DataStorage(){
     
     }
-//---------------------GETS INFORMATION FROM DATASTORAGE---------------------\\    
+//---------------------GETS INFORMATION FROM DATASTORAGE----------------------\\    
     public static DataStorage getInstance(){
         if(dataStorage == null){
             dataStorage = new DataStorage();

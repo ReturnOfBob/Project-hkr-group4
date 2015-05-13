@@ -31,12 +31,38 @@ public class EventHandler {
     public void calculateEvent(int randomGeneratedNumber){
         //If an event is already active, only 1-turn bonusevents will happen
         if(eventIsActive == true){
-            if(randomGeneratedNumber < 500){
+            if(randomGeneratedNumber > 0 && randomGeneratedNumber < 10){
                 EventStorage.getInstance().Events(1);
-                
             }
-            else if(randomGeneratedNumber > 500 && randomGeneratedNumber < 800){
+            else if(randomGeneratedNumber > 11 && randomGeneratedNumber < 20){
                 EventStorage.getInstance().Events(2);
+            }
+            else if(randomGeneratedNumber > 21 && randomGeneratedNumber < 30){
+                EventStorage.getInstance().Events(3);
+            }
+            else if(randomGeneratedNumber > 31 && randomGeneratedNumber < 40){
+                EventStorage.getInstance().Events(4);
+            }
+            else if(randomGeneratedNumber > 41 && randomGeneratedNumber < 50){
+                EventStorage.getInstance().Events(5);
+            }
+            else if(randomGeneratedNumber > 51 && randomGeneratedNumber < 60){
+                EventStorage.getInstance().Events(6);
+            }
+            else if(randomGeneratedNumber > 61 && randomGeneratedNumber < 70){
+                EventStorage.getInstance().Events(7);
+            }
+            else if(randomGeneratedNumber > 71 && randomGeneratedNumber < 80){
+                EventStorage.getInstance().Events(8);
+            }
+            else if(randomGeneratedNumber > 81 && randomGeneratedNumber < 90){
+                EventStorage.getInstance().Events(9);
+            }
+            else if(randomGeneratedNumber > 91 && randomGeneratedNumber < 10){
+                EventStorage.getInstance().Events(10);
+            }
+            else if(randomGeneratedNumber > 101 && randomGeneratedNumber < 110){
+                EventStorage.getInstance().Events(11);
             }
             else{
                 //No event will occur
@@ -44,15 +70,43 @@ public class EventHandler {
         }
         //If it is false however, there is a possibility for every event to happen
         else{ 
-            if(randomGeneratedNumber < 500){
+            if(randomGeneratedNumber > 0 && randomGeneratedNumber < 10){
                 EventStorage.getInstance().Events(1);
             }
-            else if(randomGeneratedNumber > 500){
+            else if(randomGeneratedNumber > 11 && randomGeneratedNumber < 20){
+                EventStorage.getInstance().Events(2);
+            }
+            else if(randomGeneratedNumber > 21 && randomGeneratedNumber < 30){
+                EventStorage.getInstance().Events(3);
+            }
+            else if(randomGeneratedNumber > 31 && randomGeneratedNumber < 40){
                 EventStorage.getInstance().Events(4);
             }
-            /*else if(randomGeneratedNumber > 30 && randomGeneratedNumber < 50){
-                eventCall.Events(3);
-            }*/
+            else if(randomGeneratedNumber > 41 && randomGeneratedNumber < 50){
+                EventStorage.getInstance().Events(5);
+            }
+            else if(randomGeneratedNumber > 51 && randomGeneratedNumber < 60){
+                EventStorage.getInstance().Events(6);
+            }
+            else if(randomGeneratedNumber > 61 && randomGeneratedNumber < 70){
+                EventStorage.getInstance().Events(7);
+            }
+            else if(randomGeneratedNumber > 71 && randomGeneratedNumber < 80){
+                EventStorage.getInstance().Events(8);
+            }
+            else if(randomGeneratedNumber > 81 && randomGeneratedNumber < 90){
+                EventStorage.getInstance().Events(9);
+            }
+            else if(randomGeneratedNumber > 91 && randomGeneratedNumber < 100){
+                EventStorage.getInstance().Events(10);
+            }
+            else if(randomGeneratedNumber > 101 && randomGeneratedNumber < 110){
+                EventStorage.getInstance().Events(11);
+            }
+            else if(randomGeneratedNumber > 111 && randomGeneratedNumber < 120){ //OBS Timed Event!!
+                EventStorage.getInstance().Events(12);                           //OBS Timed Event!!
+            }
+            
             else{
                 //No event will occur
             }
