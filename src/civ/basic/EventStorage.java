@@ -77,8 +77,8 @@ public class EventStorage {
                 eventChangeGold = 20;
                 break;
             case 6:  
-                eventText ="Sacrifice 20 food to appease the holy Bob!!";
-                eventChangeFood = -20;
+                eventText ="Sacrifice 40 food to appease the holy Bob!!";
+                eventChangeFood = -40;
                 break;
             case 7:
                 eventText = "One of the kids in the town found a chest under a rock outside of the town, he now wants to give the town all 10 iron ingots that was inside!";
@@ -90,7 +90,7 @@ public class EventStorage {
                 break;
             case 9:
                 eventText = "Bandits attack and steals all your gold!";
-                eventChangeGoldMultiplier = 0;
+                eventPercentageChangeGold = 0;
                 break;
             case 10:
                 eventText = "You where out and walking, when it hit you! The pebbels on the ground is made out of... stone, so you gather some and takes it home in your pockets, you recive 15 stone!";
@@ -106,50 +106,31 @@ public class EventStorage {
                 eventText = "Your lumberjack have found a huge forest with plenty of trees in it, you will have 20% more wood per turn for 5 turns.\n+20% Wood/p turn";
                 eventChangeWoodMultiplier = 1.2;
                 break;
-                            /*
             case 13:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
+                eventText = "Bandits attack and steals all your wood!";
+                eventPercentageChangeWood = 0;
                 break;
             case 14:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
+                eventText = "Bandits attack and steals all your stone!";
+                eventPercentageChangeStone = 0;
                 break;
             case 15:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
-                break;
+                eventText = "Bandits attack and steals all your food!";
+                eventPercentageChangeFood = 0;
+                break;            
             case 16:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
+                eventText = "You found a shit-ton of loggs by the gate! Better put them in the storage...";
+                eventChangeWood = 15;
                 break;
             case 17:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
+                eventText = "A astroid was sighted by your astrologs, the end time is coming!! You lose 20 food!";
+                eventChangeFood = -20;
                 break;
-            case 18:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
+            case 18:   
+                eventText = "You where fishing, when you caught the whale in the lake! You chopp it up for 40 food!";
+                eventChangeFood = 40;
                 break;
-            case 19:
+          /*  case 19:
     
                 eventText =
                 eventResult =
