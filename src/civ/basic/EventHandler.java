@@ -31,12 +31,12 @@ public class EventHandler {
     public void calculateEvent(int randomGeneratedNumber){
         //If an event is already active, only 1-turn bonusevents will happen
         if(eventIsActive == true){
-            if(randomGeneratedNumber == 10){
-                //event.geteventExample1
+            if(randomGeneratedNumber < 500){
+                EventStorage.getInstance().Events(1);
                 
             }
-            else if(randomGeneratedNumber > 30 && randomGeneratedNumber < 50){
-                //event.getEventExample2
+            else if(randomGeneratedNumber > 500 && randomGeneratedNumber < 800){
+                EventStorage.getInstance().Events(2);
             }
             else{
                 //No event will occur
@@ -48,7 +48,7 @@ public class EventHandler {
                 EventStorage.getInstance().Events(1);
             }
             else if(randomGeneratedNumber > 500){
-             EventStorage.getInstance().Events(2);
+                EventStorage.getInstance().Events(4);
             }
             /*else if(randomGeneratedNumber > 30 && randomGeneratedNumber < 50){
                 eventCall.Events(3);

@@ -38,14 +38,6 @@ public class FXMLGameController implements Initializable {
     private int amountOfCoal = 0;
     private int amountOfSteel = 0;
     private int currentTurn = 0;
-    private int eventGoldMultiplier = 1;
-    private int eventWoodMultiplier = 1;
-    private int eventStoneMultiplier = 1;
-    private int eventFoodMultiplier = 1;
-    private int eventHumanMultiplier = 1;
-    private int eventIronMultiplier = 1;
-    private int eventCoalMultiplier = 1;
-    private int eventSteelMultiplier = 1;
     
     private int resourceCap = 500;
     private boolean resourceAmountCheck = false;
@@ -104,10 +96,17 @@ public class FXMLGameController implements Initializable {
         currentTurn++;
         currentTurnLabel.setText("Current turn: " + currentTurn);
         
+        if(EventHandler.getInstance().getEventDuration() > 0){
+            EventHandler.getInstance().setEventDuration(EventHandler.getInstance().getEventDuration()-1);    
+            System.out.println("Event dur: " + EventHandler.getInstance().getEventDuration());
+        }
+        
         //Events starts after the 5th turn
         if(currentTurn > 5){
             generateEvent();
         }
+        
+        
         //Handles the resources gain/lost after events
         addEventResources();
         addEventPercentageResources();
@@ -115,8 +114,10 @@ public class FXMLGameController implements Initializable {
         EventStorage.getInstance().resetEventResources();
         
         addResourcesToAmount();
+        resourcePerTurnCalc();
         refreshResources();
         
+        System.out.println(EventStorage.getInstance().getEventChangeWoodMultiplier());
         if(DataStorage.getInstance().getRoundLimit().equals(NULL)){
             DataStorage.getInstance().setRoundLimit(20);
         }
@@ -168,14 +169,14 @@ public class FXMLGameController implements Initializable {
             resourceList.get(i).resetByTurn();
         }
         for(int i = 0; i < buildingList.size(); i++){
-            resourceList.get(0).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getGold() * eventGoldMultiplier);
-            resourceList.get(1).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getWood() * eventWoodMultiplier);
-            resourceList.get(2).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getStone() * eventStoneMultiplier);
-            resourceList.get(3).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getFood() * eventFoodMultiplier);
-            resourceList.get(4).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getHuman() * eventHumanMultiplier);
-            resourceList.get(5).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getIron() * eventIronMultiplier);
-            resourceList.get(6).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getCoal() * eventCoalMultiplier);
-            resourceList.get(7).setByTurn(buildingList.get(i).getAmount().getValue() * buildingList.get(i).getSteel() * eventSteelMultiplier);
+            resourceList.get(0).setByTurn((int) (buildingList.get(i).getAmount().getValue() * buildingList.get(i).getGold() * EventStorage.getInstance().getEventChangeGoldMultiplier()));
+            resourceList.get(1).setByTurn((int) (buildingList.get(i).getAmount().getValue() * buildingList.get(i).getWood() * EventStorage.getInstance().getEventChangeWoodMultiplier()));
+            resourceList.get(2).setByTurn((int) (buildingList.get(i).getAmount().getValue() * buildingList.get(i).getStone() * EventStorage.getInstance().getEventChangeStoneMultiplier()));
+            resourceList.get(3).setByTurn((int) (buildingList.get(i).getAmount().getValue() * buildingList.get(i).getFood() * EventStorage.getInstance().getEventChangeFoodMultiplier()));
+            resourceList.get(4).setByTurn((int) (buildingList.get(i).getAmount().getValue() * buildingList.get(i).getHuman() * EventStorage.getInstance().getEventChangeHumanMultiplier()));
+            resourceList.get(5).setByTurn((int) (buildingList.get(i).getAmount().getValue() * buildingList.get(i).getIron() * EventStorage.getInstance().getEventChangeIronMultiplier()));
+            resourceList.get(6).setByTurn((int) (buildingList.get(i).getAmount().getValue() * buildingList.get(i).getCoal() * EventStorage.getInstance().getEventChangeCoalMultiplier()));
+            resourceList.get(7).setByTurn((int) (buildingList.get(i).getAmount().getValue() * buildingList.get(i).getSteel() * EventStorage.getInstance().getEventChangeSteelMultiplier()));
         }
     }
     
@@ -248,7 +249,7 @@ public class FXMLGameController implements Initializable {
         
         if(EventHandler.getInstance().getEventDuration() < 1){
             EventHandler.getInstance().setEventIsActive(false);
-            
+            EventStorage.getInstance().resetTimedEvents();
         }
         
         EventHandler.getInstance().calculateEvent(randomNum);
@@ -415,12 +416,16 @@ public class FXMLGameController implements Initializable {
             buildingList.add(new NormalBuilding(nameList.get(i), initialGoldint, initialWoodint, initialStoneint, initialIronint, initialCoalint,
                 initialSteelint, initialFoodint, initialHumanint, amount, goldint, woodint, stoneint, ironint, coalint, steelint,
                 foodint, humanint));
-        
+            
+            
+            
             }catch(Exception ex){
                 System.out.println("Error with mySQL search");
                 ex.printStackTrace();
             }
+            
         }
+        System.out.println(buildingList.get(3).getWood());
     }
     
     private void addEventResources(){

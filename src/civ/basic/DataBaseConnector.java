@@ -54,8 +54,9 @@ public class DataBaseConnector {
         return genericCommand;
     }
 
-    public String getGenericAndCommand(String attribute, String table, String whereCondition, String name, String password) {
-        String genericAndCommand = " SELECT " + attribute + " FROM " + table + " WHERE " + whereCondition + " = '" + name + "' AND '" + password + "'";
+    public String getGenericAndCommand(String attribute, String table, String whereCondition, String name, String whereCondition2, String password) {
+        String genericAndCommand = " SELECT " + attribute + " FROM " + table + " WHERE " + whereCondition + " = '" + name + "' AND " + whereCondition2 + " = '" + password + "'";
+                
         return genericAndCommand;
     }
 
