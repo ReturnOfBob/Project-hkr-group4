@@ -44,19 +44,19 @@ public class DataBaseConnector {
 
     }
 
-    public String getRescourseCommand(String selectWhat, String nameList, String rescourseNames) {
-        String rescourseCommand = " SELECT " + selectWhat + " FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList + "' AND Resources_Name = '" + rescourseNames + "'";
+    public String getRescourseCommand(String attribute, String nameList, String rescourseNames) {
+        String rescourseCommand = " SELECT " + attribute + " FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList + "' AND Resources_Name = '" + rescourseNames + "'";
         return rescourseCommand;
     }
 
-    public String getGenericCommand(String attribute, String Table, String whereCondition, String name) {
-        String genericCommand = " SELECT " + attribute + " FROM " + Table + " WHERE " + whereCondition + " = '" + name + "'";
+    public String getGenericCommand(String attribute, String table, String whereCondition, String name) {
+        String genericCommand = " SELECT " + attribute + " FROM " + table + " WHERE " + whereCondition + " = '" + name + "'";
         return genericCommand;
     }
 
-    public String getGenericAndCommand(String attribute, String Table, String whereCondition, String name, String password) {
-        String GenericAndCommand = " SELECT " + attribute + " FROM " + Table + " WHERE " + whereCondition + " = '" + name + "' AND '" + password + "'";
-        return GenericAndCommand;
+    public String getGenericAndCommand(String attribute, String table, String whereCondition, String name, String password) {
+        String genericAndCommand = " SELECT " + attribute + " FROM " + table + " WHERE " + whereCondition + " = '" + name + "' AND '" + password + "'";
+        return genericAndCommand;
     }
 
 }
