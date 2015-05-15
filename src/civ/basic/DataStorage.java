@@ -22,7 +22,7 @@ public class DataStorage {
     private static DataStorage dataStorage;
     private String newSceneIs;
     private String newActiveUser;
-    private String difficulty;
+    private String difficulty = "normal";
     private int RoundLimit;
 //------------------------------CONSTRUCTOR-----------------------------------\\    
     private DataStorage(){

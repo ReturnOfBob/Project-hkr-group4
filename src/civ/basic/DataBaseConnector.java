@@ -41,7 +41,11 @@ public class DataBaseConnector {
 
     public String getInputUserDataCommand() {
         return inputUserDataCommand;
-
+    }
+    public void close() throws SQLException{
+        if(c != null)c.close();
+        if(rs != null)rs.close();
+        if(prepSt != null)prepSt.close();
     }
 
     public String getRescourseCommand(String attribute, String nameList, String rescourseNames) {

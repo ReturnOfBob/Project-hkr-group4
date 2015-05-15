@@ -57,10 +57,18 @@
       <Button fx:id="ironMineButton" layoutX="467.0" layoutY="280.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" prefHeight="49.0" prefWidth="120.0" text="Iron mine" />
       <Button fx:id="coalMineButton" layoutX="623.0" layoutY="280.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" prefHeight="49.0" prefWidth="120.0" text="Coal mine" />
       <Label layoutX="233.0" layoutY="115.0" prefHeight="17.0" prefWidth="110.0" text="Standard Buildings" />
-      <Button fx:id="cottageButton" disable="true" layoutX="310.0" layoutY="396.0" mnemonicParsing="false" opacity="0.3" prefHeight="49.0" prefWidth="120.0" text="Cottage" />
-      <Button fx:id="bankButton" layoutX="310.0" layoutY="499.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="120.0" text="Bank" />
-      <Label layoutX="233.0" layoutY="361.0" prefHeight="17.0" prefWidth="110.0" text="Upgraded Buildings" />
-      <Label layoutX="233.0" layoutY="474.0" prefHeight="17.0" prefWidth="110.0" text="Unique Buildings" />
+      <Button fx:id="cottageButton" disable="true" layoutX="310.0" layoutY="373.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" opacity="0.3" prefHeight="49.0" prefWidth="120.0" text="Cottage" />
+      <Button fx:id="bankButton" layoutX="310.0" layoutY="527.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" prefHeight="49.0" prefWidth="120.0" text="Bank" />
+      <Label layoutX="233.0" layoutY="338.0" prefHeight="17.0" prefWidth="110.0" text="Upgraded Buildings" />
+      <Label layoutX="233.0" layoutY="502.0" prefHeight="17.0" prefWidth="110.0" text="Unique Buildings" />
       <Label fx:id="activeUserLabel" layoutX="80.0" layoutY="17.0" prefHeight="17.0" prefWidth="150.0" />
+      <Button fx:id="lumberjackButton" layoutX="467.0" layoutY="527.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" prefHeight="49.0" prefWidth="120.0" text="Lumberjack school" />
+      <Button fx:id="schoolButton" layoutX="623.0" layoutY="527.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" prefHeight="49.0" prefWidth="120.0" text="School" />
+      <Button fx:id="aqueductButton" layoutX="310.0" layoutY="595.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" prefHeight="49.0" prefWidth="120.0" text="Aqueduct" />
+      <Button fx:id="workshopButton" layoutX="467.0" layoutY="595.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" prefHeight="49.0" prefWidth="120.0" text="Workshop" />
+      <Button fx:id="graneryButton" disable="true" layoutX="467.0" layoutY="373.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" opacity="0.3" prefHeight="49.0" prefWidth="120.0" text="Granery" />
+      <Button fx:id="sawmillButton" disable="true" layoutX="624.0" layoutY="373.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" opacity="0.3" prefHeight="49.0" prefWidth="120.0" text="Sawmill" />
+      <Button fx:id="bazaarButton" disable="true" layoutX="310.0" layoutY="437.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" opacity="0.3" prefHeight="49.0" prefWidth="120.0" text="Bazaar" />
+      <Button fx:id="stoneworksButton" disable="true" layoutX="467.0" layoutY="437.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" opacity="0.3" prefHeight="49.0" prefWidth="120.0" text="Stoneworks" />
    </children>
 </AnchorPane>

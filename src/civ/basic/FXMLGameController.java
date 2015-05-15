@@ -7,10 +7,13 @@
 package civ.basic;
 
 import java.net.URL;
+import java.sql.SQLException;
 import static java.sql.Types.NULL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -39,18 +42,29 @@ public class FXMLGameController implements Initializable {
     private int amountOfSteel = 0;
     private int currentTurn = 0;
     
+    private double uniqueBonusGold = 1;
+    private double uniqueBonusWood = 1;
+    private double uniqueBonusStone = 1;
+    private double uniqueBonusFood = 1;
+    private double uniqueBonusIron = 1;
+    private double uniqueBonusCoal = 1;
+    private double uniqueBonusSteel = 1;
+    
     private int resourceCap = 500;
     private boolean resourceAmountCheck = false;
+    private double difficultyMultiplier;
     
     final private ObservableList<Resource> resourceList = FXCollections.observableArrayList();
-    final private ObservableList<NormalBuilding> buildingList = FXCollections.observableArrayList();
+    final private ObservableList<NormalBuilding> normalBuildingList = FXCollections.observableArrayList();
+    final private ObservableList<UniqueBuilding> uniqueBuildingList = FXCollections.observableArrayList();
     final private DataBaseConnector connector = new DataBaseConnector();
 //---------------------------------GUI----------------------------------------\\    
     @FXML
     private Label goldLabel, woodLabel, stoneLabel, foodLabel, humanLabel, ironLabel, coalLabel, steelLabel, currentTurnLabel, activeUserLabel;
     
     @FXML
-    private Button houseButton, woodmillButton, farmButton, stonemasonryButton, bankButton, marketButton, ironMineButton, coalMineButton, storageButton, steelworksButton, cottageButton, nextTurnButton;
+    private Button houseButton, woodmillButton, farmButton, stonemasonryButton, bankButton, marketButton, ironMineButton, coalMineButton, storageButton, steelworksButton, cottageButton, nextTurnButton,
+            graneryButton, sawmillButton, bazaarButton, stoneworksButton, lumberjackButton, schoolButton, aqueductButton, workshopButton;
     
     @FXML
     private TableView /*resourcesTableview, buildingsTableview,*/ statviewTableview;
@@ -87,8 +101,13 @@ public class FXMLGameController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         resourceAdder();  //method calls must be in this order, otherwise a crash will occur
-        buildingAdder();
+        try {
+            buildingAdder();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLGameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         onNewGame();
+        difficultySetter();
     }  
 //------------------------------FXML METHODS----------------------------------\\
     @FXML
@@ -116,10 +135,11 @@ public class FXMLGameController implements Initializable {
         addResourcesToAmount();
         resourcePerTurnCalc();
         refreshResources();
+        upgradeBuildingButtonsHandler();
         
         System.out.println(EventStorage.getInstance().getEventChangeWoodMultiplier());
         if(DataStorage.getInstance().getRoundLimit().equals(NULL)){
-            DataStorage.getInstance().setRoundLimit(20);
+            DataStorage.getInstance().setRoundLimit(50);
         }
         
         if(currentTurn > DataStorage.getInstance().getRoundLimit()){
@@ -139,6 +159,7 @@ public class FXMLGameController implements Initializable {
         resourceReducter(event);
         resourcePerTurnCalc();
         refreshResources();
+        upgradeBuildingButtonsHandler();
     }
 
 //----------------------------NON-FXML METHODS--------------------------------\\
@@ -161,22 +182,45 @@ public class FXMLGameController implements Initializable {
         amountOfIron += resourceList.get(5).getByTurn().getValue();
         amountOfCoal += resourceList.get(6).getByTurn().getValue();
         amountOfSteel += resourceList.get(7).getByTurn().getValue();
+        resourceCapHandler();
     }
     
     private void resourcePerTurnCalc(){
-        
+        uniqueBuildingBonusAdder();
         for(int i = 0; i < resourceList.size(); i++){
             resourceList.get(i).resetByTurn();
         }
-        for(int i = 0; i < buildingList.size(); i++){
-            resourceList.get(0).setByTurn((int) (buildingList.get(i).getAmount().getValue() * buildingList.get(i).getGold() * EventStorage.getInstance().getEventChangeGoldMultiplier()));
-            resourceList.get(1).setByTurn((int) (buildingList.get(i).getAmount().getValue() * buildingList.get(i).getWood() * EventStorage.getInstance().getEventChangeWoodMultiplier()));
-            resourceList.get(2).setByTurn((int) (buildingList.get(i).getAmount().getValue() * buildingList.get(i).getStone() * EventStorage.getInstance().getEventChangeStoneMultiplier()));
-            resourceList.get(3).setByTurn((int) (buildingList.get(i).getAmount().getValue() * buildingList.get(i).getFood() * EventStorage.getInstance().getEventChangeFoodMultiplier()));
-            resourceList.get(4).setByTurn((int) (buildingList.get(i).getAmount().getValue() * buildingList.get(i).getHuman() * EventStorage.getInstance().getEventChangeHumanMultiplier()));
-            resourceList.get(5).setByTurn((int) (buildingList.get(i).getAmount().getValue() * buildingList.get(i).getIron() * EventStorage.getInstance().getEventChangeIronMultiplier()));
-            resourceList.get(6).setByTurn((int) (buildingList.get(i).getAmount().getValue() * buildingList.get(i).getCoal() * EventStorage.getInstance().getEventChangeCoalMultiplier()));
-            resourceList.get(7).setByTurn((int) (buildingList.get(i).getAmount().getValue() * buildingList.get(i).getSteel() * EventStorage.getInstance().getEventChangeSteelMultiplier()));
+        for(int i = 0; i < normalBuildingList.size(); i++){
+            resourceList.get(0).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getGold() * EventStorage.getInstance().getEventChangeGoldMultiplier() * uniqueBonusGold));
+            resourceList.get(1).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getWood() * EventStorage.getInstance().getEventChangeWoodMultiplier() * uniqueBonusWood));
+            resourceList.get(2).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getStone() * EventStorage.getInstance().getEventChangeStoneMultiplier() * uniqueBonusStone));
+            resourceList.get(3).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getFood() * EventStorage.getInstance().getEventChangeFoodMultiplier() * uniqueBonusFood));
+            resourceList.get(4).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getHuman() * EventStorage.getInstance().getEventChangeHumanMultiplier()));
+            resourceList.get(5).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getIron() * EventStorage.getInstance().getEventChangeIronMultiplier() * uniqueBonusIron));
+            resourceList.get(6).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getCoal() * EventStorage.getInstance().getEventChangeCoalMultiplier() * uniqueBonusCoal));
+            resourceList.get(7).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getSteel() * EventStorage.getInstance().getEventChangeSteelMultiplier() * uniqueBonusSteel));
+            
+        }
+    }
+    
+    private void uniqueBuildingBonusAdder(){
+        
+        uniqueBonusGold = 1;
+        uniqueBonusWood = 1;
+        uniqueBonusStone = 1;
+        uniqueBonusFood = 1;
+        uniqueBonusIron = 1;
+        uniqueBonusCoal = 1;
+        uniqueBonusSteel = 1;
+      
+        for(int i = 0; i < uniqueBuildingList.size(); i++){
+            uniqueBonusGold += (uniqueBuildingList.get(i).getBonusGold() * uniqueBuildingList.get(i).getAmount().getValue());
+            uniqueBonusWood += (uniqueBuildingList.get(i).getBonusWood() * uniqueBuildingList.get(i).getAmount().getValue());
+            uniqueBonusStone += (uniqueBuildingList.get(i).getBonusStone() * uniqueBuildingList.get(i).getAmount().getValue());
+            uniqueBonusFood += (uniqueBuildingList.get(i).getBonusFood() * uniqueBuildingList.get(i).getAmount().getValue());
+            uniqueBonusIron += (uniqueBuildingList.get(i).getBonusIron() * uniqueBuildingList.get(i).getAmount().getValue());
+            uniqueBonusCoal += (uniqueBuildingList.get(i).getBonusCoal() * uniqueBuildingList.get(i).getAmount().getValue());
+            uniqueBonusSteel += (uniqueBuildingList.get(i).getBonusSteel() * uniqueBuildingList.get(i).getAmount().getValue());
         }
     }
     
@@ -190,24 +234,25 @@ public class FXMLGameController implements Initializable {
         int amountIronCheck = amountOfIron;
         int amountCoalCheck = amountOfCoal;
         int amountSteelCheck = amountOfSteel;
-        double multiplyer = 1;
+        double multiplier = 1;
         
         buttonText = ((Button) event.getSource()).getText();
-        for(NormalBuilding building : buildingList){
+        for(NormalBuilding building : normalBuildingList){
             if(building.getName().getValue().equals(buttonText)){
+                System.out.println("NormalBuilding");  //delete when done with game
                 
                 for(int i = 0; i < building.getAmount().getValue(); i++){
-                    multiplyer *= 1.1;
+                    multiplier *= 1.1;
                 }
                 
-                amountGoldCheck -= (building.getInitialGold() * multiplyer);
-                amountWoodCheck -= (building.getInitialWood() * multiplyer);
-                amountStoneCheck -= (building.getInitialStone() * multiplyer);
-                amountFoodCheck -= (building.getInitialFood() * multiplyer);
+                amountGoldCheck -= (building.getInitialGold() * multiplier * difficultyMultiplier);
+                amountWoodCheck -= (building.getInitialWood() * multiplier * difficultyMultiplier);
+                amountStoneCheck -= (building.getInitialStone() * multiplier * difficultyMultiplier);
+                amountFoodCheck -= (building.getInitialFood() * multiplier * difficultyMultiplier);
                 amountHumanCheck -= building.getInitialHuman();
-                amountIronCheck -= (building.getInitialIron() * multiplyer);
-                amountCoalCheck -= (building.getInitialCoal() * multiplyer);
-                amountSteelCheck -= (building.getInitialSteel() * multiplyer);
+                amountIronCheck -= (building.getInitialIron() * multiplier * difficultyMultiplier);
+                amountCoalCheck -= (building.getInitialCoal() * multiplier * difficultyMultiplier);
+                amountSteelCheck -= (building.getInitialSteel() * multiplier * difficultyMultiplier);
                 
                 if(amountGoldCheck < 0 || amountWoodCheck < 0 || amountStoneCheck < 0 || amountFoodCheck < 0 || amountHumanCheck < 0 ||
                         amountIronCheck < 0 || amountCoalCheck < 0 || amountSteelCheck < 0){
@@ -216,20 +261,107 @@ public class FXMLGameController implements Initializable {
                 }
                 
                 if(resourceAmountCheck == false){
-                    amountOfGold -= (building.getInitialGold() * multiplyer);
-                    amountOfWood -= (building.getInitialWood() * multiplyer);
-                    amountOfStone -= (building.getInitialStone() * multiplyer);
-                    amountOfFood -= (building.getInitialFood() * multiplyer);
+                    amountOfGold -= (building.getInitialGold() * multiplier * difficultyMultiplier);
+                    amountOfWood -= (building.getInitialWood() * multiplier * difficultyMultiplier);
+                    amountOfStone -= (building.getInitialStone() * multiplier * difficultyMultiplier);
+                    amountOfFood -= (building.getInitialFood() * multiplier * difficultyMultiplier);
                     amountOfHuman -= building.getInitialHuman();
-                    amountOfIron -= (building.getInitialIron() * multiplyer);
-                    amountOfCoal -= (building.getInitialCoal() * multiplyer);
-                    amountOfSteel -= (building.getInitialSteel() * multiplyer);
+                    amountOfIron -= (building.getInitialIron() * multiplier * difficultyMultiplier);
+                    amountOfCoal -= (building.getInitialCoal() * multiplier * difficultyMultiplier);
+                    amountOfSteel -= (building.getInitialSteel() * multiplier * difficultyMultiplier);
+                    
+                    if(building.getName().getValue().equals("Storage")){
+                        resourceCap += 100;
+                    }
                     
                     building.setAmount(1);
                 }
                 resourceAmountCheck = false;
             }
-        } 
+        }
+        for(UniqueBuilding building : uniqueBuildingList){
+            if(building.getName().getValue().equals(buttonText)){
+                
+                amountGoldCheck -= (building.getInitialGold() * difficultyMultiplier);
+                amountWoodCheck -= (building.getInitialWood() * difficultyMultiplier);
+                amountStoneCheck -= (building.getInitialStone() * difficultyMultiplier);
+                amountFoodCheck -= (building.getInitialFood() * difficultyMultiplier);
+                amountHumanCheck -= (building.getInitialHuman() * difficultyMultiplier);
+                amountIronCheck -= (building.getInitialIron() * difficultyMultiplier);
+                amountCoalCheck -= (building.getInitialCoal() * difficultyMultiplier);
+                amountSteelCheck -= (building.getInitialSteel() * difficultyMultiplier);
+                
+                if(amountGoldCheck < 0 || amountWoodCheck < 0 || amountStoneCheck < 0 || amountFoodCheck < 0 || amountHumanCheck < 0 ||
+                        amountIronCheck < 0 || amountCoalCheck < 0 || amountSteelCheck < 0 || building.getAmount().getValue() > 0){
+                    
+                    resourceAmountCheck = true;
+                }
+                if(resourceAmountCheck == false){
+                    amountOfGold -= (building.getInitialGold() * difficultyMultiplier);
+                    amountOfWood -= (building.getInitialWood() * difficultyMultiplier);
+                    amountOfStone -= (building.getInitialStone() * difficultyMultiplier);
+                    amountOfFood -= (building.getInitialFood() * difficultyMultiplier);
+                    amountOfHuman -= (building.getInitialHuman() * difficultyMultiplier);
+                    amountOfIron -= (building.getInitialIron() * difficultyMultiplier);
+                    amountOfCoal -= (building.getInitialCoal() * difficultyMultiplier);
+                    amountOfSteel -= (building.getInitialSteel() * difficultyMultiplier);
+                    
+                    building.setAmount(1);
+                }
+                resourceAmountCheck = false;
+            }
+        }        
+    }
+    
+    private void resourceCapHandler(){
+        if(amountOfGold > resourceCap){
+            amountOfGold = resourceCap;
+        }
+        if(amountOfWood > resourceCap){
+            amountOfWood = resourceCap;
+        }
+        if(amountOfStone > resourceCap){
+            amountOfStone = resourceCap;
+        }
+        if(amountOfFood > resourceCap){
+            amountOfFood = resourceCap;
+        }
+        if(amountOfHuman > resourceCap){
+            amountOfHuman = resourceCap;
+        }
+        if(amountOfIron > resourceCap){
+            amountOfIron = resourceCap;
+        }
+        if(amountOfCoal > resourceCap){
+            amountOfCoal = resourceCap;
+        }
+        if(amountOfSteel > resourceCap){
+            amountOfSteel = resourceCap;
+        }
+        if(amountOfGold < 0){
+            amountOfGold = 0;
+        }
+        if(amountOfWood < 0){
+            amountOfWood = 0;
+        }
+        if(amountOfStone < 0){
+            amountOfStone = 0;
+        }
+        if(amountOfFood < 0){
+            amountOfFood = 0;
+        }
+        if(amountOfHuman < 0){
+            amountOfHuman = 0;
+        }
+        if(amountOfIron < 0){
+            amountOfIron = 0;
+        }
+        if(amountOfCoal < 0){
+            amountOfCoal = 0;
+        }
+        if(amountOfSteel < 0){
+            amountOfSteel = 0;
+        }
     }
     
     private void onNewGame(){
@@ -272,8 +404,9 @@ public class FXMLGameController implements Initializable {
         resourceList.add(new Resource("Steel", 0));
     }
     
-    private void buildingAdder(){
+    private void buildingAdder() throws SQLException{
         ArrayList<String> nameList = new ArrayList<>();
+        int changeBuildingTypeChecker = 0;
         
         int initialGoldint;
         int initialWoodint;
@@ -302,8 +435,18 @@ public class FXMLGameController implements Initializable {
         nameList.add("Stonemason");
         nameList.add("Iron mine");
         nameList.add("Coal mine");
+        nameList.add("Cottage");
+        nameList.add("Granery");
+        nameList.add("Stoneworks");
+        nameList.add("Bazaar");
+        nameList.add("Sawmill");
+        nameList.add("Bank");
+        nameList.add("Lumberjack school");
+        nameList.add("School");
+        nameList.add("Aqueduct");
+        nameList.add("Workshop");
         
-        buildingsTableview.setItems(buildingList);
+        buildingsTableview.setItems(normalBuildingList);
         buildingNameColumn.setCellValueFactory(cellData -> cellData.getValue().getName());
         buildingAmountColumn.setCellValueFactory(cellData -> cellData.getValue().getAmount());
         
@@ -328,105 +471,128 @@ public class FXMLGameController implements Initializable {
             humanint = 0;
             
             try{
+            
+            String initialGold = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Gold");   
+            String initialWood = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Wood"); 
+            String initialStone = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Stone");   
+            String initialIron = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Iron"); 
+            String initialCoal = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Coal");   
+            String initialSteel = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Steel"); 
+            String initialFood = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Food");   
+            String initialHuman = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Human"); 
+            String gold = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Gold");   
+            String wood = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Wood"); 
+            String stone = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Stone");   
+            String iron = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Iron"); 
+            String coal = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Coal");   
+            String steel = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Steel"); 
+            String food = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Food"); 
+            String human = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Human"); 
 
-           String initialGold = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Gold");   
-           String initialWood = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Wood"); 
-           String initialStone = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Stone");   
-           String initialIron = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Iron"); 
-           String initialCoal = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Coal");   
-           String initialSteel = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Steel"); 
-           String initialFood = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Food");   
-           String initialHuman = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Human"); 
-           String gold = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Gold");   
-           String wood = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Wood"); 
-           String stone = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Stone");   
-           String iron = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Iron"); 
-           String coal = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Coal");   
-           String steel = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Steel"); 
-           String food = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Food"); 
-           String human = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Human"); 
-           
-            
-           
-            
-            
             if(connector.getResult(initialGold).next()){
                 initialGoldint = connector.getResultSet().getInt(1);
+                connector.close();
             }
         
             if(connector.getResult(initialWood).next()){
                 initialWoodint = connector.getResultSet().getInt(1);
+                connector.close();
             }
         
             if(connector.getResult(initialStone).next()){
                 initialStoneint = connector.getResultSet().getInt(1);
+                connector.close();
             }
         
             if(connector.getResult(initialIron).next()){
                 initialIronint = connector.getResultSet().getInt(1);
+                connector.close();
             }
         
             if(connector.getResult(initialCoal).next()){
                 initialCoalint = connector.getResultSet().getInt(1);
+                connector.close();
             }
         
             if(connector.getResult(initialSteel).next()){
                 initialSteelint = connector.getResultSet().getInt(1);
+                connector.close();
             }
         
             if(connector.getResult(initialFood).next()){
                 initialFoodint = connector.getResultSet().getInt(1);
+                connector.close();
             }
         
             if(connector.getResult(initialHuman).next()){
                 initialHumanint = connector.getResultSet().getInt(1);
+                connector.close();
             }
 
             if(connector.getResult(gold).next()){
                 goldint = connector.getResultSet().getInt(1);
+                connector.close();
             }
 
             if(connector.getResult(wood).next()){
                 woodint = connector.getResultSet().getInt(1);
+                connector.close();
             }
 
             if(connector.getResult(stone).next()){
                 stoneint = connector.getResultSet().getInt(1);
+                connector.close();
             }
         
             if(connector.getResult(iron).next()){
                 ironint = connector.getResultSet().getInt(1);
+                connector.close();
             }
         
             if(connector.getResult(coal).next()){
                 coalint = connector.getResultSet().getInt(1);
+                connector.close();
             }
 
             if(connector.getResult(steel).next()){
                 steelint = connector.getResultSet().getInt(1);
+                connector.close();
             }
 
             if(connector.getResult(food).next()){
                 foodint = connector.getResultSet().getInt(1);
+                connector.close();
             }
 
             if(connector.getResult(human).next()){
                 humanint = connector.getResultSet().getInt(1);
+                connector.close();
             }
-        
-            buildingList.add(new NormalBuilding(nameList.get(i), initialGoldint, initialWoodint, initialStoneint, initialIronint, initialCoalint,
-                initialSteelint, initialFoodint, initialHumanint, amount, goldint, woodint, stoneint, ironint, coalint, steelint,
-                foodint, humanint));
+            
+            System.out.println(changeBuildingTypeChecker);
+            if(changeBuildingTypeChecker < 14){
+                normalBuildingList.add(new NormalBuilding(nameList.get(i), initialGoldint, initialWoodint, initialStoneint, initialIronint, initialCoalint,
+                    initialSteelint, initialFoodint, initialHumanint, amount, goldint, woodint, stoneint, ironint, coalint, steelint,
+                    foodint, humanint));
+                    changeBuildingTypeChecker++;
+            }else{
+                uniqueBuildingList.add(new UniqueBuilding(nameList.get(i), initialGoldint, initialWoodint, initialStoneint, initialIronint, initialCoalint,
+                    initialSteelint, initialFoodint, initialHumanint, amount, goldint, woodint, stoneint, ironint, coalint, steelint,
+                    foodint, humanint));
+            }
             
             
             
             }catch(Exception ex){
                 System.out.println("Error with mySQL search");
                 ex.printStackTrace();
+            }finally{
+                connector.close();
             }
             
         }
-        System.out.println(buildingList.get(3).getWood());
+        System.out.println(normalBuildingList.get(2).getGold());
+        
     }
     
     private void addEventResources(){
@@ -452,4 +618,57 @@ public class FXMLGameController implements Initializable {
         amountOfSteel = (int) (amountOfSteel * EventStorage.getInstance().getEventPercentageChangeSteel());
     }
     
+    private void upgradeBuildingButtonsHandler(){
+        if(normalBuildingList.get(0).getAmount().getValue() >= 15){
+            cottageButton.setDisable(false);
+            cottageButton.setOpacity(1);       
+        }
+        if(normalBuildingList.get(1).getAmount().getValue() >= 7){
+            graneryButton.setDisable(false);
+            graneryButton.setOpacity(1);
+        }
+        if(normalBuildingList.get(2).getAmount().getValue() >= 8){
+            bazaarButton.setDisable(false);
+            bazaarButton.setOpacity(1);
+        }
+        if(normalBuildingList.get(3).getAmount().getValue() >= 13){
+            sawmillButton.setDisable(false);
+            sawmillButton.setOpacity(1);
+        }
+        if(normalBuildingList.get(6).getAmount().getValue() >= 10){
+            stoneworksButton.setDisable(false);
+            stoneworksButton.setOpacity(1);
+        }
+        if(uniqueBuildingList.get(0).getAmount().getValue() > 0){
+            bankButton.setDisable(true);
+            bankButton.setOpacity(0.3);
+        }
+        if(uniqueBuildingList.get(1).getAmount().getValue() > 0){
+            lumberjackButton.setDisable(true);
+            lumberjackButton.setOpacity(0.3);
+        }
+        if(uniqueBuildingList.get(2).getAmount().getValue() > 0){
+            schoolButton.setDisable(true);
+            schoolButton.setOpacity(0.3);
+        }
+        if(uniqueBuildingList.get(3).getAmount().getValue() > 0){
+            aqueductButton.setDisable(true);
+            aqueductButton.setOpacity(0.3);
+        }
+        if(uniqueBuildingList.get(4).getAmount().getValue() > 0){
+            workshopButton.setDisable(true);
+            workshopButton.setOpacity(0.3);
+        }
+    }
+    
+    private void difficultySetter(){
+            
+            if(DataStorage.getInstance().getDifficulty().equals("noob")){
+                difficultyMultiplier = 0.8; 
+            }else if(DataStorage.getInstance().getDifficulty().equals("normal")){
+                difficultyMultiplier = 1;
+            }else if(DataStorage.getInstance().getDifficulty().equals("asian")){
+                difficultyMultiplier = 1.2;
+            }
+        }
 }
