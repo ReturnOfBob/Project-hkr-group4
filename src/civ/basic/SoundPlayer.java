@@ -18,7 +18,7 @@ public class SoundPlayer {
 
     public void playMusic(int musicChoice) {
         if (musicChoice == 1) {
-            Media audioFile = new Media(getClass().getResource("<<musiklänk här>>").toString());
+            Media audioFile = new Media(getClass().getResource("/Resources/Soundtrack/A_Tiny_Love.mp3").toString());
 
             try {
                 createMusic(audioFile);

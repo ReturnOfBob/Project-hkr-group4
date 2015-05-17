@@ -29,7 +29,7 @@ public class EventHandler {
     //Takes the random generated number and decides which event that should be used, 
     //if the number does not match any events chance of happening then nothing special will happen this turn
     public void calculateEvent(int randomGeneratedNumber){
-        //If an event is already active, only 1-turn bonusevents will happen
+        //If an event is already active, only 1-turn bonusevents will happen. DO NOT ADD TIMED EVENTS HERE!
         if(eventIsActive == true){
             if(randomGeneratedNumber > 0 && randomGeneratedNumber < 10){
                 EventStorage.getInstance().Events(1);

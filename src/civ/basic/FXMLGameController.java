@@ -24,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -71,6 +72,15 @@ public class FXMLGameController implements Initializable {
     
     @FXML
     private TextArea eventlogTextArea;
+    
+    @FXML
+    private AnchorPane popUp;
+    
+    @FXML
+    private Button popUpButton;
+    
+    @FXML
+    private TextArea popUpText;
     
     
 //------------------------RESOURCES TABLEVIEW---------------------------------\\
@@ -145,6 +155,7 @@ public class FXMLGameController implements Initializable {
         if(currentTurn > DataStorage.getInstance().getRoundLimit()){
             DataStorage.getInstance().sceneSwitch(event, "FXMLMainMenu.fxml");
         }
+       
     }
     
      @FXML
@@ -161,6 +172,10 @@ public class FXMLGameController implements Initializable {
         refreshResources();
         upgradeBuildingButtonsHandler();
     }
+     @FXML
+     private void popUpButtonHandler (ActionEvent event){
+         popUp.setOpacity(0);
+     }
 
 //----------------------------NON-FXML METHODS--------------------------------\\
     private void refreshResources(){
@@ -382,11 +397,18 @@ public class FXMLGameController implements Initializable {
         if(EventHandler.getInstance().getEventDuration() < 1){
             EventHandler.getInstance().setEventIsActive(false);
             EventStorage.getInstance().resetTimedEvents();
-        }
-        
+        } 
         EventHandler.getInstance().calculateEvent(randomNum);
-        System.out.println(EventStorage.getInstance().getEventText());
+        System.out.println(EventStorage.getInstance().getEventText()); 
+        popUpText.setText(EventStorage.getInstance().getEventText());
+        if (EventStorage.getInstance().isEventActive() == true){
+            popUp.setOpacity(1);
+        }
+        else {
+            popUp.setOpacity(0);
+        }
         EventStorage.getInstance().setEventText("");
+        EventStorage.getInstance().setEventActive(false);
     }
     
     private void resourceAdder(){
