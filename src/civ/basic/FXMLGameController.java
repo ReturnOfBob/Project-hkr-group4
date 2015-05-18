@@ -24,6 +24,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -42,6 +44,7 @@ public class FXMLGameController implements Initializable {
     private int amountOfCoal = 0;
     private int amountOfSteel = 0;
     private int currentTurn = 0;
+    private int resourceCap = 500;
     
     private double uniqueBonusGold = 1;
     private double uniqueBonusWood = 1;
@@ -50,26 +53,26 @@ public class FXMLGameController implements Initializable {
     private double uniqueBonusIron = 1;
     private double uniqueBonusCoal = 1;
     private double uniqueBonusSteel = 1;
-    
-    private int resourceCap = 500;
-    private boolean resourceAmountCheck = false;
     private double difficultyMultiplier;
     
+    private String statsViewBuildingName;
+    private String eventLogDisplayText;
+    
+    private boolean resourceAmountCheck = false;
+
     final private ObservableList<Resource> resourceList = FXCollections.observableArrayList();
     final private ObservableList<NormalBuilding> normalBuildingList = FXCollections.observableArrayList();
     final private ObservableList<UniqueBuilding> uniqueBuildingList = FXCollections.observableArrayList();
+    final private ObservableList<StatsViewDisplayObject> statsViewDisplayList = FXCollections.observableArrayList();
     final private DataBaseConnector connector = new DataBaseConnector();
 //---------------------------------GUI----------------------------------------\\    
     @FXML
-    private Label goldLabel, woodLabel, stoneLabel, foodLabel, humanLabel, ironLabel, coalLabel, steelLabel, currentTurnLabel, activeUserLabel;
+    private Label goldLabel, woodLabel, stoneLabel, foodLabel, humanLabel, ironLabel, coalLabel, steelLabel, currentTurnLabel, activeUserLabel, statsViewBuildingLabel, statsViewNoteLabel;
     
     @FXML
     private Button houseButton, woodmillButton, farmButton, stonemasonryButton, bankButton, marketButton, ironMineButton, coalMineButton, storageButton, steelworksButton, cottageButton, nextTurnButton,
             graneryButton, sawmillButton, bazaarButton, stoneworksButton, lumberjackButton, schoolButton, aqueductButton, workshopButton;
-    
-    @FXML
-    private TableView /*resourcesTableview, buildingsTableview,*/ statviewTableview;
-    
+
     @FXML
     private TextArea eventlogTextArea;
     
@@ -92,10 +95,6 @@ public class FXMLGameController implements Initializable {
     @FXML
     private TableView<Resource> resourcesTableview;
     
-    
-    //@FXML
-    //private TableColumn<> nameColumn, amountColumn;     
-    
 //----------------------BUILDINGS TABLEVIEW-----------------------------------\\    
 
     @FXML
@@ -104,6 +103,12 @@ public class FXMLGameController implements Initializable {
     private TableColumn <NormalBuilding, Number> buildingAmountColumn;
     @FXML
     private TableView<NormalBuilding> buildingsTableview;
+//--------------------------BUILDING STATSVIEW TABLE--------------------------\\ 
+    
+    @FXML
+    private TableView statviewTableview;
+    @FXML
+    private TableColumn<StatsViewDisplayObject, String> statsViewResource, statsViewCost, statsViewProduces;
     
     
 //----------------------------ON SCENE LOADUP---------------------------------\\    
@@ -112,18 +117,23 @@ public class FXMLGameController implements Initializable {
 
         resourceAdder();  //method calls must be in this order, otherwise a crash will occur
         try {
-            buildingAdder();
+            buildingAdder();            
         } catch (SQLException ex) {
             Logger.getLogger(FXMLGameController.class.getName()).log(Level.SEVERE, null, ex);
         }
         onNewGame();
         difficultySetter();
+        
+        statsViewDisplayList.add(new StatsViewDisplayObject("","","","",""));
+        statviewTableview.setItems(statsViewDisplayList);
+        refreshEventLogText("Turn: " + currentTurn);
     }  
 //------------------------------FXML METHODS----------------------------------\\
     @FXML
     private void nextTurn(ActionEvent event){
         currentTurn++;
         currentTurnLabel.setText("Current turn: " + currentTurn);
+        refreshEventLogText("Turn: " + currentTurn);
         
         if(EventHandler.getInstance().getEventDuration() > 0){
             EventHandler.getInstance().setEventDuration(EventHandler.getInstance().getEventDuration()-1);    
@@ -172,12 +182,99 @@ public class FXMLGameController implements Initializable {
         refreshResources();
         upgradeBuildingButtonsHandler();
     }
-     @FXML
-     private void popUpButtonHandler (ActionEvent event){
-         popUp.setOpacity(0);
-     }
+    
+    @FXML
+    private void popUpButtonHandler (ActionEvent event){
+        popUp.setOpacity(0);
+        popUp.setDisable(true);
+        popUpText.setDisable(true);
+    }
+    
+    @FXML
+    private void showStatsViewColumns(MouseEvent event){
+       
+        statsViewBuildingName = ((Button) event.getSource()).getText();
+        System.out.println("In");
+        
+        switch (statsViewBuildingName) {
+            case "House":
+                refreshStatsViewColumns(true, 0);
+                break;
+            case "Farm":
+                refreshStatsViewColumns(true, 1);
+                break;
+            case "Market":
+                refreshStatsViewColumns(true, 2);
+                break;
+            case "Woodmill":
+                refreshStatsViewColumns(true, 3);
+                break;
+            case "Steelworks":
+                refreshStatsViewColumns(true, 4);
+                break;
+            case "Storage":
+                refreshStatsViewColumns(true, 5);
+                statsViewNoteLabel.setText("Note: Gives more space for resources.");
+                break;
+            case "Stonemason":
+                refreshStatsViewColumns(true, 6);
+                break;
+            case "Iron mine":
+                refreshStatsViewColumns(true, 7);
+                break;
+            case "Coal mine":
+                refreshStatsViewColumns(true, 8);
+                break;
+            case "Cottage":
+                refreshStatsViewColumns(true, 9);
+                break;
+            case "Granery":
+                refreshStatsViewColumns(true, 10);
+                break;
+            case "Stoneworks":
+                refreshStatsViewColumns(true, 11);
+                break;
+            case "Bazaar":
+                refreshStatsViewColumns(true, 12);
+                break;
+            case "Sawmill":
+                refreshStatsViewColumns(true, 13);
+                break;
+            case "Bank":
+                refreshStatsViewColumns(false, 0);
+                break;
+            case "Lumberjack school":
+                refreshStatsViewColumns(false, 1);
+                break;
+            case "School":
+                refreshStatsViewColumns(false, 2);
+                break;
+            case "Aqueduct":
+                refreshStatsViewColumns(false, 3);
+                break;
+            case "Workshop":
+                refreshStatsViewColumns(false, 4);
+                break;
+        }
+        
+    }
+    
+    @FXML
+    private void hideStatsViewColumns(){
+        System.out.println("Out");
+        
+        statsViewDisplayList.removeAll(statsViewDisplayList);
+        statsViewDisplayList.add(new StatsViewDisplayObject("","","","",""));
+        statviewTableview.setItems(statsViewDisplayList);
+        
+        statsViewBuildingLabel.setText("");
+        statsViewNoteLabel.setText("");
+        
+        
+    }
 
 //----------------------------NON-FXML METHODS--------------------------------\\
+    
     private void refreshResources(){
         goldLabel.setText("Gold: " + amountOfGold + "/" + resourceCap);
         woodLabel.setText("Wood: " + amountOfWood + "/" + resourceCap);
@@ -290,6 +387,7 @@ public class FXMLGameController implements Initializable {
                     }
                     
                     building.setAmount(1);
+                    refreshEventLogText("A " + buttonText + " was successfully built.");
                 }
                 resourceAmountCheck = false;
             }
@@ -322,6 +420,7 @@ public class FXMLGameController implements Initializable {
                     amountOfSteel -= (building.getInitialSteel() * difficultyMultiplier);
                     
                     building.setAmount(1);
+                    refreshEventLogText("A " + buttonText + " was successfully built.");
                 }
                 resourceAmountCheck = false;
             }
@@ -385,7 +484,7 @@ public class FXMLGameController implements Initializable {
         currentTurnLabel.setText("Current turn: " + currentTurn);
         
         refreshResources();
-        activeUserLabel.setText(DataStorage.getInstance().getNewActiveUser());
+        activeUserLabel.setText(" " + DataStorage.getInstance().getNewActiveUser());
     }
     
     private void generateEvent(){
@@ -399,15 +498,24 @@ public class FXMLGameController implements Initializable {
             EventStorage.getInstance().resetTimedEvents();
         } 
         EventHandler.getInstance().calculateEvent(randomNum);
-        System.out.println(EventStorage.getInstance().getEventText()); 
+        System.out.println(EventStorage.getInstance().getEventText());
+        
+        if(EventStorage.getInstance().getEventText() != null){
+            refreshEventLogText(EventStorage.getInstance().getEventText());
+        }
+        
         popUpText.setText(EventStorage.getInstance().getEventText());
         if (EventStorage.getInstance().isEventActive() == true){
+            popUp.setDisable(false);
+            popUpText.setDisable(false);
             popUp.setOpacity(1);
         }
         else {
             popUp.setOpacity(0);
+            popUp.setDisable(true);
+            popUpText.setDisable(true);
         }
-        EventStorage.getInstance().setEventText("");
+        EventStorage.getInstance().setEventText(null);
         EventStorage.getInstance().setEventActive(false);
     }
     
@@ -683,6 +791,45 @@ public class FXMLGameController implements Initializable {
         }
     }
     
+    private void refreshStatsViewColumns(boolean isNormalBuilding, int statsViewBuildingID){
+        statsViewDisplayList.removeAll(statsViewDisplayList);
+        statsViewBuildingLabel.setText(statsViewBuildingName);
+        
+        if(isNormalBuilding == true){
+            statsViewDisplayList.add(new StatsViewDisplayObject("Gold:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialGold()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getGold()), "",""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Wood:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialWood()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getWood()), "",""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Stone:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialStone()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getStone()), "",""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Iron:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialIron()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getIron()), "",""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Coal:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialCoal()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getCoal()), "",""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Steel:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialSteel()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getSteel()), "",""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Food:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialFood()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getFood()), "",""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Human:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialHuman()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getHuman()), "",""));
+            
+            statsViewResource.setCellValueFactory(new PropertyValueFactory<>("resourceName"));
+            statsViewCost.setCellValueFactory(new PropertyValueFactory<>("normalBuildingCost"));
+            statsViewProduces.setCellValueFactory(new PropertyValueFactory<>("normalBuildingProduces"));
+
+            statviewTableview.setItems(statsViewDisplayList);
+
+        }
+        else if(isNormalBuilding == false){
+            statsViewDisplayList.add(new StatsViewDisplayObject("Gold:", "", "", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialGold()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusGold())) + "%"));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Wood:", "","", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialWood()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusWood())) + "%"));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Stone:", "","", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialStone()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusStone())) + "%"));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Iron:", "","", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialIron()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusIron())) + "%"));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Coal:", "","", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialCoal()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusCoal())) + "%"));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Steel:", "","", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialSteel()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusSteel())) + "%"));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Food:", "","", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialFood()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusFood())) + "%"));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Human:", "", "", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialHuman()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusHuman())) + "%"));
+            
+            statsViewResource.setCellValueFactory(new PropertyValueFactory<>("resourceName"));
+            statsViewCost.setCellValueFactory(new PropertyValueFactory<>("uniqueBuildingCost"));
+            statsViewProduces.setCellValueFactory(new PropertyValueFactory<>("uniqueBuildingProduces"));
+
+            statviewTableview.setItems(statsViewDisplayList);
+        }
+    }
+    
     private void difficultySetter(){
             
             if(DataStorage.getInstance().getDifficulty().equals("noob")){
@@ -693,4 +840,16 @@ public class FXMLGameController implements Initializable {
                 difficultyMultiplier = 1.2;
             }
         }
+    
+    private void refreshEventLogText(String eventLogNewText){
+        if(eventLogDisplayText == null){
+            eventLogDisplayText = eventLogNewText;
+            eventlogTextArea.setText(eventLogDisplayText);
+        }
+        else{
+            eventLogDisplayText = eventLogNewText + "\n" +eventLogDisplayText ;
+            eventlogTextArea.setText(eventLogDisplayText);
+            
+        }
+    }
 }

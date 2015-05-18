@@ -10,34 +10,52 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLOptionController">
+<AnchorPane id="AnchorPane" prefHeight="369.0" prefWidth="600.0" styleClass="root" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLOptionController">
    <children>
-      <Button fx:id="Back" layoutX="501.0" layoutY="344.0" mnemonicParsing="false" onAction="#optionButtonClick" text="Back" />
-      <Button layoutX="403.0" layoutY="344.0" mnemonicParsing="false" onAction="#optionButtonClick" text="Save settings" />
-      <Label layoutX="113.0" layoutY="68.0" prefHeight="17.0" prefWidth="129.0" text="Change Difficulty:" />
-      <Label layoutX="113.0" layoutY="102.0" prefHeight="17.0" prefWidth="98.0" text="Round Limit:" />
-      <Label layoutX="221.0" layoutY="192.0" text="Music Choice:" />
-      <RadioButton fx:id="lowTurnLimit" layoutX="204.0" layoutY="102.0" mnemonicParsing="false" text="20">
+      <Button id="menuButton" fx:id="Back" layoutX="354.0" layoutY="311.0" mnemonicParsing="false" onAction="#optionButtonClick" text="Back" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button id="menuButton" layoutX="200.0" layoutY="311.0" mnemonicParsing="false" onAction="#optionButtonClick" text="Save settings" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label layoutX="113.0" layoutY="68.0" prefHeight="17.0" prefWidth="129.0" text="Change Difficulty:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="113.0" layoutY="102.0" prefHeight="17.0" prefWidth="98.0" text="Round Limit:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="265.0" layoutY="192.0" text="Music Choice:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <RadioButton fx:id="lowTurnLimit" layoutX="220.0" layoutY="102.0" mnemonicParsing="false" text="20">
          <toggleGroup>
             <ToggleGroup fx:id="roundGroup" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="mediumTurnLimit" layoutX="273.0" layoutY="102.0" mnemonicParsing="false" text="50" toggleGroup="$roundGroup" />
-      <RadioButton fx:id="highTurnLimit" layoutX="327.0" layoutY="102.0" mnemonicParsing="false" text="100" toggleGroup="$roundGroup" />
-      <RadioButton fx:id="noobDifficulty" layoutX="221.0" layoutY="60.0" mnemonicParsing="false" text="Noob">
+      <RadioButton fx:id="mediumTurnLimit" layoutX="300.0" layoutY="102.0" mnemonicParsing="false" text="50" toggleGroup="$roundGroup" />
+      <RadioButton fx:id="highTurnLimit" layoutX="380.0" layoutY="102.0" mnemonicParsing="false" text="100" toggleGroup="$roundGroup" />
+      <RadioButton fx:id="noobDifficulty" layoutX="220.0" layoutY="68.0" mnemonicParsing="false" text="Noob">
          <toggleGroup>
             <ToggleGroup fx:id="difficultyGroup" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="normalDifficulty" layoutX="297.0" layoutY="60.0" mnemonicParsing="false" text="Normal" toggleGroup="$difficultyGroup" />
-      <RadioButton fx:id="asianDifficulty" layoutX="396.0" layoutY="60.0" mnemonicParsing="false" text="Asian" toggleGroup="$difficultyGroup" />
-      <Label layoutX="113.0" layoutY="136.0" text="Music On/Off" />
-      <RadioButton fx:id="musicOn" layoutX="203.0" layoutY="136.0" mnemonicParsing="false" text="On">
+      <RadioButton fx:id="normalDifficulty" layoutX="300.0" layoutY="68.0" mnemonicParsing="false" text="Normal" toggleGroup="$difficultyGroup" />
+      <RadioButton fx:id="asianDifficulty" layoutX="380.0" layoutY="68.0" mnemonicParsing="false" text="Asian" toggleGroup="$difficultyGroup" />
+      <Label layoutX="113.0" layoutY="136.0" text="Music On/Off:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <RadioButton fx:id="musicOn" layoutX="220.0" layoutY="136.0" mnemonicParsing="false" text="On">
          <toggleGroup>
             <ToggleGroup fx:id="musicGroup" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="musicOff" layoutX="271.0" layoutY="136.0" mnemonicParsing="false" text="Off" toggleGroup="$musicGroup" />
+      <RadioButton fx:id="musicOff" layoutX="300.0" layoutY="136.0" mnemonicParsing="false" text="Off" toggleGroup="$musicGroup" />
       <Slider fx:id="musicChange" layoutX="113.0" layoutY="216.0" prefHeight="14.0" prefWidth="381.0" />
       <Label layoutX="110.0" layoutY="245.0" text="ImageView här" />
       <Label layoutX="251.0" layoutY="245.0" text="ImageView här" />

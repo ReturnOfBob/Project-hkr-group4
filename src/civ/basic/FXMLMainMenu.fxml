@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLMainMenuController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="250.0" styleClass="root" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLMainMenuController">
    <children>
-      <Button layoutX="56.0" layoutY="40.0" onAction="#menuClick" prefHeight="49.0" prefWidth="139.0" text="New Game" />
-      <Button layoutX="56.0" layoutY="95.0" onAction="#menuClick" prefHeight="49.0" prefWidth="139.0" text="Load Game" />
-      <Button layoutX="56.0" layoutY="151.0" onAction="#menuClick" prefHeight="49.0" prefWidth="139.0" text="Options" />
-      <Button layoutX="56.0" layoutY="208.0" onAction="#menuClick" prefHeight="49.0" prefWidth="139.0" text="Log Out" />
-      <Button layoutX="56.0" layoutY="263.0" onAction="#menuClick" prefHeight="49.0" prefWidth="139.0" text="Exit" />
+      <Button id="menuButton" layoutX="56.0" layoutY="29.0" onAction="#menuClick" prefHeight="49.0" prefWidth="139.0" stylesheets="@Style.css" text="New Game" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Button id="menuButton" layoutX="56.0" layoutY="84.0" onAction="#menuClick" prefHeight="49.0" prefWidth="139.0" text="Load Game" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Button id="menuButton" layoutX="56.0" layoutY="140.0" onAction="#menuClick" prefHeight="49.0" prefWidth="139.0" text="Options" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Button id="menuButton" layoutX="56.0" layoutY="197.0" onAction="#menuClick" prefHeight="49.0" prefWidth="139.0" text="Log Out" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Button id="menuButton" layoutX="56.0" layoutY="252.0" onAction="#menuClick" prefHeight="49.0" prefWidth="139.0" text="Exit" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <ImageView fitHeight="70.0" fitWidth="162.0" layoutX="63.0" layoutY="321.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Resources/Images/logo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

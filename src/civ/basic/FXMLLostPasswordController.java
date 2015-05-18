@@ -51,7 +51,7 @@ public class FXMLLostPasswordController implements Initializable {
 
         } else if (buttonText.equals("Retrieve password")) {
             handleButtonRetrievePassword();
-        } else if (buttonText.equals("Back to Log in")) {
+        } else if (buttonText.equals("Back to log-in")) {
             DataStorage.getInstance().sceneSwitch(event, "FXMLLogInMenu.fxml");
         } else {
             System.out.println("ERROR");
