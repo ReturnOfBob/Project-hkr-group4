@@ -71,13 +71,13 @@ public class FXMLGameController implements Initializable {
     
     @FXML
     private Button houseButton, woodmillButton, farmButton, stonemasonryButton, bankButton, marketButton, ironMineButton, coalMineButton, storageButton, steelworksButton, cottageButton, nextTurnButton,
-            graneryButton, sawmillButton, bazaarButton, stoneworksButton, lumberjackButton, schoolButton, aqueductButton, workshopButton;
+            graneryButton, sawmillButton, bazaarButton, stoneworksButton, lumberjackButton, schoolButton, aqueductButton, workshopButton, ingameMenuButton, resumeGameButton, cheatCodeButton, backToMainMenuButton, exitGame;
 
     @FXML
     private TextArea eventlogTextArea;
     
     @FXML
-    private AnchorPane popUp;
+    private AnchorPane popUp, ingameMenuPopUp, ingameMenuBlocker;
     
     @FXML
     private Button popUpButton;
@@ -272,6 +272,37 @@ public class FXMLGameController implements Initializable {
         statsViewBuildingLabel.setText("");
         statsViewNoteLabel.setText("");
         
+        
+    }
+    
+    @FXML
+    private void showIngameMenu(){
+        ingameMenuPopUp.setVisible(true);
+        ingameMenuBlocker.setVisible(true);
+    }
+    
+    @FXML
+    private void ingameMenuButtonClicked(ActionEvent event){
+        String buttonText;
+        buttonText = ((Button) event.getSource()).getText();
+        
+        if(buttonText.equals("Resume Game")){
+            ingameMenuPopUp.setVisible(false);
+            ingameMenuBlocker.setVisible(false);
+        }
+        else if(buttonText.equals("Cheat Code")){
+        
+        }
+        else if(buttonText.equals("Back To Main Menu")){
+        
+        }
+        else if(buttonText.equals("Exit Game")){
+            try {
+                System.exit(0);
+            }catch (Exception ex) {
+                System.out.println("ERROR EXIT!");
+            }
+        }
         
     }
 
