@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package civ.basic;
 
 import java.sql.Connection;
@@ -29,23 +24,42 @@ public class DataBaseConnector {
     }
 
     public ResultSet getResult(String command) throws SQLException {
+       // if(c != null)  c.close(); 
+        // if(prepSt != null)  prepSt.close(); 
         c = getConnection();
         prepSt = c.prepareStatement(command);
         rs = prepSt.executeQuery();
         return rs;
     }
 
-    public ResultSet getResultSet() {
+    public PreparedStatement getDelete(String command) throws SQLException {
+        c = getConnection();
+        prepSt = c.prepareStatement(command);
+        prepSt.executeUpdate(command);
+        return prepSt;
+
+    }
+
+    public ResultSet getResultSet() throws SQLException {
+        //if(c != null)  c.close(); 
+        //if(prepSt != null)  prepSt.close();
         return rs;
     }
 
     public String getInputUserDataCommand() {
         return inputUserDataCommand;
     }
-    public void close() throws SQLException{
-        if(c != null)c.close();
-        if(rs != null)rs.close();
-        if(prepSt != null)prepSt.close();
+
+    public void close() throws SQLException {
+        if (c != null) {
+            c.close();
+        }
+        if (rs != null) {
+            rs.close();
+        }
+        if (prepSt != null) {
+            prepSt.close();
+        }
     }
 
     public String getRescourseCommand(String attribute, String nameList, String rescourseNames) {
@@ -60,8 +74,23 @@ public class DataBaseConnector {
 
     public String getGenericAndCommand(String attribute, String table, String whereCondition, String name, String whereCondition2, String password) {
         String genericAndCommand = " SELECT " + attribute + " FROM " + table + " WHERE " + whereCondition + " = '" + name + "' AND " + whereCondition2 + " = '" + password + "'";
-                
+
         return genericAndCommand;
+    }
+
+    public String getGenericHighScoreCommand(int roundLimit) {
+        String genericHighScoreComand = "SELECT Username,Score, Difficulty FROM leaderboard WHERE round_Limit = '" + roundLimit + "'ORDER BY Score DESC LIMIT 5";
+        return genericHighScoreComand;
+    }
+
+    public String getInsertHighScoreCommand() {
+        String insertHighScoreComman = "INSERT INTO leaderboard (ID,Username,Score) VALUES (?,?,?)";
+        return insertHighScoreComman;
+    }
+
+    public String getDeleteFromTableCommand(String name, int score, String difficulty) {
+        String deleteFromTableCommand = "DELETE FROM leaderboard WHERE Username = '" + name + "' AND Score = '" + score + "' AND Difficulty = '" + difficulty + "'";
+        return deleteFromTableCommand;
     }
 
 }

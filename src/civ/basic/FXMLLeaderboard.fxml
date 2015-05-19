@@ -6,14 +6,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="civ.basic.FXMLLeaderboardController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLLeaderboardController">
    <children>
-      <TableView layoutX="96.0" layoutY="70.0" prefHeight="304.0" prefWidth="383.0">
+      <TableView id="menuButton" fx:id="leaderboardList" layoutX="44.0" layoutY="48.0" prefHeight="304.0" prefWidth="383.0" stylesheets="@Style.css">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
+          <TableColumn fx:id="scoreColumn" prefWidth="75.0" text="Score" />
+            <TableColumn fx:id="difficultyColumn" prefWidth="75.0" text="Difficulty" />
         </columns>
       </TableView>
+      <Button id="menuButton" layoutX="76.0" layoutY="365.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="To main menu" />
+      <Button id="menuButton" layoutX="427.0" layoutY="365.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="Delete selected row" />
+      <Button id="menuButton" layoutX="482.0" layoutY="23.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="20 rounds" />
+      <Button id="menuButton" layoutX="482.0" layoutY="59.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="50 rounds" />
+      <Button id="menuButton" layoutX="482.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="100 rounds" />
    </children>
 </AnchorPane>
