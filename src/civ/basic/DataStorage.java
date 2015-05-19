@@ -23,7 +23,7 @@ public class DataStorage {
     private String newSceneIs;
     private String newActiveUser;
     private String difficulty = "normal";
-    private int RoundLimit;
+    private int roundLimit;
     private int score;
 //------------------------------CONSTRUCTOR-----------------------------------\\    
     private DataStorage(){
@@ -75,12 +75,12 @@ public class DataStorage {
     public String getDifficulty() {
         return difficulty;
     }
-       public void setRoundLimit(Integer RoundLimit) {
-        this.RoundLimit = RoundLimit;
+       public void setRoundLimit(Integer roundLimit) {
+        this.roundLimit = roundLimit;
     }
 
     public Integer getRoundLimit() {
-        return RoundLimit;
+        return roundLimit;
     }
     public void setScore(int score){
         this.score = score;

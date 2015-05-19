@@ -112,28 +112,40 @@
     </AnchorPane>
       <Button fx:id="ingameMenuButton" layoutX="858.0" layoutY="22.0" mnemonicParsing="false" onAction="#showIngameMenu" prefHeight="25.0" prefWidth="104.0" text="Menu" />
       <AnchorPane fx:id="ingameMenuBlocker" opacity="0.3" prefHeight="680.0" prefWidth="1024.0" style="-fx-background-color: grey;" visible="false" />
-      <AnchorPane id="popUp" fx:id="ingameMenuPopUp" layoutX="428.0" layoutY="150.0" prefHeight="326.0" prefWidth="200.0" visible="false">
+      <AnchorPane id="popUp" fx:id="ingameMenuPopUp" layoutX="428.0" layoutY="150.0" prefHeight="363.0" prefWidth="200.0" visible="false">
          <children>
-            <Button id="menuButton" fx:id="resumeGameButton" layoutX="25.0" layoutY="35.0" mnemonicParsing="false" onAction="#ingameMenuButtonClicked" prefHeight="36.0" prefWidth="150.0" text="Resume Game" textFill="WHITE">
+            <Button id="menuButton" fx:id="resumeGameButton" layoutX="20.0" layoutY="35.0" mnemonicParsing="false" onAction="#ingameMenuButtonClicked" prefHeight="36.0" prefWidth="160.0" text="Resume Game" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button id="menuButton" fx:id="cheatCodeButton" layoutX="25.0" layoutY="95.0" mnemonicParsing="false" onAction="#ingameMenuButtonClicked" prefHeight="36.0" prefWidth="150.0" text="Cheat Code" textFill="WHITE">
+            <Button id="menuButton" fx:id="cheatCodeButton" layoutX="20.0" layoutY="95.0" mnemonicParsing="false" onAction="#ingameMenuButtonClicked" prefHeight="36.0" prefWidth="160.0" text="Cheat Code" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button id="menuButton" fx:id="backToMainMenuButton" layoutX="25.0" layoutY="155.0" mnemonicParsing="false" onAction="#ingameMenuButtonClicked" prefHeight="36.0" prefWidth="150.0" text="Back To Main Menu" textFill="WHITE">
+            <Button id="menuButton" fx:id="backToMainMenuButton" layoutX="20.0" layoutY="155.0" mnemonicParsing="false" onAction="#ingameMenuButtonClicked" prefHeight="36.0" prefWidth="160.0" text="Back To Main Menu" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button id="menuButton" fx:id="exitGame" layoutX="25.0" layoutY="215.0" mnemonicParsing="false" onAction="#ingameMenuButtonClicked" prefHeight="36.0" prefWidth="150.0" text="Exit Game" textFill="WHITE">
+            <Button id="menuButton" fx:id="exitGame" layoutX="20.0" layoutY="215.0" mnemonicParsing="false" onAction="#ingameMenuButtonClicked" prefHeight="36.0" prefWidth="160.0" text="Exit Game" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
+            <TextField fx:id="cheatCodeField" layoutX="20.0" layoutY="291.0" prefWidth="160.0" promptText="Enter code" visible="false" />
+            <Button id="menuButton" fx:id="cheatCodesOkButton" layoutX="78.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleCheatCodes" prefWidth="45.0" text="Ok" textFill="WHITE" visible="false">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label fx:id="cheatCodeLabel" layoutX="53.0" layoutY="254.0" />
+            <Label fx:id="cheatCodeErrorLabel" layoutX="70.0" layoutY="271.0" text="Invalid code!" textFill="RED" visible="false">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane> 
    </children>

@@ -24,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -67,14 +68,17 @@ public class FXMLGameController implements Initializable {
     final private DataBaseConnector connector = new DataBaseConnector();
 //---------------------------------GUI----------------------------------------\\    
     @FXML
-    private Label goldLabel, woodLabel, stoneLabel, foodLabel, humanLabel, ironLabel, coalLabel, steelLabel, currentTurnLabel, activeUserLabel, statsViewBuildingLabel, statsViewNoteLabel, scoreLabel;
+    private Label goldLabel, woodLabel, stoneLabel, foodLabel, humanLabel, ironLabel, coalLabel, steelLabel, currentTurnLabel, activeUserLabel, statsViewBuildingLabel, statsViewNoteLabel, scoreLabel, cheatCodeLabel, cheatCodeErrorLabel;
     
     @FXML
     private Button houseButton, woodmillButton, farmButton, stonemasonryButton, bankButton, marketButton, ironMineButton, coalMineButton, storageButton, steelworksButton, cottageButton, nextTurnButton,
-            graneryButton, sawmillButton, bazaarButton, stoneworksButton, lumberjackButton, schoolButton, aqueductButton, workshopButton, ingameMenuButton, resumeGameButton, cheatCodeButton, backToMainMenuButton, exitGame;
+            graneryButton, sawmillButton, bazaarButton, stoneworksButton, lumberjackButton, schoolButton, aqueductButton, workshopButton, ingameMenuButton, resumeGameButton, cheatCodeButton, backToMainMenuButton, exitGame, cheatCodesOkButton;
 
     @FXML
     private TextArea eventlogTextArea;
+    
+    @FXML
+    private TextField cheatCodeField;
     
     @FXML
     private AnchorPane popUp, ingameMenuPopUp, ingameMenuBlocker;
@@ -289,12 +293,19 @@ public class FXMLGameController implements Initializable {
         if(buttonText.equals("Resume Game")){
             ingameMenuPopUp.setVisible(false);
             ingameMenuBlocker.setVisible(false);
+            hideCheatCodeTools();
         }
         else if(buttonText.equals("Cheat Code")){
-        
+           
+            cheatCodeLabel.setLayoutX(53);
+            cheatCodeLabel.setLayoutY(255);
+            cheatCodeLabel.setText("Enter chead code:");
+            cheatCodeErrorLabel.setVisible(false);
+            cheatCodeField.setVisible(true);
+            cheatCodesOkButton.setVisible(true);
         }
         else if(buttonText.equals("Back To Main Menu")){
-        
+            DataStorage.getInstance().sceneSwitch(event, "FXMLMainMenu.fxml");
         }
         else if(buttonText.equals("Exit Game")){
             try {
@@ -304,6 +315,28 @@ public class FXMLGameController implements Initializable {
             }
         }
         
+    }
+    
+    @FXML
+    private void handleCheatCodes(){
+        if(cheatCodeField.getText().equals("haxmedlax")){
+            amountOfGold = amountOfGold + 100;
+            amountOfWood = amountOfWood + 100;
+            amountOfStone = amountOfStone + 100;
+            refreshResources();
+            codeSuccessfull();
+        }
+        else if(cheatCodeField.getText().equals("thereisnospoon")){
+            amountOfSteel = amountOfSteel + 200;
+            refreshResources();
+            codeSuccessfull();
+        }
+        else{
+
+            cheatCodeErrorLabel.setVisible(true);
+        }
+        
+        cheatCodeField.setText("");
     }
 
 //----------------------------NON-FXML METHODS--------------------------------\\
@@ -925,5 +958,20 @@ public class FXMLGameController implements Initializable {
         scoreLabel.setText("Score: " + score);
         DataStorage.getInstance().setScore(score);
         System.out.println("The score" + score);
+    }
+    
+    private void hideCheatCodeTools(){
+        cheatCodeLabel.setText("");
+        cheatCodeField.setVisible(false);
+        cheatCodesOkButton.setVisible(false);
+        cheatCodeErrorLabel.setVisible(false);
+    }
+    
+    private void codeSuccessfull(){
+        hideCheatCodeTools();
+        cheatCodeField.setText("");
+        cheatCodeLabel.setText("Success!");
+        cheatCodeLabel.setLayoutX(78);
+        cheatCodeLabel.setLayoutY(295);
     }
 }
