@@ -21,9 +21,10 @@ public abstract class Building {
     private int initialFood;
     private int initialHuman;
     private IntegerProperty amount;
+    private int scoreValue;
 //------------------------------CONSTRUCTOR-----------------------------------\\
     public Building(String name, int initialGold, int initialWood, int initialStone, int initialIron, int initialCoal, 
-            int initialSteel, int initialFood, int initialHuman, int amount) {
+            int initialSteel, int initialFood, int initialHuman, int amount, int scoreValue) {
         this.name = new SimpleStringProperty(name);
         this.initialGold = initialGold;
         this.initialWood = initialWood;
@@ -34,6 +35,7 @@ public abstract class Building {
         this.initialFood = initialFood;
         this.initialHuman = initialHuman;
         this.amount = new SimpleIntegerProperty(amount);
+        this.scoreValue = scoreValue;
     }
     
     public void setAmount(int add){
@@ -69,5 +71,8 @@ public abstract class Building {
     }
     public int getInitialSteel(){
         return initialSteel;
+    }
+    public int getScoreValue(){
+        return scoreValue;
     }
 }

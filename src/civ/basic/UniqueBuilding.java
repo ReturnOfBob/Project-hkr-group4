@@ -16,10 +16,10 @@ public class UniqueBuilding extends Building {
     private double bonusHuman;
 //------------------------------CONSTRUCTOR-----------------------------------\\        
     public UniqueBuilding(String name, int initialGold, int initialWood, int initialStone, int initialIron, int initialCoal,
-            int initialSteel, int initialFood, int initialHuman,int amount, double bonusGold, double bonusWood, double bonusStone, double bonusIron,
+            int initialSteel, int initialFood, int initialHuman, int amount, int scoreValue, double bonusGold, double bonusWood, double bonusStone, double bonusIron,
             double bonusCoal, double bonusSteel, double bonusFood, double bonusHuman) {
         
-        super(name, initialGold, initialWood, initialStone, initialIron, initialCoal, initialSteel, initialFood, initialHuman, amount);
+        super(name, initialGold, initialWood, initialStone, initialIron, initialCoal, initialSteel, initialFood, initialHuman, amount, scoreValue);
         this.bonusGold = (bonusGold/100);
         this.bonusWood = (bonusWood/100);
         this.bonusStone = (bonusStone/100);
@@ -28,6 +28,7 @@ public class UniqueBuilding extends Building {
         this.bonusSteel = (bonusSteel/100);
         this.bonusFood = (bonusFood/100);
         this.bonusHuman = (bonusHuman/100);
+        
         
     }
     

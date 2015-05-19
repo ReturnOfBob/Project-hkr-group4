@@ -67,7 +67,7 @@ public class FXMLGameController implements Initializable {
     final private DataBaseConnector connector = new DataBaseConnector();
 //---------------------------------GUI----------------------------------------\\    
     @FXML
-    private Label goldLabel, woodLabel, stoneLabel, foodLabel, humanLabel, ironLabel, coalLabel, steelLabel, currentTurnLabel, activeUserLabel, statsViewBuildingLabel, statsViewNoteLabel;
+    private Label goldLabel, woodLabel, stoneLabel, foodLabel, humanLabel, ironLabel, coalLabel, steelLabel, currentTurnLabel, activeUserLabel, statsViewBuildingLabel, statsViewNoteLabel, scoreLabel;
     
     @FXML
     private Button houseButton, woodmillButton, farmButton, stonemasonryButton, bankButton, marketButton, ironMineButton, coalMineButton, storageButton, steelworksButton, cottageButton, nextTurnButton,
@@ -156,6 +156,7 @@ public class FXMLGameController implements Initializable {
         resourcePerTurnCalc();
         refreshResources();
         upgradeBuildingButtonsHandler();
+        scoreCalculator();
         
         System.out.println(EventStorage.getInstance().getEventChangeWoodMultiplier());
         if(DataStorage.getInstance().getRoundLimit().equals(NULL)){
@@ -168,7 +169,7 @@ public class FXMLGameController implements Initializable {
        
     }
     
-     @FXML
+    @FXML
     private void buttonBuilderHandler(ActionEvent event){
         String buttonText;
         buttonText = ((Button) event.getSource()).getText();
@@ -181,6 +182,7 @@ public class FXMLGameController implements Initializable {
         resourcePerTurnCalc();
         refreshResources();
         upgradeBuildingButtonsHandler();
+        scoreCalculator();
     }
     
     @FXML
@@ -536,6 +538,7 @@ public class FXMLGameController implements Initializable {
     
     private void buildingAdder() throws SQLException{
         ArrayList<String> nameList = new ArrayList<>();
+        ArrayList<Integer> scoreList = new ArrayList<>();
         int changeBuildingTypeChecker = 0;
         
         int initialGoldint;
@@ -575,6 +578,26 @@ public class FXMLGameController implements Initializable {
         nameList.add("School");
         nameList.add("Aqueduct");
         nameList.add("Workshop");
+        
+        scoreList.add(5); //Score house
+        scoreList.add(10); //Score farm 
+        scoreList.add(13); //Score market
+        scoreList.add(8); //Score woodmill
+        scoreList.add(26); //Score steelworks
+        scoreList.add(36); //Score storage
+        scoreList.add(9); //Score stonemason
+        scoreList.add(16); //Score iron mine
+        scoreList.add(20); //Score coal mine
+        scoreList.add(13); //Score cottage
+        scoreList.add(21); //Score granery
+        scoreList.add(19); //Score stoneworks
+        scoreList.add(28); //Score bazaar
+        scoreList.add(18); //Score sawmill
+        scoreList.add(85); //Score bank
+        scoreList.add(90); //Score lumberjack school
+        scoreList.add(105); //Score school
+        scoreList.add(130); //Score aqueduct
+        scoreList.add(164); //Score workshop
         
         buildingsTableview.setItems(normalBuildingList);
         buildingNameColumn.setCellValueFactory(cellData -> cellData.getValue().getName());
@@ -702,12 +725,12 @@ public class FXMLGameController implements Initializable {
             System.out.println(changeBuildingTypeChecker);
             if(changeBuildingTypeChecker < 14){
                 normalBuildingList.add(new NormalBuilding(nameList.get(i), initialGoldint, initialWoodint, initialStoneint, initialIronint, initialCoalint,
-                    initialSteelint, initialFoodint, initialHumanint, amount, goldint, woodint, stoneint, ironint, coalint, steelint,
+                    initialSteelint, initialFoodint, initialHumanint, amount, scoreList.get(i), goldint, woodint, stoneint, ironint, coalint, steelint,
                     foodint, humanint));
                     changeBuildingTypeChecker++;
             }else{
                 uniqueBuildingList.add(new UniqueBuilding(nameList.get(i), initialGoldint, initialWoodint, initialStoneint, initialIronint, initialCoalint,
-                    initialSteelint, initialFoodint, initialHumanint, amount, goldint, woodint, stoneint, ironint, coalint, steelint,
+                    initialSteelint, initialFoodint, initialHumanint, amount, scoreList.get(i), goldint, woodint, stoneint, ironint, coalint, steelint,
                     foodint, humanint));
             }
             
@@ -851,5 +874,25 @@ public class FXMLGameController implements Initializable {
             eventlogTextArea.setText(eventLogDisplayText);
             
         }
+    }
+    private void scoreCalculator(){
+        int score = 0;
+        for(int i = 0; i < 14; i++){
+            
+            score += (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getScoreValue());
+            if(i < 5){
+                score += (uniqueBuildingList.get(i).getAmount().getValue() * uniqueBuildingList.get(i).getScoreValue());
+            }
+            
+        }
+        if(DataStorage.getInstance().getDifficulty().equals("noob")){ 
+            score *= 0.8;
+        }
+        else if(DataStorage.getInstance().getDifficulty().equals("asian")){
+            score *= 1.2;
+        }
+        scoreLabel.setText("Score: " + score);
+        DataStorage.getInstance().setScore(score);
+        System.out.println("The score" + score);
     }
 }

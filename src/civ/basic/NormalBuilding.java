@@ -21,11 +21,11 @@ public class NormalBuilding extends Building {
     private int human;
 //------------------------------CONSTRUCTOR-----------------------------------\\        
     public NormalBuilding(String name, int initialGold, int initialWood, int initialStone, int initialIron, int initialCoal, 
-            int initialSteel, int initialFood, int initialHuman, int amount, int gold, 
+            int initialSteel, int initialFood, int initialHuman, int amount, int scoreValue, int gold, 
             int wood, int stone, int iron, int coal, int steel, int food, int human) {
         
         super(name, initialGold,initialWood,initialStone, initialIron, initialCoal, initialSteel, 
-                initialFood, initialHuman, amount );
+                initialFood, initialHuman, amount, scoreValue );
         this.gold = gold;
         this.wood = wood;
         this.stone = stone;

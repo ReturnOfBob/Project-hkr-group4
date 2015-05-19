@@ -66,7 +66,7 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="547.0" layoutY="26.0" text="Score:">
+      <Label fx:id="scoreLabel" layoutX="547.0" layoutY="26.0" text="Score:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
