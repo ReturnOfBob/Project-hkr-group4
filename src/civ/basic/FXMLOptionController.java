@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 
 /**
@@ -28,9 +29,10 @@ public class FXMLOptionController implements Initializable, Serializable {
 //--------------------------------VARIABLES-----------------------------------\\ 
 
     @FXML
-    private RadioButton noobDifficulty, normalDifficulty, asianDifficulty, lowTurnLimit, mediumTurnLimit, highTurnLimit, musicOn, musicOff;
+    private RadioButton noobDifficulty, normalDifficulty, asianDifficulty, lowTurnLimit, mediumTurnLimit, highTurnLimit, musicOn, musicOff, musicPack1, musicPack2, musicPack3;
     private String buttonText;
     private final SoundPlayer player = new SoundPlayer();
+    @FXML
     String difficulty;
     int roundLimit;
     Boolean musicSet;
@@ -63,7 +65,7 @@ public class FXMLOptionController implements Initializable, Serializable {
         } else {
             System.out.println("ERROR!");
         }
-    }
+    }   
 
     private void submitOption() {
         if (noobDifficulty.isSelected()) {
@@ -84,6 +86,18 @@ public class FXMLOptionController implements Initializable, Serializable {
             //("Länk till music class med  setter för music on")
         } else {
             //Länk till music class med setter för music off
+        }
+
+        if (musicPack1.isSelected()){
+           // player.setMusicStop();
+            player.playMusic(1);
+        }
+        else if (musicPack2.isSelected()){
+           // player.setMusicStop();
+            player.playMusic(2);
+        } else {
+          //  player.setMusicStop();
+            player.playMusic(3);
         }
         objectSave.setDifficulty(DataStorage.getInstance().getDifficulty());
         objectSave.setMusicChoice(DataStorage.getInstance().getMusicChoice());

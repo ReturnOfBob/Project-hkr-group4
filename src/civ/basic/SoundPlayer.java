@@ -18,10 +18,14 @@ public class SoundPlayer {
 
     public void playMusic(int musicChoice) {
         if (musicChoice == 1) {
-            Media audioFile = new Media(getClass().getResource("/Resources/Soundtrack/A_Tiny_Love.mp3").toString());
+
+            Media audioFile = new Media(getClass().getResource("/Resources/Soundtrack/SoundPack1.mp3").toString());
 
             try {
-                createMusic(audioFile);
+
+                musicPlayer = new MediaPlayer(audioFile);
+                musicPlayer.setCycleCount(musicPlayer.INDEFINITE);
+                musicPlayer.play();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 System.exit(0);
@@ -29,10 +33,29 @@ public class SoundPlayer {
         }
 
         if (musicChoice == 2) {
-            Media audioFile = new Media(getClass().getResource("<<musiklänk här>>").toString());
+
+            Media audioFile = new Media(getClass().getResource("/Resources/Soundtrack/SoundPack2.mp3").toString());
 
             try {
-                createMusic(audioFile);
+
+                musicPlayer = new MediaPlayer(audioFile);
+                musicPlayer.setCycleCount(musicPlayer.INDEFINITE);
+                musicPlayer.play();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                System.exit(0);
+            }
+        }
+        
+        if (musicChoice == 3) {
+
+            Media audioFile = new Media(getClass().getResource("/Resources/Soundtrack/SoundPack3.mp3").toString());
+
+            try {
+                
+                musicPlayer = new MediaPlayer(audioFile);
+                musicPlayer.setCycleCount(musicPlayer.INDEFINITE);
+                musicPlayer.play();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 System.exit(0);
@@ -43,10 +66,10 @@ public class SoundPlayer {
     public void setMusicPause() {
         musicPlayer.pause();
     }
-    public void setMusicStop(){
+   /* public void setMusicStop(){
         //Kolla om den är igång först
         musicPlayer.stop();
-    }
+    }*/
 
     public void setMusicOn() {
         musicPlayer.play();

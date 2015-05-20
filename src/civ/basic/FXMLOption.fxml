@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="369.0" prefWidth="600.0" styleClass="root" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLOptionController">
+<AnchorPane id="AnchorPane" fx:id="musicChoice" prefHeight="369.0" prefWidth="600.0" styleClass="root" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLOptionController">
    <children>
       <Button id="menuButton" fx:id="Back" layoutX="354.0" layoutY="311.0" mnemonicParsing="false" onAction="#optionButtonClick" text="Back" textFill="WHITE">
          <font>
@@ -52,13 +52,16 @@
          </font></Label>
       <RadioButton fx:id="musicOn" layoutX="220.0" layoutY="136.0" mnemonicParsing="false" text="On">
          <toggleGroup>
+            <ToggleGroup fx:id="musicOnGroup" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="musicOff" layoutX="300.0" layoutY="136.0" mnemonicParsing="false" text="Off" toggleGroup="$musicOnGroup" />
+      <RadioButton fx:id="musicPack1" layoutX="119.0" layoutY="229.0" mnemonicParsing="false" text="MusicPack 1">
+         <toggleGroup>
             <ToggleGroup fx:id="musicGroup" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="musicOff" layoutX="300.0" layoutY="136.0" mnemonicParsing="false" text="Off" toggleGroup="$musicGroup" />
-      <Slider fx:id="musicChange" layoutX="113.0" layoutY="216.0" prefHeight="14.0" prefWidth="381.0" />
-      <Label layoutX="110.0" layoutY="245.0" text="ImageView här" />
-      <Label layoutX="251.0" layoutY="245.0" text="ImageView här" />
-      <Label layoutX="396.0" layoutY="231.0" prefHeight="45.0" prefWidth="79.0" text="ImageView här" />
+      <RadioButton fx:id="musicPack2" layoutX="251.0" layoutY="229.0" mnemonicParsing="false" text="MusicPack 2" toggleGroup="$musicGroup" />
+      <RadioButton fx:id="musicPack3" layoutX="378.0" layoutY="229.0" mnemonicParsing="false" text="MusicPack 3" toggleGroup="$musicGroup" />
    </children>
 </AnchorPane>
