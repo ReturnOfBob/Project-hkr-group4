@@ -34,14 +34,14 @@ public class FXMLLogInMenuController implements Initializable {
     @FXML
     private Label loginErrorLabel;
     private final SoundPlayer sound = new SoundPlayer();
-        
+
 //-----------------------------MYSQL CONNECTION-------------------------------\\     
     private final DataBaseConnector connector = new DataBaseConnector();
 //----------------------------ON SCENE LOADUP---------------------------------\\
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    sound.playMusic(1);
+
     }
 //------------------------------FXML METHODS----------------------------------\\    
 
@@ -51,7 +51,6 @@ public class FXMLLogInMenuController implements Initializable {
 
         if (buttonText.equals("Log in")) {
             handleButtonLogin();
-            
 
             if (userCorrectCheck == true) {
                 userCorrectCheck = false;

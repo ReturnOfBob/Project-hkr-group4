@@ -110,7 +110,7 @@
             <Button fx:id="popUpButton" layoutX="203.0" layoutY="253.0" mnemonicParsing="false" onAction="#popUpButtonHandler" text="Ok" />
          </children>
     </AnchorPane>
-      <Button fx:id="ingameMenuButton" layoutX="858.0" layoutY="22.0" mnemonicParsing="false" onAction="#showIngameMenu" prefHeight="25.0" prefWidth="104.0" text="Menu" />
+      <Button fx:id="ingameMenuButton" layoutX="670.0" layoutY="2.0" mnemonicParsing="false" onAction="#showIngameMenu" prefHeight="25.0" prefWidth="104.0" text="Menu" />
       <AnchorPane fx:id="ingameMenuBlocker" opacity="0.3" prefHeight="680.0" prefWidth="1024.0" style="-fx-background-color: grey;" visible="false" />
       <AnchorPane id="popUp" fx:id="ingameMenuPopUp" layoutX="428.0" layoutY="150.0" prefHeight="363.0" prefWidth="200.0" visible="false">
          <children>

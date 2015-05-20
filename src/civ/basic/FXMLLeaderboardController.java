@@ -152,8 +152,8 @@ public class FXMLLeaderboardController implements Initializable {
 
         while (res.next()) {
 
-            System.out.println(res.getInt("Score") + res.getString("Username")+ res.getString("Difficulty"));
-            LeaderboardObject leaderboardObject = new LeaderboardObject(res.getString("Username"), res.getInt("Score"),  res.getString("Difficulty")); //Fast värden för svårighetsgrad så länge. Ska tas från fil eller från datastorage
+            System.out.println(res.getInt("Score") + res.getString("Accounts_Username")+ res.getString("Difficulty"));
+            LeaderboardObject leaderboardObject = new LeaderboardObject(res.getString("Accounts_Username"), res.getInt("Score"),  res.getString("Difficulty")); //Fast värden för svårighetsgrad så länge. Ska tas från fil eller från datastorage
             //DataStorage.getInstance().getDifficulty()
             leaderboardListd.add(leaderboardObject);
 

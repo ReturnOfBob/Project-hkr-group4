@@ -5,6 +5,8 @@
  */
 package civ.basic;
 
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -25,6 +27,7 @@ public class FXMLMainMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        readOptionSettingFromFile();
         // TODO
     }
 //------------------------------FXML METHODS----------------------------------\\    
@@ -53,6 +56,22 @@ public class FXMLMainMenuController implements Initializable {
             }
         } else {
             System.out.println("ERROR!");
+        }
+    }
+
+    private void readOptionSettingFromFile() {
+        OptionObject objectload = new OptionObject();
+        try (ObjectInputStream oIn = new ObjectInputStream(new FileInputStream(DataStorage.getInstance().getNewActiveUser() + ".txt"))) {
+            objectload = (OptionObject) oIn.readObject();
+            System.out.println("Filöppning lyckades");
+            DataStorage.getInstance().setDifficulty(objectload.getDifficulty());
+            DataStorage.getInstance().setMusicChoice(objectload.getMusicChoice());
+            DataStorage.getInstance().setMusicSet(objectload.isMusicSet());
+            DataStorage.getInstance().setRoundLimit(objectload.getRoundLimit());
+
+        } catch (Exception ex) {
+            System.out.println("Ingen fil skapad");
+
         }
     }
 

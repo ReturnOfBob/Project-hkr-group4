@@ -16,7 +16,7 @@ public class DataBaseConnector {
     private Connection c;
     private ResultSet rs;
     private PreparedStatement prepSt;
-    private final String inputUserDataCommand = "INSERT INTO accounts (Username,Password,Security_Question,Answer,Privilege) VALUES (?,?,?,?,?)";
+    
 
     public Connection getConnection() throws SQLException {
         c = DriverManager.getConnection(URL);
@@ -47,6 +47,7 @@ public class DataBaseConnector {
     }
 
     public String getInputUserDataCommand() {
+        String inputUserDataCommand = "INSERT INTO accounts (Username,Password,Security_Question,Answer,Privilege) VALUES (?,?,?,?,?)";
         return inputUserDataCommand;
     }
 
@@ -79,17 +80,17 @@ public class DataBaseConnector {
     }
 
     public String getGenericHighScoreCommand(int roundLimit) {
-        String genericHighScoreComand = "SELECT Username,Score, Difficulty FROM leaderboard WHERE round_Limit = '" + roundLimit + "'ORDER BY Score DESC LIMIT 5";
+        String genericHighScoreComand = "SELECT Accounts_Username,Score, Difficulty FROM leaderboard WHERE round_Limit = '" + roundLimit + "'ORDER BY Score DESC LIMIT 5";
         return genericHighScoreComand;
     }
 
     public String getInsertHighScoreCommand() {
-        String insertHighScoreComman = "INSERT INTO leaderboard (ID,Username,Score) VALUES (?,?,?)";
+        String insertHighScoreComman = "INSERT INTO leaderboard (ID,Accounts_Username,Score,Difficulty,Round_Limit) VALUES (?,?,?,?,?)";
         return insertHighScoreComman;
     }
 
     public String getDeleteFromTableCommand(String name, int score, String difficulty) {
-        String deleteFromTableCommand = "DELETE FROM leaderboard WHERE Username = '" + name + "' AND Score = '" + score + "' AND Difficulty = '" + difficulty + "'";
+        String deleteFromTableCommand = "DELETE FROM leaderboard WHERE Accounts_Username = '" + name + "' AND Score = '" + score + "' AND Difficulty = '" + difficulty + "'";
         return deleteFromTableCommand;
     }
 

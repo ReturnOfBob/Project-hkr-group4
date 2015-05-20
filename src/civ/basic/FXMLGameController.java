@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package civ.basic;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.sql.SQLException;
 import static java.sql.Types.NULL;
@@ -36,6 +38,7 @@ import javafx.scene.layout.AnchorPane;
  */
 public class FXMLGameController implements Initializable {
 //------------------------------VARIABLES-------------------------------------\\    
+
     private int amountOfGold = 5;
     private int amountOfWood = 10;
     private int amountOfStone = 5;
@@ -46,7 +49,7 @@ public class FXMLGameController implements Initializable {
     private int amountOfSteel = 0;
     private int currentTurn = 0;
     private int resourceCap = 500;
-    
+
     private double uniqueBonusGold = 1;
     private double uniqueBonusWood = 1;
     private double uniqueBonusStone = 1;
@@ -55,10 +58,10 @@ public class FXMLGameController implements Initializable {
     private double uniqueBonusCoal = 1;
     private double uniqueBonusSteel = 1;
     private double difficultyMultiplier;
-    
+
     private String statsViewBuildingName;
     private String eventLogDisplayText;
-    
+
     private boolean resourceAmountCheck = false;
 
     final private ObservableList<Resource> resourceList = FXCollections.observableArrayList();
@@ -69,139 +72,135 @@ public class FXMLGameController implements Initializable {
 //---------------------------------GUI----------------------------------------\\    
     @FXML
     private Label goldLabel, woodLabel, stoneLabel, foodLabel, humanLabel, ironLabel, coalLabel, steelLabel, currentTurnLabel, activeUserLabel, statsViewBuildingLabel, statsViewNoteLabel, scoreLabel, cheatCodeLabel, cheatCodeErrorLabel;
-    
+
     @FXML
     private Button houseButton, woodmillButton, farmButton, stonemasonryButton, bankButton, marketButton, ironMineButton, coalMineButton, storageButton, steelworksButton, cottageButton, nextTurnButton,
             graneryButton, sawmillButton, bazaarButton, stoneworksButton, lumberjackButton, schoolButton, aqueductButton, workshopButton, ingameMenuButton, resumeGameButton, cheatCodeButton, backToMainMenuButton, exitGame, cheatCodesOkButton;
 
     @FXML
     private TextArea eventlogTextArea;
-    
+
     @FXML
     private TextField cheatCodeField;
-    
+
     @FXML
     private AnchorPane popUp, ingameMenuPopUp, ingameMenuBlocker;
-    
+
     @FXML
     private Button popUpButton;
-    
+
     @FXML
     private TextArea popUpText;
-    
-    
+
 //------------------------RESOURCES TABLEVIEW---------------------------------\\
-    
     @FXML
     private TableColumn<Resource, String> resourceNameColumn;
     @FXML
     private TableColumn<Resource, Number> resourceByTurnColumn;
     @FXML
     private TableView<Resource> resourcesTableview;
-    
-//----------------------BUILDINGS TABLEVIEW-----------------------------------\\    
 
+//----------------------BUILDINGS TABLEVIEW-----------------------------------\\    
     @FXML
-    private TableColumn <NormalBuilding, String> buildingNameColumn;
+    private TableColumn<NormalBuilding, String> buildingNameColumn;
     @FXML
-    private TableColumn <NormalBuilding, Number> buildingAmountColumn;
+    private TableColumn<NormalBuilding, Number> buildingAmountColumn;
     @FXML
     private TableView<NormalBuilding> buildingsTableview;
 //--------------------------BUILDING STATSVIEW TABLE--------------------------\\ 
-    
+
     @FXML
     private TableView statviewTableview;
     @FXML
     private TableColumn<StatsViewDisplayObject, String> statsViewResource, statsViewCost, statsViewProduces;
-    
-    
+
 //----------------------------ON SCENE LOADUP---------------------------------\\    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         resourceAdder();  //method calls must be in this order, otherwise a crash will occur
         try {
-            buildingAdder();            
+            buildingAdder();
         } catch (SQLException ex) {
             Logger.getLogger(FXMLGameController.class.getName()).log(Level.SEVERE, null, ex);
         }
         onNewGame();
         difficultySetter();
-        
-        statsViewDisplayList.add(new StatsViewDisplayObject("","","","",""));
+
+        statsViewDisplayList.add(new StatsViewDisplayObject("", "", "", "", ""));
         statviewTableview.setItems(statsViewDisplayList);
         refreshEventLogText("Turn: " + currentTurn);
-    }  
+    }
 //------------------------------FXML METHODS----------------------------------\\
+
     @FXML
-    private void nextTurn(ActionEvent event){
+    private void nextTurn(ActionEvent event) {
         currentTurn++;
         currentTurnLabel.setText("Current turn: " + currentTurn);
         refreshEventLogText("Turn: " + currentTurn);
-        
-        if(EventHandler.getInstance().getEventDuration() > 0){
-            EventHandler.getInstance().setEventDuration(EventHandler.getInstance().getEventDuration()-1);    
+
+        if (EventHandler.getInstance().getEventDuration() > 0) {
+            EventHandler.getInstance().setEventDuration(EventHandler.getInstance().getEventDuration() - 1);
             System.out.println("Event dur: " + EventHandler.getInstance().getEventDuration());
         }
-        
+
         //Events starts after the 3th turn
-        if(currentTurn > 3){
+        if (currentTurn > 3) {
             generateEvent();
         }
-        
-        
+
         //Handles the resources gain/lost after events
         addEventResources();
         addEventPercentageResources();
         //Resets the event resource values to their default values
         EventStorage.getInstance().resetEventResources();
-        
+
         addResourcesToAmount();
         resourcePerTurnCalc();
         refreshResources();
         upgradeBuildingButtonsHandler();
         scoreCalculator();
-        
+
         System.out.println(EventStorage.getInstance().getEventChangeWoodMultiplier());
-        if(DataStorage.getInstance().getRoundLimit().equals(NULL)){
+        if (DataStorage.getInstance().getRoundLimit().equals(NULL)) {
             DataStorage.getInstance().setRoundLimit(50);
         }
-        
-        if(currentTurn > DataStorage.getInstance().getRoundLimit()){
+
+        if (currentTurn > DataStorage.getInstance().getRoundLimit()) {
             DataStorage.getInstance().sceneSwitch(event, "FXMLMainMenu.fxml");
         }
-       
+
     }
-    
+
     @FXML
-    private void buttonBuilderHandler(ActionEvent event){
+    private void buttonBuilderHandler(ActionEvent event) {
         String buttonText;
         buttonText = ((Button) event.getSource()).getText();
         /*for(NormalBuilding building : buildingList){
-            if(building.getName().getValue().equals(buttonText)){
-                building.setAmount(1);
-            }
-        }*/
+         if(building.getName().getValue().equals(buttonText)){
+         building.setAmount(1);
+         }
+         }*/
         resourceReducter(event);
         resourcePerTurnCalc();
         refreshResources();
         upgradeBuildingButtonsHandler();
         scoreCalculator();
     }
-    
+
     @FXML
-    private void popUpButtonHandler (ActionEvent event){
+    private void popUpButtonHandler(ActionEvent event) {
         popUp.setOpacity(0);
         popUp.setDisable(true);
         popUpText.setDisable(true);
     }
-    
+
     @FXML
-    private void showStatsViewColumns(MouseEvent event){
-       
+    private void showStatsViewColumns(MouseEvent event) {
+
         statsViewBuildingName = ((Button) event.getSource()).getText();
         System.out.println("In");
-        
+
         switch (statsViewBuildingName) {
             case "House":
                 refreshStatsViewColumns(true, 0);
@@ -262,63 +261,61 @@ public class FXMLGameController implements Initializable {
                 refreshStatsViewColumns(false, 4);
                 break;
         }
-        
+
     }
-    
+
     @FXML
-    private void hideStatsViewColumns(){
+    private void hideStatsViewColumns() {
         System.out.println("Out");
-        
+
         statsViewDisplayList.removeAll(statsViewDisplayList);
-        statsViewDisplayList.add(new StatsViewDisplayObject("","","","",""));
+        statsViewDisplayList.add(new StatsViewDisplayObject("", "", "", "", ""));
         statviewTableview.setItems(statsViewDisplayList);
-        
+
         statsViewBuildingLabel.setText("");
         statsViewNoteLabel.setText("");
-        
-        
+
     }
-    
+
     @FXML
-    private void showIngameMenu(){
+    private void showIngameMenu() {
         ingameMenuPopUp.setVisible(true);
         ingameMenuBlocker.setVisible(true);
     }
-    
+
     @FXML
-    private void ingameMenuButtonClicked(ActionEvent event){
+    private void ingameMenuButtonClicked(ActionEvent event) {
         String buttonText;
         buttonText = ((Button) event.getSource()).getText();
-        
-        if(buttonText.equals("Resume Game")){
+
+        if (buttonText.equals("Resume Game")) {
             ingameMenuPopUp.setVisible(false);
             ingameMenuBlocker.setVisible(false);
             hideCheatCodeTools();
-        }
-        else if(buttonText.equals("Cheat Code")){
-           
+        } else if (buttonText.equals("Cheat Code")) {
+
             cheatCodeLabel.setLayoutX(53);
             cheatCodeLabel.setLayoutY(255);
             cheatCodeLabel.setText("Enter chead code:");
             cheatCodeErrorLabel.setVisible(false);
             cheatCodeField.setVisible(true);
             cheatCodesOkButton.setVisible(true);
-        }
-        else if(buttonText.equals("Back To Main Menu")){
+        } else if (buttonText.equals("Back To Main Menu")) {
             DataStorage.getInstance().sceneSwitch(event, "FXMLMainMenu.fxml");
-        }
-        else if(buttonText.equals("Exit Game")){
+        } else if (buttonText.equals("Exit Game")) {
             try {
                 System.exit(0);
-            }catch (Exception ex) {
+            } catch (Exception ex) {
                 System.out.println("ERROR EXIT!");
             }
         }
-        
-    }
+
     
-    @FXML
-    private void handleCheatCodes(){
+
+}
+
+@FXML
+        private void handleCheatCodes(){
         if(cheatCodeField.getText().equals("haxmedlax")){
             amountOfGold = amountOfGold + 100;
             amountOfWood = amountOfWood + 100;

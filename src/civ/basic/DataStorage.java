@@ -19,30 +19,36 @@ import javafx.stage.Stage;
  */
 public class DataStorage {
 //------------------------------VARIABLES-------------------------------------\\   
+
     private static DataStorage dataStorage;
     private String newSceneIs;
     private String newActiveUser;
     private String difficulty = "normal";
     private int roundLimit;
     private int score;
+    private Boolean musicSet;
+    private Integer musicChoice;
+
 //------------------------------CONSTRUCTOR-----------------------------------\\    
-    private DataStorage(){
-    
+    private DataStorage() {
+
     }
 //---------------------GETS INFORMATION FROM DATASTORAGE----------------------\\    
-    public static DataStorage getInstance(){
-        if(dataStorage == null){
+
+    public static DataStorage getInstance() {
+        if (dataStorage == null) {
             dataStorage = new DataStorage();
         }
-        
+
         return dataStorage;
     }
 //--------------------------------METHODS-------------------------------------\\    
     //This method is used everywhere in the program switch between different scenes
-    public void sceneSwitch(ActionEvent event, String newSceneIs){
-        
+
+    public void sceneSwitch(ActionEvent event, String newSceneIs) {
+
         this.newSceneIs = newSceneIs;
-        
+
         try {
             Node node = (Node) event.getSource();
             Stage stage = (Stage) node.getScene().getWindow();
@@ -51,41 +57,64 @@ public class DataStorage {
             Scene scene = new Scene(root);
             stage.setScene(scene);
 
-        }catch (IOException ex) {
+        } catch (IOException ex) {
             System.out.println("ERROR SCENESWITCH!");
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 //-------------------------GETTERS AND SETTERS--------------------------------\\    
-    public String getNewSceneIs(){
+
+    public String getNewSceneIs() {
         return newSceneIs;
     }
-      public void setNewActiveUser(String newActiveUser) {
+
+    public void setNewActiveUser(String newActiveUser) {
         this.newActiveUser = newActiveUser;
     }
 
     public String getNewActiveUser() {
         return newActiveUser;
     }
-       public void setDifficulty(String difficulty) {
+
+    public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
     }
 
     public String getDifficulty() {
         return difficulty;
-    }
-       public void setRoundLimit(Integer roundLimit) {
-        this.roundLimit = roundLimit;
+
     }
 
     public Integer getRoundLimit() {
         return roundLimit;
     }
-    public void setScore(int score){
+
+    public void setScore(int score) {
         this.score = score;
     }
-    public Integer getScore(){
+
+    public Integer getScore() {
         return score;
+    }
+
+    public void setRoundLimit(int roundLimit) {
+        this.roundLimit = roundLimit;
+    }
+
+    public Boolean isMusicSet() {
+        return musicSet;
+    }
+
+    public void setMusicSet(Boolean musicSet) {
+        this.musicSet = musicSet;
+    }
+
+    public Integer getMusicChoice() {
+        return musicChoice;
+    }
+
+    public void setMusicChoice(Integer musicChoice) {
+        this.musicChoice = musicChoice;
     }
 }

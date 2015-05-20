@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -15,10 +16,25 @@
             <TableColumn fx:id="difficultyColumn" prefWidth="75.0" text="Difficulty" />
         </columns>
       </TableView>
-      <Button id="menuButton" layoutX="76.0" layoutY="365.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="To main menu" />
-      <Button id="menuButton" layoutX="427.0" layoutY="365.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="Delete selected row" />
-      <Button id="menuButton" layoutX="482.0" layoutY="23.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="20 rounds" />
-      <Button id="menuButton" layoutX="482.0" layoutY="59.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="50 rounds" />
-      <Button id="menuButton" layoutX="482.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="100 rounds" />
+      <Button id="menuButton" layoutX="76.0" layoutY="365.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="To main menu" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button id="menuButton" layoutX="427.0" layoutY="365.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="Delete selected row" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button id="menuButton" layoutX="482.0" layoutY="23.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="20 rounds" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button id="menuButton" layoutX="482.0" layoutY="59.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="50 rounds" textFill="#fcfcfc">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button id="menuButton" layoutX="482.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="100 rounds" textFill="#f8f8f8">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
    </children>
 </AnchorPane>
