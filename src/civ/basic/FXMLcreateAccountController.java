@@ -77,6 +77,7 @@ public class FXMLcreateAccountController implements Initializable {
                 prepSt.setString(5, "Basic user");
 
                 prepSt.executeUpdate();
+                connector.close();
                 createAccountErrorLabel.setText("");
                 System.out.println("Acccount created");
                 createAccountDoneLabel.setText("Acccount created");
@@ -91,6 +92,7 @@ public class FXMLcreateAccountController implements Initializable {
                 System.out.println("Du måste fylla i alla fält!");
                 createAccountErrorLabel.setText("Du måste fylla i alla fält!");
             }
+        
         } catch (Exception e) {
             System.err.println("ERROR: " + e);
         }

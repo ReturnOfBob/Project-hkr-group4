@@ -74,13 +74,15 @@ public class SoundPlayer {
         }
     }
 
-    public void setMusicMute(boolean choice) {
-        musicPlayer.setMute(choice);
+    public void setMusicMute(boolean value) {
+        musicPlayer.setMute(value);
+        DataStorage.getInstance().setMusicSet(value);
     }
 
     public void setMusicStop() {
+        if (DataStorage.getInstance().isMusicSet()==false){
         musicPlayer.stop();
-
+        }
     }
 
     public void setMusicOn() {

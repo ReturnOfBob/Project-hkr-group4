@@ -111,7 +111,7 @@ public class FXMLLeaderboardController implements Initializable {
             // leaderboardListd.removeAll(leaderboardListd);
             System.out.println("Test");
                 //setLeaderBoard();
-
+            connector.close();
             //else System.oout.println("Require admin right");
         } catch (SQLException ex) {
             Logger.getLogger(FXMLLeaderboardController.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,7 +143,7 @@ public class FXMLLeaderboardController implements Initializable {
         } else {
             res = sta.executeQuery(connector.getGenericHighScoreCommand(20));
         }
-
+      
         //connector.getConnection();
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
@@ -158,6 +158,7 @@ public class FXMLLeaderboardController implements Initializable {
             leaderboardListd.add(leaderboardObject);
 
         }
-
+        connector.close();
     }
+    
 }

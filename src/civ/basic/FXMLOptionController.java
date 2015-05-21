@@ -6,9 +6,7 @@
 package civ.basic;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.URL;
@@ -17,7 +15,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 
 /**
@@ -39,14 +36,6 @@ public class FXMLOptionController implements Initializable, Serializable {
     public void initialize(URL url, ResourceBundle rb) {
 
     }
-
-    /*private FXMLOptionController(String difficulty, Integer roundLimit, Boolean musicSet, Integer musicChoice) {
-     this.difficulty = difficulty;
-     this.roundLimit = roundLimit;
-     this.musicSet = musicSet;
-     this.musicChoice = musicChoice;
-
-     }*/
 //------------------------------FXML METHODS----------------------------------\\    
     @FXML //This method handles all of the clicks in on buttons in this scene
     private void optionButtonClick(ActionEvent event) {
@@ -60,6 +49,7 @@ public class FXMLOptionController implements Initializable, Serializable {
         } else {
             System.out.println("ERROR!");
         }
+        
     }
 
     private void submitOption() {
@@ -67,14 +57,14 @@ public class FXMLOptionController implements Initializable, Serializable {
             DataStorage.getInstance().setDifficulty("noob");
         } else if (normalDifficulty.isSelected()) {
             DataStorage.getInstance().setDifficulty("normal");
-        } else {
+        } else if(asianDifficulty.isSelected()){
             DataStorage.getInstance().setDifficulty("asian");
         }
         if (lowTurnLimit.isSelected()) {
             DataStorage.getInstance().setRoundLimit(20);
         } else if (mediumTurnLimit.isSelected()) {
             DataStorage.getInstance().setRoundLimit(50);
-        } else {
+        } else if(highTurnLimit.isSelected()){
             DataStorage.getInstance().setRoundLimit(100);
         }
 
@@ -88,7 +78,7 @@ public class FXMLOptionController implements Initializable, Serializable {
             DataStorage.getInstance().setMusicChoice(2);
             SoundPlayer.getInstance().playMusic(DataStorage.getInstance().getMusicChoice());
 
-        } else {
+        }else if (musicPack3.isSelected()) {
             SoundPlayer.getInstance().setMusicStop();
             DataStorage.getInstance().setMusicChoice(3);
             SoundPlayer.getInstance().playMusic(DataStorage.getInstance().getMusicChoice());
@@ -96,19 +86,14 @@ public class FXMLOptionController implements Initializable, Serializable {
         }
         if (musicOn.isSelected()) {
             SoundPlayer.getInstance().setMusicMute(false);
-            DataStorage.getInstance().setMusicSet(false);
-        } else {
+        } else if(musicOff.isSelected()) {
             SoundPlayer.getInstance().setMusicMute(true);
-            DataStorage.getInstance().setMusicSet(true);
         }
-
         objectSave.setDifficulty(DataStorage.getInstance().getDifficulty());
         objectSave.setMusicChoice(DataStorage.getInstance().getMusicChoice());
         objectSave.setMusicSet(DataStorage.getInstance().isMusicSet());
         objectSave.setRoundLimit(DataStorage.getInstance().getRoundLimit());
-        DataStorage.getInstance().setMusicOnCheck(true);
         writeOptionSettingToFile();
-
         System.out.println("submitOption");
     }
 

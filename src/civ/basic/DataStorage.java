@@ -26,9 +26,9 @@ public class DataStorage {
     private String difficulty = "normal";
     private int roundLimit = 50;
     private int score;
-    private Boolean musicSet = true;
+    private Boolean musicSet = false;
     private Integer musicChoice = 1;
-    private Boolean musicOnCheck = false;
+    private Boolean loadOnceCheck;
 
 //------------------------------CONSTRUCTOR-----------------------------------\\    
     private DataStorage() {
@@ -119,12 +119,12 @@ public class DataStorage {
         this.musicChoice = musicChoice;
     }
 
-    public Boolean isMusicOnCheck() {
-        return musicOnCheck;
+    public Boolean isLoadOnceCheck() {
+        return loadOnceCheck;
     }
 
-    public void setMusicOnCheck(Boolean musicOnCheck) {
-        this.musicOnCheck = musicOnCheck;
+    public void setLoadOnceCheck(Boolean loadOnceCheck) {
+        this.loadOnceCheck = loadOnceCheck;
     }
     
 }

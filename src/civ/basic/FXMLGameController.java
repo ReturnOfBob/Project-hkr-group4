@@ -5,12 +5,12 @@
  */
 package civ.basic;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import static java.sql.Types.NULL;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -162,11 +162,9 @@ public class FXMLGameController implements Initializable {
         scoreCalculator();
 
         System.out.println(EventStorage.getInstance().getEventChangeWoodMultiplier());
-        if (DataStorage.getInstance().getRoundLimit().equals(NULL)) {
-            DataStorage.getInstance().setRoundLimit(50);
-        }
 
         if (currentTurn > DataStorage.getInstance().getRoundLimit()) {
+            insertHighScore();
             DataStorage.getInstance().sceneSwitch(event, "FXMLMainMenu.fxml");
         }
 
@@ -301,7 +299,6 @@ public class FXMLGameController implements Initializable {
             cheatCodeField.setVisible(true);
             cheatCodesOkButton.setVisible(true);
         } else if (buttonText.equals("Back To Main Menu")) {
-            SoundPlayer.getInstance().setMusicStop();
             DataStorage.getInstance().sceneSwitch(event, "FXMLMainMenu.fxml");
         } else if (buttonText.equals("Exit Game")) {
             try {
@@ -311,35 +308,30 @@ public class FXMLGameController implements Initializable {
             }
         }
 
-    
+    }
 
-}
-
-@FXML
-        private void handleCheatCodes(){
-        if(cheatCodeField.getText().equals("haxmedlax")){
+    @FXML
+    private void handleCheatCodes() {
+        if (cheatCodeField.getText().equals("haxmedlax")) {
             amountOfGold = amountOfGold + 100;
             amountOfWood = amountOfWood + 100;
             amountOfStone = amountOfStone + 100;
             refreshResources();
             codeSuccessfull();
-        }
-        else if(cheatCodeField.getText().equals("thereisnospoon")){
+        } else if (cheatCodeField.getText().equals("thereisnospoon")) {
             amountOfSteel = amountOfSteel + 200;
             refreshResources();
             codeSuccessfull();
-        }
-        else{
+        } else {
 
             cheatCodeErrorLabel.setVisible(true);
         }
-        
+
         cheatCodeField.setText("");
     }
 
 //----------------------------NON-FXML METHODS--------------------------------\\
-    
-    private void refreshResources(){
+    private void refreshResources() {
         goldLabel.setText("Gold: " + amountOfGold + "/" + resourceCap);
         woodLabel.setText("Wood: " + amountOfWood + "/" + resourceCap);
         stoneLabel.setText("Stone: " + amountOfStone + "/" + resourceCap);
@@ -349,8 +341,8 @@ public class FXMLGameController implements Initializable {
         coalLabel.setText("Coal: " + amountOfCoal + "/" + resourceCap);
         steelLabel.setText("Steel: " + amountOfSteel + "/" + resourceCap);
     }
-    
-    private void addResourcesToAmount(){
+
+    private void addResourcesToAmount() {
         amountOfGold += resourceList.get(0).getByTurn().getValue();
         amountOfWood += resourceList.get(1).getByTurn().getValue();
         amountOfStone += resourceList.get(2).getByTurn().getValue();
@@ -360,13 +352,13 @@ public class FXMLGameController implements Initializable {
         amountOfSteel += resourceList.get(7).getByTurn().getValue();
         resourceCapHandler();
     }
-    
-    private void resourcePerTurnCalc(){
+
+    private void resourcePerTurnCalc() {
         uniqueBuildingBonusAdder();
-        for(int i = 0; i < resourceList.size(); i++){
+        for (int i = 0; i < resourceList.size(); i++) {
             resourceList.get(i).resetByTurn();
         }
-        for(int i = 0; i < normalBuildingList.size(); i++){
+        for (int i = 0; i < normalBuildingList.size(); i++) {
             resourceList.get(0).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getGold() * EventStorage.getInstance().getEventChangeGoldMultiplier() * uniqueBonusGold));
             resourceList.get(1).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getWood() * EventStorage.getInstance().getEventChangeWoodMultiplier() * uniqueBonusWood));
             resourceList.get(2).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getStone() * EventStorage.getInstance().getEventChangeStoneMultiplier() * uniqueBonusStone));
@@ -375,12 +367,12 @@ public class FXMLGameController implements Initializable {
             resourceList.get(5).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getIron() * EventStorage.getInstance().getEventChangeIronMultiplier() * uniqueBonusIron));
             resourceList.get(6).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getCoal() * EventStorage.getInstance().getEventChangeCoalMultiplier() * uniqueBonusCoal));
             resourceList.get(7).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getSteel() * EventStorage.getInstance().getEventChangeSteelMultiplier() * uniqueBonusSteel));
-            
+
         }
     }
-    
-    private void uniqueBuildingBonusAdder(){
-        
+
+    private void uniqueBuildingBonusAdder() {
+
         uniqueBonusGold = 1;
         uniqueBonusWood = 1;
         uniqueBonusStone = 1;
@@ -388,8 +380,8 @@ public class FXMLGameController implements Initializable {
         uniqueBonusIron = 1;
         uniqueBonusCoal = 1;
         uniqueBonusSteel = 1;
-      
-        for(int i = 0; i < uniqueBuildingList.size(); i++){
+
+        for (int i = 0; i < uniqueBuildingList.size(); i++) {
             uniqueBonusGold += (uniqueBuildingList.get(i).getBonusGold() * uniqueBuildingList.get(i).getAmount().getValue());
             uniqueBonusWood += (uniqueBuildingList.get(i).getBonusWood() * uniqueBuildingList.get(i).getAmount().getValue());
             uniqueBonusStone += (uniqueBuildingList.get(i).getBonusStone() * uniqueBuildingList.get(i).getAmount().getValue());
@@ -399,8 +391,8 @@ public class FXMLGameController implements Initializable {
             uniqueBonusSteel += (uniqueBuildingList.get(i).getBonusSteel() * uniqueBuildingList.get(i).getAmount().getValue());
         }
     }
-    
-    private void resourceReducter(ActionEvent event){
+
+    private void resourceReducter(ActionEvent event) {
         String buttonText;
         int amountGoldCheck = amountOfGold;
         int amountWoodCheck = amountOfWood;
@@ -411,16 +403,16 @@ public class FXMLGameController implements Initializable {
         int amountCoalCheck = amountOfCoal;
         int amountSteelCheck = amountOfSteel;
         double multiplier = 1;
-        
+
         buttonText = ((Button) event.getSource()).getText();
-        for(NormalBuilding building : normalBuildingList){
-            if(building.getName().getValue().equals(buttonText)){
+        for (NormalBuilding building : normalBuildingList) {
+            if (building.getName().getValue().equals(buttonText)) {
                 System.out.println("NormalBuilding");  //delete when done with game
-                
-                for(int i = 0; i < building.getAmount().getValue(); i++){
+
+                for (int i = 0; i < building.getAmount().getValue(); i++) {
                     multiplier *= 1.1;
                 }
-                
+
                 amountGoldCheck -= (building.getInitialGold() * multiplier * difficultyMultiplier);
                 amountWoodCheck -= (building.getInitialWood() * multiplier * difficultyMultiplier);
                 amountStoneCheck -= (building.getInitialStone() * multiplier * difficultyMultiplier);
@@ -429,14 +421,14 @@ public class FXMLGameController implements Initializable {
                 amountIronCheck -= (building.getInitialIron() * multiplier * difficultyMultiplier);
                 amountCoalCheck -= (building.getInitialCoal() * multiplier * difficultyMultiplier);
                 amountSteelCheck -= (building.getInitialSteel() * multiplier * difficultyMultiplier);
-                
-                if(amountGoldCheck < 0 || amountWoodCheck < 0 || amountStoneCheck < 0 || amountFoodCheck < 0 || amountHumanCheck < 0 ||
-                        amountIronCheck < 0 || amountCoalCheck < 0 || amountSteelCheck < 0){
-                    
+
+                if (amountGoldCheck < 0 || amountWoodCheck < 0 || amountStoneCheck < 0 || amountFoodCheck < 0 || amountHumanCheck < 0
+                        || amountIronCheck < 0 || amountCoalCheck < 0 || amountSteelCheck < 0) {
+
                     resourceAmountCheck = true;
                 }
-                
-                if(resourceAmountCheck == false){
+
+                if (resourceAmountCheck == false) {
                     amountOfGold -= (building.getInitialGold() * multiplier * difficultyMultiplier);
                     amountOfWood -= (building.getInitialWood() * multiplier * difficultyMultiplier);
                     amountOfStone -= (building.getInitialStone() * multiplier * difficultyMultiplier);
@@ -445,20 +437,20 @@ public class FXMLGameController implements Initializable {
                     amountOfIron -= (building.getInitialIron() * multiplier * difficultyMultiplier);
                     amountOfCoal -= (building.getInitialCoal() * multiplier * difficultyMultiplier);
                     amountOfSteel -= (building.getInitialSteel() * multiplier * difficultyMultiplier);
-                    
-                    if(building.getName().getValue().equals("Storage")){
+
+                    if (building.getName().getValue().equals("Storage")) {
                         resourceCap += 100;
                     }
-                    
+
                     building.setAmount(1);
                     refreshEventLogText("A " + buttonText + " was successfully built.");
                 }
                 resourceAmountCheck = false;
             }
         }
-        for(UniqueBuilding building : uniqueBuildingList){
-            if(building.getName().getValue().equals(buttonText)){
-                
+        for (UniqueBuilding building : uniqueBuildingList) {
+            if (building.getName().getValue().equals(buttonText)) {
+
                 amountGoldCheck -= (building.getInitialGold() * difficultyMultiplier);
                 amountWoodCheck -= (building.getInitialWood() * difficultyMultiplier);
                 amountStoneCheck -= (building.getInitialStone() * difficultyMultiplier);
@@ -467,13 +459,13 @@ public class FXMLGameController implements Initializable {
                 amountIronCheck -= (building.getInitialIron() * difficultyMultiplier);
                 amountCoalCheck -= (building.getInitialCoal() * difficultyMultiplier);
                 amountSteelCheck -= (building.getInitialSteel() * difficultyMultiplier);
-                
-                if(amountGoldCheck < 0 || amountWoodCheck < 0 || amountStoneCheck < 0 || amountFoodCheck < 0 || amountHumanCheck < 0 ||
-                        amountIronCheck < 0 || amountCoalCheck < 0 || amountSteelCheck < 0 || building.getAmount().getValue() > 0){
-                    
+
+                if (amountGoldCheck < 0 || amountWoodCheck < 0 || amountStoneCheck < 0 || amountFoodCheck < 0 || amountHumanCheck < 0
+                        || amountIronCheck < 0 || amountCoalCheck < 0 || amountSteelCheck < 0 || building.getAmount().getValue() > 0) {
+
                     resourceAmountCheck = true;
                 }
-                if(resourceAmountCheck == false){
+                if (resourceAmountCheck == false) {
                     amountOfGold -= (building.getInitialGold() * difficultyMultiplier);
                     amountOfWood -= (building.getInitialWood() * difficultyMultiplier);
                     amountOfStone -= (building.getInitialStone() * difficultyMultiplier);
@@ -482,99 +474,98 @@ public class FXMLGameController implements Initializable {
                     amountOfIron -= (building.getInitialIron() * difficultyMultiplier);
                     amountOfCoal -= (building.getInitialCoal() * difficultyMultiplier);
                     amountOfSteel -= (building.getInitialSteel() * difficultyMultiplier);
-                    
+
                     building.setAmount(1);
                     refreshEventLogText("A " + buttonText + " was successfully built.");
                 }
                 resourceAmountCheck = false;
             }
-        }        
+        }
     }
-    
-    private void resourceCapHandler(){
-        if(amountOfGold > resourceCap){
+
+    private void resourceCapHandler() {
+        if (amountOfGold > resourceCap) {
             amountOfGold = resourceCap;
         }
-        if(amountOfWood > resourceCap){
+        if (amountOfWood > resourceCap) {
             amountOfWood = resourceCap;
         }
-        if(amountOfStone > resourceCap){
+        if (amountOfStone > resourceCap) {
             amountOfStone = resourceCap;
         }
-        if(amountOfFood > resourceCap){
+        if (amountOfFood > resourceCap) {
             amountOfFood = resourceCap;
         }
-        if(amountOfHuman > resourceCap){
+        if (amountOfHuman > resourceCap) {
             amountOfHuman = resourceCap;
         }
-        if(amountOfIron > resourceCap){
+        if (amountOfIron > resourceCap) {
             amountOfIron = resourceCap;
         }
-        if(amountOfCoal > resourceCap){
+        if (amountOfCoal > resourceCap) {
             amountOfCoal = resourceCap;
         }
-        if(amountOfSteel > resourceCap){
+        if (amountOfSteel > resourceCap) {
             amountOfSteel = resourceCap;
         }
-        if(amountOfGold < 0){
+        if (amountOfGold < 0) {
             amountOfGold = 0;
         }
-        if(amountOfWood < 0){
+        if (amountOfWood < 0) {
             amountOfWood = 0;
         }
-        if(amountOfStone < 0){
+        if (amountOfStone < 0) {
             amountOfStone = 0;
         }
-        if(amountOfFood < 0){
+        if (amountOfFood < 0) {
             amountOfFood = 0;
         }
-        if(amountOfHuman < 0){
+        if (amountOfHuman < 0) {
             amountOfHuman = 0;
         }
-        if(amountOfIron < 0){
+        if (amountOfIron < 0) {
             amountOfIron = 0;
         }
-        if(amountOfCoal < 0){
+        if (amountOfCoal < 0) {
             amountOfCoal = 0;
         }
-        if(amountOfSteel < 0){
+        if (amountOfSteel < 0) {
             amountOfSteel = 0;
         }
     }
-    
-    private void onNewGame(){
-        
+
+    private void onNewGame() {
+
         currentTurn++;
         currentTurnLabel.setText("Current turn: " + currentTurn);
-        
+
         refreshResources();
         activeUserLabel.setText(" " + DataStorage.getInstance().getNewActiveUser());
     }
-    
-    private void generateEvent(){
+
+    private void generateEvent() {
 
         Random random = new Random();
         int randomNum = random.nextInt(500);
         System.out.println(randomNum);
-        
-        if(EventHandler.getInstance().getEventDuration() < 1){
+
+        if (EventHandler.getInstance().getEventDuration() < 1) {
             EventHandler.getInstance().setEventIsActive(false);
             EventStorage.getInstance().resetTimedEvents();
-        } 
+        }
         EventHandler.getInstance().calculateEvent(randomNum);
         System.out.println(EventStorage.getInstance().getEventText());
-        
-        if(EventStorage.getInstance().getEventText() != null){
+
+        if (EventStorage.getInstance().getEventText() != null) {
             refreshEventLogText(EventStorage.getInstance().getEventText());
         }
-        
+
         popUpText.setText(EventStorage.getInstance().getEventText());
-        if (EventStorage.getInstance().isEventActive() == true){
+        if (EventStorage.getInstance().isEventActive() == true) {
             popUp.setDisable(false);
             popUpText.setDisable(false);
             popUp.setOpacity(1);
-        }
-        else {
+        } else {
             popUp.setOpacity(0);
             popUp.setDisable(true);
             popUpText.setDisable(true);
@@ -582,13 +573,13 @@ public class FXMLGameController implements Initializable {
         EventStorage.getInstance().setEventText(null);
         EventStorage.getInstance().setEventActive(false);
     }
-    
-    private void resourceAdder(){
+
+    private void resourceAdder() {
         resourcesTableview.setItems(resourceList);
         resourceNameColumn.setCellValueFactory(cellData -> cellData.getValue().getName());
         resourceByTurnColumn.setCellValueFactory(cellData -> cellData.getValue().getByTurn());
 
-        resourceList.add(new Resource("Gold",0));
+        resourceList.add(new Resource("Gold", 0));
         resourceList.add(new Resource("Wood", 0));
         resourceList.add(new Resource("stone", 0));
         resourceList.add(new Resource("Food", 0));
@@ -597,12 +588,12 @@ public class FXMLGameController implements Initializable {
         resourceList.add(new Resource("Coal", 0));
         resourceList.add(new Resource("Steel", 0));
     }
-    
-    private void buildingAdder() throws SQLException{
+
+    private void buildingAdder() throws SQLException {
         ArrayList<String> nameList = new ArrayList<>();
         ArrayList<Integer> scoreList = new ArrayList<>();
         int changeBuildingTypeChecker = 0;
-        
+
         int initialGoldint;
         int initialWoodint;
         int initialStoneint;
@@ -640,7 +631,7 @@ public class FXMLGameController implements Initializable {
         nameList.add("School");
         nameList.add("Aqueduct");
         nameList.add("Workshop");
-        
+
         scoreList.add(5); //Score house
         scoreList.add(10); //Score farm 
         scoreList.add(13); //Score market
@@ -660,13 +651,13 @@ public class FXMLGameController implements Initializable {
         scoreList.add(105); //Score school
         scoreList.add(130); //Score aqueduct
         scoreList.add(164); //Score workshop
-        
+
         buildingsTableview.setItems(normalBuildingList);
         buildingNameColumn.setCellValueFactory(cellData -> cellData.getValue().getName());
         buildingAmountColumn.setCellValueFactory(cellData -> cellData.getValue().getAmount());
-        
-        for(int i = 0; i < nameList.size(); i++){
-            
+
+        for (int i = 0; i < nameList.size(); i++) {
+
             initialGoldint = 0;
             initialWoodint = 0;
             initialStoneint = 0;
@@ -684,134 +675,132 @@ public class FXMLGameController implements Initializable {
             steelint = 0;
             foodint = 0;
             humanint = 0;
-            
-            try{
-            
-            String initialGold = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Gold");   
-            String initialWood = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Wood"); 
-            String initialStone = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Stone");   
-            String initialIron = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Iron"); 
-            String initialCoal = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Coal");   
-            String initialSteel = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Steel"); 
-            String initialFood = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Food");   
-            String initialHuman = connector.getRescourseCommand("Initial_Cost",nameList.get(i), "Human"); 
-            String gold = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Gold");   
-            String wood = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Wood"); 
-            String stone = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Stone");   
-            String iron = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Iron"); 
-            String coal = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Coal");   
-            String steel = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Steel"); 
-            String food = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Food"); 
-            String human = connector.getRescourseCommand("Turn_Resource_Gain",nameList.get(i), "Human"); 
 
-            if(connector.getResult(initialGold).next()){
-                initialGoldint = connector.getResultSet().getInt(1);
-                connector.close();
-            }
-        
-            if(connector.getResult(initialWood).next()){
-                initialWoodint = connector.getResultSet().getInt(1);
-                connector.close();
-            }
-        
-            if(connector.getResult(initialStone).next()){
-                initialStoneint = connector.getResultSet().getInt(1);
-                connector.close();
-            }
-        
-            if(connector.getResult(initialIron).next()){
-                initialIronint = connector.getResultSet().getInt(1);
-                connector.close();
-            }
-        
-            if(connector.getResult(initialCoal).next()){
-                initialCoalint = connector.getResultSet().getInt(1);
-                connector.close();
-            }
-        
-            if(connector.getResult(initialSteel).next()){
-                initialSteelint = connector.getResultSet().getInt(1);
-                connector.close();
-            }
-        
-            if(connector.getResult(initialFood).next()){
-                initialFoodint = connector.getResultSet().getInt(1);
-                connector.close();
-            }
-        
-            if(connector.getResult(initialHuman).next()){
-                initialHumanint = connector.getResultSet().getInt(1);
-                connector.close();
-            }
+            try {
 
-            if(connector.getResult(gold).next()){
-                goldint = connector.getResultSet().getInt(1);
-                connector.close();
-            }
+                String initialGold = connector.getRescourseCommand("Initial_Cost", nameList.get(i), "Gold");
+                String initialWood = connector.getRescourseCommand("Initial_Cost", nameList.get(i), "Wood");
+                String initialStone = connector.getRescourseCommand("Initial_Cost", nameList.get(i), "Stone");
+                String initialIron = connector.getRescourseCommand("Initial_Cost", nameList.get(i), "Iron");
+                String initialCoal = connector.getRescourseCommand("Initial_Cost", nameList.get(i), "Coal");
+                String initialSteel = connector.getRescourseCommand("Initial_Cost", nameList.get(i), "Steel");
+                String initialFood = connector.getRescourseCommand("Initial_Cost", nameList.get(i), "Food");
+                String initialHuman = connector.getRescourseCommand("Initial_Cost", nameList.get(i), "Human");
+                String gold = connector.getRescourseCommand("Turn_Resource_Gain", nameList.get(i), "Gold");
+                String wood = connector.getRescourseCommand("Turn_Resource_Gain", nameList.get(i), "Wood");
+                String stone = connector.getRescourseCommand("Turn_Resource_Gain", nameList.get(i), "Stone");
+                String iron = connector.getRescourseCommand("Turn_Resource_Gain", nameList.get(i), "Iron");
+                String coal = connector.getRescourseCommand("Turn_Resource_Gain", nameList.get(i), "Coal");
+                String steel = connector.getRescourseCommand("Turn_Resource_Gain", nameList.get(i), "Steel");
+                String food = connector.getRescourseCommand("Turn_Resource_Gain", nameList.get(i), "Food");
+                String human = connector.getRescourseCommand("Turn_Resource_Gain", nameList.get(i), "Human");
 
-            if(connector.getResult(wood).next()){
-                woodint = connector.getResultSet().getInt(1);
-                connector.close();
-            }
+                if (connector.getResult(initialGold).next()) {
+                    initialGoldint = connector.getResultSet().getInt(1);
+                    connector.close();
+                }
 
-            if(connector.getResult(stone).next()){
-                stoneint = connector.getResultSet().getInt(1);
-                connector.close();
-            }
-        
-            if(connector.getResult(iron).next()){
-                ironint = connector.getResultSet().getInt(1);
-                connector.close();
-            }
-        
-            if(connector.getResult(coal).next()){
-                coalint = connector.getResultSet().getInt(1);
-                connector.close();
-            }
+                if (connector.getResult(initialWood).next()) {
+                    initialWoodint = connector.getResultSet().getInt(1);
+                    connector.close();
+                }
 
-            if(connector.getResult(steel).next()){
-                steelint = connector.getResultSet().getInt(1);
-                connector.close();
-            }
+                if (connector.getResult(initialStone).next()) {
+                    initialStoneint = connector.getResultSet().getInt(1);
+                    connector.close();
+                }
 
-            if(connector.getResult(food).next()){
-                foodint = connector.getResultSet().getInt(1);
-                connector.close();
-            }
+                if (connector.getResult(initialIron).next()) {
+                    initialIronint = connector.getResultSet().getInt(1);
+                    connector.close();
+                }
 
-            if(connector.getResult(human).next()){
-                humanint = connector.getResultSet().getInt(1);
-                connector.close();
-            }
-            
-            System.out.println(changeBuildingTypeChecker);
-            if(changeBuildingTypeChecker < 14){
-                normalBuildingList.add(new NormalBuilding(nameList.get(i), initialGoldint, initialWoodint, initialStoneint, initialIronint, initialCoalint,
-                    initialSteelint, initialFoodint, initialHumanint, amount, scoreList.get(i), goldint, woodint, stoneint, ironint, coalint, steelint,
-                    foodint, humanint));
+                if (connector.getResult(initialCoal).next()) {
+                    initialCoalint = connector.getResultSet().getInt(1);
+                    connector.close();
+                }
+
+                if (connector.getResult(initialSteel).next()) {
+                    initialSteelint = connector.getResultSet().getInt(1);
+                    connector.close();
+                }
+
+                if (connector.getResult(initialFood).next()) {
+                    initialFoodint = connector.getResultSet().getInt(1);
+                    connector.close();
+                }
+
+                if (connector.getResult(initialHuman).next()) {
+                    initialHumanint = connector.getResultSet().getInt(1);
+                    connector.close();
+                }
+
+                if (connector.getResult(gold).next()) {
+                    goldint = connector.getResultSet().getInt(1);
+                    connector.close();
+                }
+
+                if (connector.getResult(wood).next()) {
+                    woodint = connector.getResultSet().getInt(1);
+                    connector.close();
+                }
+
+                if (connector.getResult(stone).next()) {
+                    stoneint = connector.getResultSet().getInt(1);
+                    connector.close();
+                }
+
+                if (connector.getResult(iron).next()) {
+                    ironint = connector.getResultSet().getInt(1);
+                    connector.close();
+                }
+
+                if (connector.getResult(coal).next()) {
+                    coalint = connector.getResultSet().getInt(1);
+                    connector.close();
+                }
+
+                if (connector.getResult(steel).next()) {
+                    steelint = connector.getResultSet().getInt(1);
+                    connector.close();
+                }
+
+                if (connector.getResult(food).next()) {
+                    foodint = connector.getResultSet().getInt(1);
+                    connector.close();
+                }
+
+                if (connector.getResult(human).next()) {
+                    humanint = connector.getResultSet().getInt(1);
+                    connector.close();
+                }
+
+                System.out.println(changeBuildingTypeChecker);
+                if (changeBuildingTypeChecker < 14) {
+                    normalBuildingList.add(new NormalBuilding(nameList.get(i), initialGoldint, initialWoodint, initialStoneint, initialIronint, initialCoalint,
+                            initialSteelint, initialFoodint, initialHumanint, amount, scoreList.get(i), goldint, woodint, stoneint, ironint, coalint, steelint,
+                            foodint, humanint));
                     changeBuildingTypeChecker++;
-            }else{
-                uniqueBuildingList.add(new UniqueBuilding(nameList.get(i), initialGoldint, initialWoodint, initialStoneint, initialIronint, initialCoalint,
-                    initialSteelint, initialFoodint, initialHumanint, amount, scoreList.get(i), goldint, woodint, stoneint, ironint, coalint, steelint,
-                    foodint, humanint));
-            }
-            
-            
-            
-            }catch(Exception ex){
+                } else {
+                    uniqueBuildingList.add(new UniqueBuilding(nameList.get(i), initialGoldint, initialWoodint, initialStoneint, initialIronint, initialCoalint,
+                            initialSteelint, initialFoodint, initialHumanint, amount, scoreList.get(i), goldint, woodint, stoneint, ironint, coalint, steelint,
+                            foodint, humanint));
+                }
+
+            } catch (Exception ex) {
                 System.out.println("Error with mySQL search");
                 ex.printStackTrace();
-            }finally{
+            } finally {
                 connector.close();
             }
-            
+
         }
         System.out.println(normalBuildingList.get(2).getGold());
-        
+
     }
-    
-    private void addEventResources(){
-        
+
+    private void addEventResources() {
+
         amountOfGold += EventStorage.getInstance().getEventChangeGold();
         amountOfWood += EventStorage.getInstance().getEventChangeWood();
         amountOfStone += EventStorage.getInstance().getEventChangeStone();
@@ -821,8 +810,8 @@ public class FXMLGameController implements Initializable {
         amountOfCoal += EventStorage.getInstance().getEventChangeCoal();
         amountOfSteel += EventStorage.getInstance().getEventChangeSteel();
     }
-    
-    private void addEventPercentageResources(){
+
+    private void addEventPercentageResources() {
         amountOfGold = (int) (amountOfGold * EventStorage.getInstance().getEventPercentageChangeGold());
         amountOfWood = (int) (amountOfWood * EventStorage.getInstance().getEventPercentageChangeWood());
         amountOfStone = (int) (amountOfStone * EventStorage.getInstance().getEventPercentageChangeStone());
@@ -832,81 +821,80 @@ public class FXMLGameController implements Initializable {
         amountOfCoal = (int) (amountOfCoal * EventStorage.getInstance().getEventPercentageChangeCoal());
         amountOfSteel = (int) (amountOfSteel * EventStorage.getInstance().getEventPercentageChangeSteel());
     }
-    
-    private void upgradeBuildingButtonsHandler(){
-        if(normalBuildingList.get(0).getAmount().getValue() >= 15){
+
+    private void upgradeBuildingButtonsHandler() {
+        if (normalBuildingList.get(0).getAmount().getValue() >= 15) {
             cottageButton.setDisable(false);
-            cottageButton.setOpacity(1);       
+            cottageButton.setOpacity(1);
         }
-        if(normalBuildingList.get(1).getAmount().getValue() >= 7){
+        if (normalBuildingList.get(1).getAmount().getValue() >= 7) {
             graneryButton.setDisable(false);
             graneryButton.setOpacity(1);
         }
-        if(normalBuildingList.get(2).getAmount().getValue() >= 8){
+        if (normalBuildingList.get(2).getAmount().getValue() >= 8) {
             bazaarButton.setDisable(false);
             bazaarButton.setOpacity(1);
         }
-        if(normalBuildingList.get(3).getAmount().getValue() >= 13){
+        if (normalBuildingList.get(3).getAmount().getValue() >= 13) {
             sawmillButton.setDisable(false);
             sawmillButton.setOpacity(1);
         }
-        if(normalBuildingList.get(6).getAmount().getValue() >= 10){
+        if (normalBuildingList.get(6).getAmount().getValue() >= 10) {
             stoneworksButton.setDisable(false);
             stoneworksButton.setOpacity(1);
         }
-        if(uniqueBuildingList.get(0).getAmount().getValue() > 0){
+        if (uniqueBuildingList.get(0).getAmount().getValue() > 0) {
             bankButton.setDisable(true);
             bankButton.setOpacity(0.3);
         }
-        if(uniqueBuildingList.get(1).getAmount().getValue() > 0){
+        if (uniqueBuildingList.get(1).getAmount().getValue() > 0) {
             lumberjackButton.setDisable(true);
             lumberjackButton.setOpacity(0.3);
         }
-        if(uniqueBuildingList.get(2).getAmount().getValue() > 0){
+        if (uniqueBuildingList.get(2).getAmount().getValue() > 0) {
             schoolButton.setDisable(true);
             schoolButton.setOpacity(0.3);
         }
-        if(uniqueBuildingList.get(3).getAmount().getValue() > 0){
+        if (uniqueBuildingList.get(3).getAmount().getValue() > 0) {
             aqueductButton.setDisable(true);
             aqueductButton.setOpacity(0.3);
         }
-        if(uniqueBuildingList.get(4).getAmount().getValue() > 0){
+        if (uniqueBuildingList.get(4).getAmount().getValue() > 0) {
             workshopButton.setDisable(true);
             workshopButton.setOpacity(0.3);
         }
     }
-    
-    private void refreshStatsViewColumns(boolean isNormalBuilding, int statsViewBuildingID){
+
+    private void refreshStatsViewColumns(boolean isNormalBuilding, int statsViewBuildingID) {
         statsViewDisplayList.removeAll(statsViewDisplayList);
         statsViewBuildingLabel.setText(statsViewBuildingName);
-        
-        if(isNormalBuilding == true){
-            statsViewDisplayList.add(new StatsViewDisplayObject("Gold:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialGold()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getGold()), "",""));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Wood:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialWood()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getWood()), "",""));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Stone:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialStone()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getStone()), "",""));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Iron:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialIron()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getIron()), "",""));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Coal:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialCoal()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getCoal()), "",""));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Steel:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialSteel()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getSteel()), "",""));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Food:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialFood()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getFood()), "",""));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Human:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialHuman()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getHuman()), "",""));
-            
+
+        if (isNormalBuilding == true) {
+            statsViewDisplayList.add(new StatsViewDisplayObject("Gold:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialGold()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getGold()), "", ""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Wood:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialWood()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getWood()), "", ""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Stone:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialStone()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getStone()), "", ""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Iron:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialIron()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getIron()), "", ""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Coal:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialCoal()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getCoal()), "", ""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Steel:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialSteel()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getSteel()), "", ""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Food:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialFood()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getFood()), "", ""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Human:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialHuman()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getHuman()), "", ""));
+
             statsViewResource.setCellValueFactory(new PropertyValueFactory<>("resourceName"));
             statsViewCost.setCellValueFactory(new PropertyValueFactory<>("normalBuildingCost"));
             statsViewProduces.setCellValueFactory(new PropertyValueFactory<>("normalBuildingProduces"));
 
             statviewTableview.setItems(statsViewDisplayList);
 
-        }
-        else if(isNormalBuilding == false){
+        } else if (isNormalBuilding == false) {
             statsViewDisplayList.add(new StatsViewDisplayObject("Gold:", "", "", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialGold()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusGold())) + "%"));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Wood:", "","", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialWood()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusWood())) + "%"));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Stone:", "","", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialStone()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusStone())) + "%"));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Iron:", "","", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialIron()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusIron())) + "%"));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Coal:", "","", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialCoal()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusCoal())) + "%"));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Steel:", "","", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialSteel()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusSteel())) + "%"));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Food:", "","", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialFood()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusFood())) + "%"));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Wood:", "", "", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialWood()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusWood())) + "%"));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Stone:", "", "", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialStone()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusStone())) + "%"));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Iron:", "", "", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialIron()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusIron())) + "%"));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Coal:", "", "", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialCoal()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusCoal())) + "%"));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Steel:", "", "", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialSteel()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusSteel())) + "%"));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Food:", "", "", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialFood()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusFood())) + "%"));
             statsViewDisplayList.add(new StatsViewDisplayObject("Human:", "", "", Integer.toString(uniqueBuildingList.get(statsViewBuildingID).getInitialHuman()), Integer.toString((int) (100 * uniqueBuildingList.get(statsViewBuildingID).getBonusHuman())) + "%"));
-            
+
             statsViewResource.setCellValueFactory(new PropertyValueFactory<>("resourceName"));
             statsViewCost.setCellValueFactory(new PropertyValueFactory<>("uniqueBuildingCost"));
             statsViewProduces.setCellValueFactory(new PropertyValueFactory<>("uniqueBuildingProduces"));
@@ -914,58 +902,83 @@ public class FXMLGameController implements Initializable {
             statviewTableview.setItems(statsViewDisplayList);
         }
     }
-    
-    private void difficultySetter(){
-            
-            if(DataStorage.getInstance().getDifficulty().equals("noob")){
-                difficultyMultiplier = 0.8; 
-            }else if(DataStorage.getInstance().getDifficulty().equals("normal")){
-                difficultyMultiplier = 1;
-            }else if(DataStorage.getInstance().getDifficulty().equals("asian")){
-                difficultyMultiplier = 1.2;
-            }
-        }
-    
-    private void refreshEventLogText(String eventLogNewText){
-        if(eventLogDisplayText == null){
-            eventLogDisplayText = eventLogNewText;
-            eventlogTextArea.setText(eventLogDisplayText);
-        }
-        else{
-            eventLogDisplayText = eventLogNewText + "\n" +eventLogDisplayText ;
-            eventlogTextArea.setText(eventLogDisplayText);
-            
+
+    private void difficultySetter() {
+
+        if (DataStorage.getInstance().getDifficulty().equals("noob")) {
+            difficultyMultiplier = 0.8;
+        } else if (DataStorage.getInstance().getDifficulty().equals("normal")) {
+            difficultyMultiplier = 1;
+        } else if (DataStorage.getInstance().getDifficulty().equals("asian")) {
+            difficultyMultiplier = 1.2;
         }
     }
-    private void scoreCalculator(){
+
+    private void refreshEventLogText(String eventLogNewText) {
+        if (eventLogDisplayText == null) {
+            eventLogDisplayText = eventLogNewText;
+            eventlogTextArea.setText(eventLogDisplayText);
+        } else {
+            eventLogDisplayText = eventLogNewText + "\n" + eventLogDisplayText;
+            eventlogTextArea.setText(eventLogDisplayText);
+
+        }
+    }
+
+    private int scoreCalculator() {
         int score = 0;
-        for(int i = 0; i < 14; i++){
-            
+        for (int i = 0; i < 14; i++) {
+
             score += (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getScoreValue());
-            if(i < 5){
+            if (i < 5) {
                 score += (uniqueBuildingList.get(i).getAmount().getValue() * uniqueBuildingList.get(i).getScoreValue());
             }
-            
+
         }
-        if(DataStorage.getInstance().getDifficulty().equals("noob")){ 
+        if (DataStorage.getInstance().getDifficulty().equals("noob")) {
             score *= 0.8;
-        }
-        else if(DataStorage.getInstance().getDifficulty().equals("asian")){
+        } else if (DataStorage.getInstance().getDifficulty().equals("asian")) {
             score *= 1.2;
         }
         scoreLabel.setText("Score: " + score);
         DataStorage.getInstance().setScore(score);
         System.out.println("The score" + score);
+
+        return score;
     }
-    
-    private void hideCheatCodeTools(){
+
+    private void insertHighScore() {
+        int leaderBoardObjectCounter = 0;
+        try {
+            Statement sta = connector.getConnection().createStatement();
+            ResultSet res = sta.executeQuery(connector.getOneAttributeCommand("ID","leaderboard"));
+            while (res.next()) {
+                leaderBoardObjectCounter++;
+            }
+            System.out.println(leaderBoardObjectCounter);
+            PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getInsertHighScoreCommand());
+            prepSt.setInt(1, leaderBoardObjectCounter + 1);
+            prepSt.setString(2, DataStorage.getInstance().getNewActiveUser());
+            prepSt.setInt(3, scoreCalculator());
+            prepSt.setString(4, DataStorage.getInstance().getDifficulty());
+            prepSt.setInt(5, DataStorage.getInstance().getRoundLimit());
+            prepSt.executeUpdate();
+            connector.close();
+            System.out.println("Highscore lagrat");
+        } catch (Exception ex) {
+            System.out.println("Error vid sparning av highscore");
+            Logger.getLogger(FXMLLeaderboardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void hideCheatCodeTools() {
         cheatCodeLabel.setText("");
         cheatCodeField.setVisible(false);
         cheatCodesOkButton.setVisible(false);
         cheatCodeErrorLabel.setVisible(false);
     }
-    
-    private void codeSuccessfull(){
+
+    private void codeSuccessfull() {
         hideCheatCodeTools();
         cheatCodeField.setText("");
         cheatCodeLabel.setText("Success!");

@@ -27,13 +27,19 @@ public class FXMLMainMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if(DataStorage.getInstance().isMusicOnCheck().equals(true)){
-        SoundPlayer.getInstance().setMusicStop();
-        }
+         if(DataStorage.getInstance().isLoadOnceCheck()==false){
         readOptionSettingFromFile();
+        
+         if (DataStorage.getInstance().isMusicSet()==false){
+              SoundPlayer.getInstance().playMusic(DataStorage.getInstance().getMusicChoice());
+         }
+         }
+        
         //if(DataStorage.getInstance().isMusicSet().equals(false)){
-        SoundPlayer.getInstance().playMusic(DataStorage.getInstance().getMusicChoice());
+       
+        
         //}
+        
     }
 //------------------------------FXML METHODS----------------------------------\\    
 
@@ -52,6 +58,7 @@ public class FXMLMainMenuController implements Initializable {
             //Temporary sceneswitch back to login
             DataStorage.getInstance().sceneSwitch(event, "FXMLLogInMenu.fxml");
             DataStorage.getInstance().setNewActiveUser("");
+            SoundPlayer.getInstance().setMusicStop();
             System.out.println(DataStorage.getInstance().getNewActiveUser());
         } else if (buttonText.equals("Exit")) {
             try {
@@ -71,9 +78,9 @@ public class FXMLMainMenuController implements Initializable {
             System.out.println("Filöppning lyckades");
             DataStorage.getInstance().setDifficulty(objectload.getDifficulty());
             DataStorage.getInstance().setMusicChoice(objectload.getMusicChoice());
-            DataStorage.getInstance().setMusicSet(objectload.isMusicSet());
             DataStorage.getInstance().setRoundLimit(objectload.getRoundLimit());
-
+            DataStorage.getInstance().setMusicSet(objectload.isMusicSet());
+            DataStorage.getInstance().setLoadOnceCheck(true);
         } catch (Exception ex) {
             System.out.println("Ingen fil skapad");
 

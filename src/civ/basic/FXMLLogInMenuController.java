@@ -40,6 +40,7 @@ public class FXMLLogInMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    DataStorage.getInstance().setLoadOnceCheck(false);
     }
 //------------------------------FXML METHODS----------------------------------\\    
 
@@ -82,6 +83,7 @@ public class FXMLLogInMenuController implements Initializable {
                 System.out.println("Fel användarnamn eller lösenord!");
                 loginErrorLabel.setText("Fel användarnamn eller lösenord!");
             }
+            connector.close();
 
         } catch (Exception e) {
             System.err.println("ERROR: " + e);

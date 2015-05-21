@@ -83,6 +83,10 @@ public class DataBaseConnector {
         String genericHighScoreComand = "SELECT Accounts_Username,Score, Difficulty FROM leaderboard WHERE round_Limit = '" + roundLimit + "'ORDER BY Score DESC LIMIT 5";
         return genericHighScoreComand;
     }
+       public String getOneAttributeCommand(String attribute, String Table) {
+        String OneAttributeCommand = "SELECT " + attribute + " FROM " + Table + "";
+        return OneAttributeCommand;
+    }
 
     public String getInsertHighScoreCommand() {
         String insertHighScoreComman = "INSERT INTO leaderboard (ID,Accounts_Username,Score,Difficulty,Round_Limit) VALUES (?,?,?,?,?)";
