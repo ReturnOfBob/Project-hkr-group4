@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="348.0" prefWidth="503.0" styleClass="root" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLcreateAccountController">
+   <children>
+      <TextField fx:id="name" layoutX="68.0" layoutY="50.0" prefHeight="25.0" prefWidth="362.0" promptText="Name" />
+      <PasswordField fx:id="password" layoutX="68.0" layoutY="90.0" prefHeight="25.0" prefWidth="362.0" promptText="Password" />
+      <PasswordField fx:id="passwordAgain" layoutX="68.0" layoutY="130.0" prefHeight="25.0" prefWidth="362.0" promptText="Rewrite Password" />
+      <TextField fx:id="question" layoutX="68.0" layoutY="170.0" prefHeight="25.0" prefWidth="362.0" promptText="Security Question" />
+      <TextField fx:id="questionAnswer" layoutX="68.0" layoutY="210.0" prefHeight="25.0" prefWidth="362.0" promptText="Security Question Answer" />
+      <Button id="menuButton" fx:id="createAccount" layoutX="132.0" layoutY="295.0" mnemonicParsing="false" onAction="#menuClick" text="Create Account" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button id="menuButton" fx:id="backToLogin" layoutX="262.0" layoutY="295.0" mnemonicParsing="false" onAction="#menuClick" text="Back to login" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label fx:id="createAccountDoneLabel" layoutX="68.0" layoutY="268.0" prefHeight="17.0" prefWidth="362.0" />
+      <Label fx:id="createAccountErrorLabel" layoutX="68.0" layoutY="251.0" prefHeight="17.0" prefWidth="362.0" textFill="RED" />
+   </children>
+</AnchorPane>
