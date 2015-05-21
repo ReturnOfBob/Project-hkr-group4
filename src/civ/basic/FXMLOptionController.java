@@ -99,7 +99,7 @@ public class FXMLOptionController implements Initializable, Serializable {
             SoundPlayer.getInstance().setMusicStop();
             SoundPlayer.getInstance().playMusic(3);
         }
-        objectSave.setDifficulty(DataStorage.getInstance().getDifficulty());
+        objectSave.setDifficulty(DataStorage.getInstance().getDifficulty()); //Onödigt att sätta i instance både här samt i menu. Kanske bara sätta i object här?
         objectSave.setMusicChoice(DataStorage.getInstance().getMusicChoice());
         objectSave.setMusicSet(DataStorage.getInstance().isMusicSet());
         objectSave.setRoundLimit(DataStorage.getInstance().getRoundLimit());
