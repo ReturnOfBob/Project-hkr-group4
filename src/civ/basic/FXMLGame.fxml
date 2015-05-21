@@ -9,11 +9,17 @@
 
 <AnchorPane id="AnchorPane" prefHeight="680.0" prefWidth="1024.0" styleClass="root" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLGameController">
    <children>
-      <Button id="MenuButton" fx:id="houseButton" layoutX="310.0" layoutY="148.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="House" />
+      <Button id="menuButton" fx:id="houseButton" layoutX="310.0" layoutY="148.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="House" textFill="WHITE" />
       <TextArea fx:id="eventlogTextArea" editable="false" layoutX="810.0" layoutY="341.0" prefHeight="242.0" prefWidth="200.0" />
-      <Button fx:id="woodmillButton" layoutX="310.0" layoutY="213.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" text="Woodmill" />
-      <Button fx:id="farmButton" layoutX="467.0" layoutY="148.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" text="Farm" />
-      <Button fx:id="stonemasonryButton" layoutX="310.0" layoutY="280.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" text="Stonemason" />
+      <Button id="menuButton" fx:id="woodmillButton" layoutX="310.0" layoutY="213.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="Woodmill" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button id="menuButton" fx:id="farmButton" layoutX="467.0" layoutY="148.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="Farm" textFill="WHITE" />
+      <Button id="menuButton" fx:id="stonemasonryButton" layoutX="310.0" layoutY="280.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="Stonemason" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
       <Label layoutX="14.0" layoutY="42.0" text="Resources per turn:">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -42,7 +48,7 @@
       <Label fx:id="coalLabel" layoutX="565.0" layoutY="89.0" text="Coal" />
       <Label fx:id="ironLabel" layoutX="459.0" layoutY="89.0" text="Iron" />
       <Label fx:id="steelLabel" layoutX="670.0" layoutY="89.0" text="Steel" />
-      <Button fx:id="nextTurnButton" layoutX="827.0" layoutY="595.0" mnemonicParsing="false" onAction="#nextTurn" prefHeight="72.0" prefWidth="166.0" text="Next Turn">
+      <Button id="menuButton" fx:id="nextTurnButton" layoutX="827.0" layoutY="595.0" mnemonicParsing="false" onAction="#nextTurn" prefHeight="72.0" prefWidth="166.0" stylesheets="@Style.css" text="Next Turn" textFill="WHITE">
          <font>
             <Font size="28.0" />
          </font>
@@ -70,17 +76,17 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Button fx:id="marketButton" layoutX="623.0" layoutY="148.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" text="Market" />
-      <Button fx:id="storageButton" layoutX="623.0" layoutY="213.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" text="Storage" />
-      <Button fx:id="steelworksButton" layoutX="467.0" layoutY="213.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" text="Steelworks" />
-      <Button fx:id="ironMineButton" layoutX="467.0" layoutY="280.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" text="Iron mine" />
-      <Button fx:id="coalMineButton" layoutX="623.0" layoutY="280.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" text="Coal mine" />
+      <Button id="menuButton" fx:id="marketButton" layoutX="623.0" layoutY="148.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="Market" textFill="WHITE" />
+      <Button id="menuButton" fx:id="storageButton" layoutX="623.0" layoutY="213.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="Storage" textFill="WHITE" />
+      <Button id="menuButton" fx:id="steelworksButton" layoutX="467.0" layoutY="213.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="Steelworks" textFill="WHITE" />
+      <Button id="menuButton" fx:id="ironMineButton" layoutX="467.0" layoutY="280.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="Iron mine" textFill="WHITE" />
+      <Button id="menuButton" fx:id="coalMineButton" layoutX="623.0" layoutY="280.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="Coal mine" textFill="WHITE" />
       <Label layoutX="233.0" layoutY="115.0" prefHeight="17.0" prefWidth="121.0" text="Standard Buildings:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Button fx:id="cottageButton" disable="true" layoutX="310.0" layoutY="373.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" opacity="0.3" prefHeight="49.0" prefWidth="120.0" text="Cottage" />
-      <Button fx:id="bankButton" layoutX="310.0" layoutY="527.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" text="Bank" />
+      <Button id="menuButton" fx:id="cottageButton" disable="true" layoutX="310.0" layoutY="373.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" opacity="0.3" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="Cottage" textFill="WHITE" />
+      <Button id="menuButton" fx:id="bankButton" layoutX="310.0" layoutY="527.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="Bank" textFill="WHITE" />
       <Label layoutX="233.0" layoutY="338.0" prefHeight="17.0" prefWidth="121.0" text="Upgraded Buildings:">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -90,14 +96,14 @@
             <Font name="System Bold" size="12.0" />
          </font></Label>
       <Label fx:id="activeUserLabel" layoutX="80.0" layoutY="17.0" prefHeight="17.0" prefWidth="150.0" />
-      <Button fx:id="lumberjackButton" layoutX="467.0" layoutY="527.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" text="Lumberjack school" />
-      <Button fx:id="schoolButton" layoutX="623.0" layoutY="527.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" text="School" />
-      <Button fx:id="aqueductButton" layoutX="310.0" layoutY="595.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" text="Aqueduct" />
-      <Button fx:id="workshopButton" layoutX="467.0" layoutY="595.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" text="Workshop" />
-      <Button fx:id="graneryButton" disable="true" layoutX="467.0" layoutY="373.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" opacity="0.3" prefHeight="49.0" prefWidth="120.0" text="Granery" />
-      <Button fx:id="sawmillButton" disable="true" layoutX="624.0" layoutY="373.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" opacity="0.3" prefHeight="49.0" prefWidth="120.0" text="Sawmill" />
-      <Button fx:id="bazaarButton" disable="true" layoutX="310.0" layoutY="437.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" opacity="0.3" prefHeight="49.0" prefWidth="120.0" text="Bazaar" />
-      <Button fx:id="stoneworksButton" disable="true" layoutX="467.0" layoutY="437.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" opacity="0.3" prefHeight="49.0" prefWidth="120.0" text="Stoneworks" />
+      <Button id="menuButton" fx:id="lumberjackButton" layoutX="467.0" layoutY="527.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="Lumberjack school" textFill="WHITE" />
+      <Button id="menuButton" fx:id="schoolButton" layoutX="623.0" layoutY="527.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="School" textFill="WHITE" />
+      <Button id="menuButton" fx:id="aqueductButton" layoutX="310.0" layoutY="595.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="Aqueduct" textFill="WHITE" />
+      <Button id="menuButton" fx:id="workshopButton" layoutX="467.0" layoutY="595.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="Workshop" textFill="WHITE" />
+      <Button id="menuButton" fx:id="graneryButton" disable="true" layoutX="467.0" layoutY="373.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" opacity="0.3" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="Granery" textFill="WHITE" />
+      <Button id="menuButton" fx:id="sawmillButton" disable="true" layoutX="624.0" layoutY="373.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" opacity="0.3" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="Sawmill" textFill="WHITE" />
+      <Button id="menuButton" fx:id="bazaarButton" disable="true" layoutX="310.0" layoutY="437.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" opacity="0.3" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="Bazaar" textFill="WHITE" />
+      <Button id="menuButton" fx:id="stoneworksButton" disable="true" layoutX="467.0" layoutY="437.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" opacity="0.3" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="Stoneworks" textFill="WHITE" />
       <Label fx:id="statsViewBuildingLabel" layoutX="895.0" layoutY="35.0">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -106,11 +112,11 @@
       <Label fx:id="statsViewNoteLabel" layoutX="811.0" layoutY="288.0" />
       <AnchorPane id="popUp" fx:id="popUp" disable="true" layoutX="304.0" layoutY="193.0" opacity="0.0" prefHeight="307.0" prefWidth="447.0">
          <children>
-            <TextArea fx:id="popUpText" disable="true" editable="false" layoutX="13.0" layoutY="20.0" prefHeight="209.0" prefWidth="411.0" />
+            <TextArea id="menuButton" fx:id="popUpText" editable="false" layoutX="13.0" layoutY="20.0" prefHeight="209.0" prefWidth="411.0" stylesheets="@Style.css" />
             <Button fx:id="popUpButton" layoutX="203.0" layoutY="253.0" mnemonicParsing="false" onAction="#popUpButtonHandler" text="Ok" />
          </children>
     </AnchorPane>
-      <Button fx:id="ingameMenuButton" layoutX="670.0" layoutY="2.0" mnemonicParsing="false" onAction="#showIngameMenu" prefHeight="25.0" prefWidth="104.0" text="Menu" />
+      <Button id="menuButton" fx:id="ingameMenuButton" layoutX="670.0" layoutY="2.0" mnemonicParsing="false" onAction="#showIngameMenu" prefHeight="25.0" prefWidth="104.0" stylesheets="@Style.css" text="Menu" textFill="WHITE" />
       <AnchorPane fx:id="ingameMenuBlocker" opacity="0.3" prefHeight="680.0" prefWidth="1024.0" style="-fx-background-color: grey;" visible="false" />
       <AnchorPane id="popUp" fx:id="ingameMenuPopUp" layoutX="428.0" layoutY="150.0" prefHeight="363.0" prefWidth="200.0" visible="false">
          <children>
