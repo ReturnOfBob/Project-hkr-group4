@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="680.0" prefWidth="1024.0" styleClass="root" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLGameController">
    <children>
-      <Button fx:id="houseButton" layoutX="310.0" layoutY="148.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" text="House" />
+      <Button id="MenuButton" fx:id="houseButton" layoutX="310.0" layoutY="148.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" stylesheets="@Style.css" text="House" />
       <TextArea fx:id="eventlogTextArea" editable="false" layoutX="810.0" layoutY="341.0" prefHeight="242.0" prefWidth="200.0" />
       <Button fx:id="woodmillButton" layoutX="310.0" layoutY="213.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" text="Woodmill" />
       <Button fx:id="farmButton" layoutX="467.0" layoutY="148.0" mnemonicParsing="false" onAction="#buttonBuilderHandler" onMouseEntered="#showStatsViewColumns" onMouseExited="#hideStatsViewColumns" prefHeight="49.0" prefWidth="120.0" text="Farm" />
