@@ -31,7 +31,7 @@ public class FXMLOptionController implements Initializable, Serializable {
     @FXML
     private RadioButton noobDifficulty, normalDifficulty, asianDifficulty, lowTurnLimit, mediumTurnLimit, highTurnLimit, musicOn, musicOff, musicPack1, musicPack2, musicPack3;
     private String buttonText;
-    private final SoundPlayer player = new SoundPlayer();
+    //private final SoundPlayer player = new SoundPlayer();
     @FXML
     String difficulty;
     int roundLimit;
@@ -89,15 +89,15 @@ public class FXMLOptionController implements Initializable, Serializable {
         }
 
         if (musicPack1.isSelected()){
-           // player.setMusicStop();
-            player.playMusic(1);
+           SoundPlayer.getInstance().setMusicStop();
+            SoundPlayer.getInstance().playMusic(1);
         }
         else if (musicPack2.isSelected()){
-           // player.setMusicStop();
-            player.playMusic(2);
+           SoundPlayer.getInstance().setMusicStop();
+            SoundPlayer.getInstance().playMusic(2);
         } else {
-          //  player.setMusicStop();
-            player.playMusic(3);
+            SoundPlayer.getInstance().setMusicStop();
+            SoundPlayer.getInstance().playMusic(3);
         }
         objectSave.setDifficulty(DataStorage.getInstance().getDifficulty());
         objectSave.setMusicChoice(DataStorage.getInstance().getMusicChoice());
