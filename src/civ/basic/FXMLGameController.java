@@ -301,6 +301,7 @@ public class FXMLGameController implements Initializable {
             cheatCodeField.setVisible(true);
             cheatCodesOkButton.setVisible(true);
         } else if (buttonText.equals("Back To Main Menu")) {
+            SoundPlayer.getInstance().setMusicStop();
             DataStorage.getInstance().sceneSwitch(event, "FXMLMainMenu.fxml");
         } else if (buttonText.equals("Exit Game")) {
             try {

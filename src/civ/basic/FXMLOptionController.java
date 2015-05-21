@@ -32,11 +32,6 @@ public class FXMLOptionController implements Initializable, Serializable {
     private RadioButton noobDifficulty, normalDifficulty, asianDifficulty, lowTurnLimit, mediumTurnLimit, highTurnLimit, musicOn, musicOff, musicPack1, musicPack2, musicPack3;
     private String buttonText;
     //private final SoundPlayer player = new SoundPlayer();
-    @FXML
-    String difficulty;
-    int roundLimit;
-    Boolean musicSet;
-    int musicChoice;
     OptionObject objectSave = new OptionObject();
 //---------------------------ON SCENE LOAD-UP---------------------------------\\
 
@@ -65,7 +60,7 @@ public class FXMLOptionController implements Initializable, Serializable {
         } else {
             System.out.println("ERROR!");
         }
-    }   
+    }
 
     private void submitOption() {
         if (noobDifficulty.isSelected()) {
@@ -82,27 +77,36 @@ public class FXMLOptionController implements Initializable, Serializable {
         } else {
             DataStorage.getInstance().setRoundLimit(100);
         }
-        if (musicOn.isSelected()) {
-            //("Länk till music class med  setter för music on")
-        } else {
-            //Länk till music class med setter för music off
-        }
 
-        if (musicPack1.isSelected()){
-           SoundPlayer.getInstance().setMusicStop();
-            SoundPlayer.getInstance().playMusic(1);
-        }
-        else if (musicPack2.isSelected()){
-           SoundPlayer.getInstance().setMusicStop();
-            SoundPlayer.getInstance().playMusic(2);
+        if (musicPack1.isSelected()) {
+            SoundPlayer.getInstance().setMusicStop();
+            DataStorage.getInstance().setMusicChoice(1);
+            SoundPlayer.getInstance().playMusic(DataStorage.getInstance().getMusicChoice());
+
+        } else if (musicPack2.isSelected()) {
+            SoundPlayer.getInstance().setMusicStop();
+            DataStorage.getInstance().setMusicChoice(2);
+            SoundPlayer.getInstance().playMusic(DataStorage.getInstance().getMusicChoice());
+
         } else {
             SoundPlayer.getInstance().setMusicStop();
-            SoundPlayer.getInstance().playMusic(3);
+            DataStorage.getInstance().setMusicChoice(3);
+            SoundPlayer.getInstance().playMusic(DataStorage.getInstance().getMusicChoice());
+
         }
-        objectSave.setDifficulty(DataStorage.getInstance().getDifficulty()); //Onödigt att sätta i instance både här samt i menu. Kanske bara sätta i object här?
+        if (musicOn.isSelected()) {
+            SoundPlayer.getInstance().setMusicMute(false);
+            DataStorage.getInstance().setMusicSet(false);
+        } else {
+            SoundPlayer.getInstance().setMusicMute(true);
+            DataStorage.getInstance().setMusicSet(true);
+        }
+
+        objectSave.setDifficulty(DataStorage.getInstance().getDifficulty());
         objectSave.setMusicChoice(DataStorage.getInstance().getMusicChoice());
         objectSave.setMusicSet(DataStorage.getInstance().isMusicSet());
         objectSave.setRoundLimit(DataStorage.getInstance().getRoundLimit());
+        DataStorage.getInstance().setMusicOnCheck(true);
         writeOptionSettingToFile();
 
         System.out.println("submitOption");

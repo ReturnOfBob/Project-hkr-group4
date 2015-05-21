@@ -7,29 +7,30 @@ package civ.basic;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
 
 /**
  *
  * @author Henrik
  */
 public class SoundPlayer {
-    
+
     private static SoundPlayer soundPlayer;
     private MediaPlayer musicPlayer;
     private Media audioFile;
-    
-    private SoundPlayer(){
-    
+
+    private SoundPlayer() {
+
     }
-    
-    public static SoundPlayer getInstance(){
-        if(soundPlayer == null){
+
+    public static SoundPlayer getInstance() {
+        if (soundPlayer == null) {
             soundPlayer = new SoundPlayer();
         }
-        
+
         return soundPlayer;
     }
-    
+
     public void playMusic(int musicChoice) {
         if (musicChoice == 1) {
 
@@ -52,24 +53,20 @@ public class SoundPlayer {
 
             try {
 
-                musicPlayer = new MediaPlayer(audioFile);
-                musicPlayer.setCycleCount(musicPlayer.INDEFINITE);
-                musicPlayer.play();
+                createMusic(audioFile);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 System.exit(0);
             }
         }
-        
+
         if (musicChoice == 3) {
 
             audioFile = new Media(getClass().getResource("/Resources/Soundtrack/SoundPack3.mp3").toString());
 
             try {
-                
-                musicPlayer = new MediaPlayer(audioFile);
-                musicPlayer.setCycleCount(musicPlayer.INDEFINITE);
-                musicPlayer.play();
+
+                createMusic(audioFile);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 System.exit(0);
@@ -77,12 +74,13 @@ public class SoundPlayer {
         }
     }
 
-    public void setMusicPause() {
-        musicPlayer.pause();
+    public void setMusicMute(boolean choice) {
+        musicPlayer.setMute(choice);
     }
-    public void setMusicStop(){
-        //Kolla om den är igång först
+
+    public void setMusicStop() {
         musicPlayer.stop();
+
     }
 
     public void setMusicOn() {

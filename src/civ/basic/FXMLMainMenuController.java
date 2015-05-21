@@ -27,8 +27,13 @@ public class FXMLMainMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if(DataStorage.getInstance().isMusicOnCheck().equals(true)){
+        SoundPlayer.getInstance().setMusicStop();
+        }
         readOptionSettingFromFile();
-        // TODO
+        //if(DataStorage.getInstance().isMusicSet().equals(false)){
+        SoundPlayer.getInstance().playMusic(DataStorage.getInstance().getMusicChoice());
+        //}
     }
 //------------------------------FXML METHODS----------------------------------\\    
 

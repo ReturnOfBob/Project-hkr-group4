@@ -24,10 +24,11 @@ public class DataStorage {
     private String newSceneIs;
     private String newActiveUser;
     private String difficulty = "normal";
-    private int roundLimit;
+    private int roundLimit = 50;
     private int score;
-    private Boolean musicSet;
-    private Integer musicChoice;
+    private Boolean musicSet = true;
+    private Integer musicChoice = 1;
+    private Boolean musicOnCheck = false;
 
 //------------------------------CONSTRUCTOR-----------------------------------\\    
     private DataStorage() {
@@ -117,4 +118,13 @@ public class DataStorage {
     public void setMusicChoice(Integer musicChoice) {
         this.musicChoice = musicChoice;
     }
+
+    public Boolean isMusicOnCheck() {
+        return musicOnCheck;
+    }
+
+    public void setMusicOnCheck(Boolean musicOnCheck) {
+        this.musicOnCheck = musicOnCheck;
+    }
+    
 }

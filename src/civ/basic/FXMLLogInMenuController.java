@@ -40,7 +40,6 @@ public class FXMLLogInMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        SoundPlayer.getInstance().playMusic(1);
     }
 //------------------------------FXML METHODS----------------------------------\\    
 
