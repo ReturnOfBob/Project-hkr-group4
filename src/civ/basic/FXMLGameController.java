@@ -126,6 +126,7 @@ public class FXMLGameController implements Initializable {
         }
         onNewGame();
         difficultySetter();
+        scoreCalculator();
 
         statsViewDisplayList.add(new StatsViewDisplayObject("", "", "", "", ""));
         statviewTableview.setItems(statsViewDisplayList);
@@ -646,11 +647,11 @@ public class FXMLGameController implements Initializable {
         scoreList.add(19); //Score stoneworks
         scoreList.add(28); //Score bazaar
         scoreList.add(18); //Score sawmill
-        scoreList.add(85); //Score bank
-        scoreList.add(90); //Score lumberjack school
-        scoreList.add(105); //Score school
-        scoreList.add(130); //Score aqueduct
-        scoreList.add(164); //Score workshop
+        scoreList.add(40); //Score bank
+        scoreList.add(43); //Score lumberjack school
+        scoreList.add(52); //Score school
+        scoreList.add(63); //Score aqueduct
+        scoreList.add(71); //Score workshop
 
         buildingsTableview.setItems(normalBuildingList);
         buildingNameColumn.setCellValueFactory(cellData -> cellData.getValue().getName());
@@ -935,11 +936,15 @@ public class FXMLGameController implements Initializable {
             }
 
         }
+        if(currentTurn == DataStorage.getInstance().getRoundLimit()){
+            score += (((amountOfGold*2)+ amountOfWood + amountOfStone + amountOfFood + (amountOfHuman*10) + (amountOfIron*2) + (amountOfCoal*3) + (amountOfSteel*4)/15));
+        }
         if (DataStorage.getInstance().getDifficulty().equals("noob")) {
             score *= 0.8;
         } else if (DataStorage.getInstance().getDifficulty().equals("asian")) {
             score *= 1.2;
         }
+        
         scoreLabel.setText("Score: " + score);
         DataStorage.getInstance().setScore(score);
         System.out.println("The score" + score);

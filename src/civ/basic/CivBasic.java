@@ -26,6 +26,7 @@ public class CivBasic extends Application {
         
         stage.setScene(scene);
         stage.show();
+        stage.setTitle("Civ-Basic");
     }
 
     /**
