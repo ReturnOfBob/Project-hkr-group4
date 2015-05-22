@@ -39,11 +39,11 @@ import javafx.scene.layout.AnchorPane;
 public class FXMLGameController implements Initializable {
 //------------------------------VARIABLES-------------------------------------\\    
 
-    private int amountOfGold = 5;
-    private int amountOfWood = 10;
-    private int amountOfStone = 5;
-    private int amountOfFood = 10;
-    private int amountOfHuman = 2;
+    private int amountOfGold = 10;
+    private int amountOfWood = 25;
+    private int amountOfStone = 15;
+    private int amountOfFood = 130;
+    private int amountOfHuman = 4;
     private int amountOfIron = 0;
     private int amountOfCoal = 0;
     private int amountOfSteel = 0;
@@ -131,6 +131,8 @@ public class FXMLGameController implements Initializable {
         statsViewDisplayList.add(new StatsViewDisplayObject("", "", "", "", ""));
         statviewTableview.setItems(statsViewDisplayList);
         refreshEventLogText("Turn: " + currentTurn);
+        resourceList.get(1).setByTurn(2);
+        
     }
 //------------------------------FXML METHODS----------------------------------\\
 
@@ -368,8 +370,9 @@ public class FXMLGameController implements Initializable {
             resourceList.get(5).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getIron() * EventStorage.getInstance().getEventChangeIronMultiplier() * uniqueBonusIron));
             resourceList.get(6).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getCoal() * EventStorage.getInstance().getEventChangeCoalMultiplier() * uniqueBonusCoal));
             resourceList.get(7).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getSteel() * EventStorage.getInstance().getEventChangeSteelMultiplier() * uniqueBonusSteel));
-
+            
         }
+        resourceList.get(1).setByTurn(2);
     }
 
     private void uniqueBuildingBonusAdder() {
@@ -408,7 +411,6 @@ public class FXMLGameController implements Initializable {
         buttonText = ((Button) event.getSource()).getText();
         for (NormalBuilding building : normalBuildingList) {
             if (building.getName().getValue().equals(buttonText)) {
-                System.out.println("NormalBuilding");  //delete when done with game
 
                 for (int i = 0; i < building.getAmount().getValue(); i++) {
                     multiplier *= 1.1;
@@ -866,19 +868,31 @@ public class FXMLGameController implements Initializable {
         }
     }
 
+    private double buildingMultiplier(){
+        double multiplier = 1;
+        for (NormalBuilding building : normalBuildingList){
+            if(building.getName().getValue().equals(statsViewBuildingName)){
+                for(int i = 0; i < building.getAmount().getValue(); i++){
+                    multiplier *= 1.1;
+                }
+            }
+        }
+        return multiplier;
+    }
+    
     private void refreshStatsViewColumns(boolean isNormalBuilding, int statsViewBuildingID) {
         statsViewDisplayList.removeAll(statsViewDisplayList);
         statsViewBuildingLabel.setText(statsViewBuildingName);
 
         if (isNormalBuilding == true) {
-            statsViewDisplayList.add(new StatsViewDisplayObject("Gold:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialGold()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getGold()), "", ""));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Wood:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialWood()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getWood()), "", ""));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Stone:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialStone()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getStone()), "", ""));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Iron:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialIron()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getIron()), "", ""));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Coal:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialCoal()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getCoal()), "", ""));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Steel:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialSteel()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getSteel()), "", ""));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Food:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialFood()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getFood()), "", ""));
-            statsViewDisplayList.add(new StatsViewDisplayObject("Human:", Integer.toString(normalBuildingList.get(statsViewBuildingID).getInitialHuman()), Integer.toString(normalBuildingList.get(statsViewBuildingID).getHuman()), "", ""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Gold:", Integer.toString((int) (normalBuildingList.get(statsViewBuildingID).getInitialGold() * buildingMultiplier())), Integer.toString(normalBuildingList.get(statsViewBuildingID).getGold()), "", ""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Wood:", Integer.toString((int) (normalBuildingList.get(statsViewBuildingID).getInitialWood() * buildingMultiplier())), Integer.toString(normalBuildingList.get(statsViewBuildingID).getWood()), "", ""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Stone:", Integer.toString((int) (normalBuildingList.get(statsViewBuildingID).getInitialStone() * buildingMultiplier())), Integer.toString(normalBuildingList.get(statsViewBuildingID).getStone()), "", ""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Iron:", Integer.toString((int) (normalBuildingList.get(statsViewBuildingID).getInitialIron() * buildingMultiplier())), Integer.toString(normalBuildingList.get(statsViewBuildingID).getIron()), "", ""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Coal:", Integer.toString((int) (normalBuildingList.get(statsViewBuildingID).getInitialCoal() * buildingMultiplier())), Integer.toString(normalBuildingList.get(statsViewBuildingID).getCoal()), "", ""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Steel:", Integer.toString((int) (normalBuildingList.get(statsViewBuildingID).getInitialSteel() * buildingMultiplier())), Integer.toString(normalBuildingList.get(statsViewBuildingID).getSteel()), "", ""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Food:", Integer.toString((int) (normalBuildingList.get(statsViewBuildingID).getInitialFood() * buildingMultiplier())), Integer.toString(normalBuildingList.get(statsViewBuildingID).getFood()), "", ""));
+            statsViewDisplayList.add(new StatsViewDisplayObject("Human:", Integer.toString((int) (normalBuildingList.get(statsViewBuildingID).getInitialHuman())), Integer.toString(normalBuildingList.get(statsViewBuildingID).getHuman()), "", ""));
 
             statsViewResource.setCellValueFactory(new PropertyValueFactory<>("resourceName"));
             statsViewCost.setCellValueFactory(new PropertyValueFactory<>("normalBuildingCost"));
