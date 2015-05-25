@@ -103,16 +103,22 @@ public class FXMLLeaderboardController implements Initializable {
         //  LeaderboardObject markedRow = (LeaderboardObject)delete.
 
         try {
-            LeaderboardObject markedRow = leaderboardList.getSelectionModel().getSelectedItem();
-            System.out.println(markedRow.getName() + markedRow.getScore()+ markedRow.getDifficulty());
-            connector.getDelete(connector.getDeleteFromTableCommand(markedRow.getName(), markedRow.getScore(),markedRow.getDifficulty())).execute();
-            System.out.println("Deleted");
-            leaderboardListd.remove(leaderboardList.getSelectionModel().getSelectedItem());
-            // leaderboardListd.removeAll(leaderboardListd);
-            System.out.println("Test");
-                //setLeaderBoard();
-            connector.close();
-            //else System.oout.println("Require admin right");
+            if (connector.getResult(connector.getGenericCommand("Privilege", "accounts", "Username", DataStorage.getInstance().getNewActiveUser())).next()) {
+                if (connector.getResultSet().getString(1).equals("Admin")) {
+                    LeaderboardObject markedRow = leaderboardList.getSelectionModel().getSelectedItem();
+                    System.out.println(markedRow.getName() + markedRow.getScore() + markedRow.getDifficulty());
+                    connector.getDelete(connector.getDeleteFromTableCommand(markedRow.getName(), markedRow.getScore(), markedRow.getDifficulty())).execute();
+                    System.out.println("Deleted");
+                    leaderboardListd.remove(leaderboardList.getSelectionModel().getSelectedItem());
+                    // leaderboardListd.removeAll(leaderboardListd);
+                    System.out.println("Test");
+                    //setLeaderBoard();
+                    connector.close();
+               
+                }
+                 else System.out.println("Require admin right"); 
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(FXMLLeaderboardController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -143,7 +149,7 @@ public class FXMLLeaderboardController implements Initializable {
         } else {
             res = sta.executeQuery(connector.getGenericHighScoreCommand(20));
         }
-      
+
         //connector.getConnection();
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
@@ -152,13 +158,13 @@ public class FXMLLeaderboardController implements Initializable {
 
         while (res.next()) {
 
-            System.out.println(res.getInt("Score") + res.getString("Accounts_Username")+ res.getString("Difficulty"));
-            LeaderboardObject leaderboardObject = new LeaderboardObject(res.getString("Accounts_Username"), res.getInt("Score"),  res.getString("Difficulty")); //Fast värden för svårighetsgrad så länge. Ska tas från fil eller från datastorage
+            System.out.println(res.getInt("Score") + res.getString("Accounts_Username") + res.getString("Difficulty"));
+            LeaderboardObject leaderboardObject = new LeaderboardObject(res.getString("Accounts_Username"), res.getInt("Score"), res.getString("Difficulty")); //Fast värden för svårighetsgrad så länge. Ska tas från fil eller från datastorage
             //DataStorage.getInstance().getDifficulty()
             leaderboardListd.add(leaderboardObject);
 
         }
         connector.close();
     }
-    
+
 }

@@ -38,9 +38,7 @@ public class SoundPlayer {
 
             try {
 
-                musicPlayer = new MediaPlayer(audioFile);
-                musicPlayer.setCycleCount(musicPlayer.INDEFINITE);
-                musicPlayer.play();
+                createMusic(audioFile);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 System.exit(0);
@@ -80,8 +78,8 @@ public class SoundPlayer {
     }
 
     public void setMusicStop() {
-        if (DataStorage.getInstance().isMusicSet()==false){
-        musicPlayer.stop();
+        if (DataStorage.getInstance().isMusicSet() == false) {
+            musicPlayer.stop();
         }
     }
 

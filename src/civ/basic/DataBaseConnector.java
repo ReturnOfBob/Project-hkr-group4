@@ -68,8 +68,8 @@ public class DataBaseConnector {
         return rescourseCommand;
     }
 
-    public String getGenericCommand(String attribute, String table, String whereCondition, String name) {
-        String genericCommand = " SELECT " + attribute + " FROM " + table + " WHERE " + whereCondition + " = '" + name + "'";
+    public <T> String getGenericCommand(String attribute, String table, String whereCondition,T value) {
+        String genericCommand = " SELECT " + attribute + " FROM " + table + " WHERE " + whereCondition + " = '" + value + "'";
         return genericCommand;
     }
 

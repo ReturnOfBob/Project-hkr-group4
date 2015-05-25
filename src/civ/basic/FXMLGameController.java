@@ -5,7 +5,6 @@
  */
 package civ.basic;
 
-
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -63,6 +62,7 @@ public class FXMLGameController implements Initializable {
     private String eventLogDisplayText;
 
     private boolean resourceAmountCheck = false;
+    private boolean leaderboardCheatCodeBlock = false;
 
     final private ObservableList<Resource> resourceList = FXCollections.observableArrayList();
     final private ObservableList<NormalBuilding> normalBuildingList = FXCollections.observableArrayList();
@@ -117,7 +117,6 @@ public class FXMLGameController implements Initializable {
 //----------------------------ON SCENE LOADUP---------------------------------\\    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         resourceAdder();  //method calls must be in this order, otherwise a crash will occur
         try {
             buildingAdder();
@@ -132,7 +131,7 @@ public class FXMLGameController implements Initializable {
         statviewTableview.setItems(statsViewDisplayList);
         refreshEventLogText("Turn: " + currentTurn);
         resourceList.get(1).setByTurn(2);
-        
+
     }
 //------------------------------FXML METHODS----------------------------------\\
 
@@ -370,7 +369,7 @@ public class FXMLGameController implements Initializable {
             resourceList.get(5).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getIron() * EventStorage.getInstance().getEventChangeIronMultiplier() * uniqueBonusIron));
             resourceList.get(6).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getCoal() * EventStorage.getInstance().getEventChangeCoalMultiplier() * uniqueBonusCoal));
             resourceList.get(7).setByTurn((int) (normalBuildingList.get(i).getAmount().getValue() * normalBuildingList.get(i).getSteel() * EventStorage.getInstance().getEventChangeSteelMultiplier() * uniqueBonusSteel));
-            
+
         }
         resourceList.get(1).setByTurn(2);
     }
@@ -868,18 +867,18 @@ public class FXMLGameController implements Initializable {
         }
     }
 
-    private double buildingMultiplier(){
+    private double buildingMultiplier() {
         double multiplier = 1;
-        for (NormalBuilding building : normalBuildingList){
-            if(building.getName().getValue().equals(statsViewBuildingName)){
-                for(int i = 0; i < building.getAmount().getValue(); i++){
+        for (NormalBuilding building : normalBuildingList) {
+            if (building.getName().getValue().equals(statsViewBuildingName)) {
+                for (int i = 0; i < building.getAmount().getValue(); i++) {
                     multiplier *= 1.1;
                 }
             }
         }
         return multiplier;
     }
-    
+
     private void refreshStatsViewColumns(boolean isNormalBuilding, int statsViewBuildingID) {
         statsViewDisplayList.removeAll(statsViewDisplayList);
         statsViewBuildingLabel.setText(statsViewBuildingName);
@@ -950,33 +949,54 @@ public class FXMLGameController implements Initializable {
             }
 
         }
-        if(currentTurn == DataStorage.getInstance().getRoundLimit()){
-            score += (((amountOfGold*2)+ amountOfWood + amountOfStone + amountOfFood + (amountOfHuman*10) + (amountOfIron*2) + (amountOfCoal*3) + (amountOfSteel*4)/15));
+        if (currentTurn == DataStorage.getInstance().getRoundLimit()) {
+            score += (((amountOfGold * 2) + amountOfWood + amountOfStone + amountOfFood + (amountOfHuman * 10) + (amountOfIron * 2) + (amountOfCoal * 3) + (amountOfSteel * 4) / 15));
         }
         if (DataStorage.getInstance().getDifficulty().equals("noob")) {
             score *= 0.8;
         } else if (DataStorage.getInstance().getDifficulty().equals("asian")) {
             score *= 1.2;
         }
-        
+
         scoreLabel.setText("Score: " + score);
         DataStorage.getInstance().setScore(score);
         System.out.println("The score" + score);
-
         return score;
+
     }
 
     private void insertHighScore() {
-        int leaderBoardObjectCounter = 0;
-        try {
-            Statement sta = connector.getConnection().createStatement();
-            ResultSet res = sta.executeQuery(connector.getOneAttributeCommand("ID","leaderboard"));
-            while (res.next()) {
-                leaderBoardObjectCounter++;
-            }
+        if (leaderboardCheatCodeBlock == false) {
+            int leaderBoardObjectCounter = 0;
+            int iDSave = 0;
+
+            try {
+
+           // Statement sta = connector.getConnection().createStatement();
+                // ResultSet res = sta.executeQuery(connector.getOneAttributeCommand("ID","leaderboard"));
+                // while (res.next()) {
+                //   leaderBoardObjectCounter++;
+                //}
+                while((iDSave == leaderBoardObjectCounter)) {
+                 
+                    if (connector.getResult(connector.getGenericCommand("ID", "leaderboard", "ID", leaderBoardObjectCounter)).next()) {
+                      leaderBoardObjectCounter++;
+                        System.out.println(leaderBoardObjectCounter);
+                         iDSave = connector.getResultSet().getInt("ID");
+                    }
+                    iDSave++;
+                 
+                    
+                      //    connector.close();
+                      
+                      
+                } 
+            
+          
+
             System.out.println(leaderBoardObjectCounter);
             PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getInsertHighScoreCommand());
-            prepSt.setInt(1, leaderBoardObjectCounter + 1);
+            prepSt.setInt(1, leaderBoardObjectCounter);
             prepSt.setString(2, DataStorage.getInstance().getNewActiveUser());
             prepSt.setInt(3, scoreCalculator());
             prepSt.setString(4, DataStorage.getInstance().getDifficulty());
@@ -984,13 +1004,18 @@ public class FXMLGameController implements Initializable {
             prepSt.executeUpdate();
             connector.close();
             System.out.println("Highscore lagrat");
-        } catch (Exception ex) {
-            System.out.println("Error vid sparning av highscore");
-            Logger.getLogger(FXMLLeaderboardController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+        catch (Exception ex
 
-    private void hideCheatCodeTools() {
+    
+        ) {
+            System.out.println("Error vid sparning av highscore");
+        Logger.getLogger(FXMLLeaderboardController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
+}
+
+private void hideCheatCodeTools() {
         cheatCodeLabel.setText("");
         cheatCodeField.setVisible(false);
         cheatCodesOkButton.setVisible(false);
@@ -999,6 +1024,8 @@ public class FXMLGameController implements Initializable {
 
     private void codeSuccessfull() {
         hideCheatCodeTools();
+        leaderboardCheatCodeBlock = true;
+        System.out.println("Cheat Code used. Score will not be saved");
         cheatCodeField.setText("");
         cheatCodeLabel.setText("Success!");
         cheatCodeLabel.setLayoutX(78);
