@@ -7,6 +7,7 @@ package civ.basic;
 
 import java.net.URL;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,7 +47,7 @@ public class FXMLcreateAccountController implements Initializable {
 //------------------------------FXML METHODS----------------------------------\\    
 
     @FXML //This method handles all of the clicks in the menu in this scene
-    private void menuClick(ActionEvent event) {
+    private void menuClick(ActionEvent event) throws SQLException {
         buttonText = ((Button) event.getSource()).getText();
 
         if (buttonText.equals("Create Account")) {
@@ -59,7 +60,7 @@ public class FXMLcreateAccountController implements Initializable {
     }
 //----------------------------NON-FXML METHODS--------------------------------\\     
 
-    private void handleButtonCreateAccount() {
+    private void handleButtonCreateAccount() throws SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
 
@@ -69,7 +70,19 @@ public class FXMLcreateAccountController implements Initializable {
 
             if (!"".equals(name.getText()) && !"".equals(password.getText()) && !"".equals(question.getText()) && !"".equals(questionAnswer.getText()) && password.getText().equals(passwordAgain.getText())) {
 
-                PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getInputUserDataCommand());
+                //PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getInputUserDataCommand());
+                PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getGenericInsertCommand("accounts", "Username","Password" ,
+                        "Security_Question", "Answer", "Privilege"));
+                        
+                          /*public String getInputUserDataCommand() {
+        String inputUserDataCommand = "INSERT INTO accounts (Username,Password,Security_Question,Answer,Privilege) VALUES (?,?,?,?,?)";
+        return inputUserDataCommand;
+    }
+                                  */
+                        
+                        
+                        
+                        
                 prepSt.setString(1, name.getText());
                 prepSt.setString(2, password.getText());
                 prepSt.setString(3, question.getText());

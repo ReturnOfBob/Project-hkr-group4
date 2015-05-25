@@ -137,7 +137,7 @@ public class FXMLGameController implements Initializable {
 //------------------------------FXML METHODS----------------------------------\\
 
     @FXML
-    private void nextTurn(ActionEvent event) {
+    private void nextTurn(ActionEvent event) throws SQLException {
         currentTurn++;
         currentTurnLabel.setText("Current turn: " + currentTurn);
         refreshEventLogText("Turn: " + currentTurn);
@@ -965,25 +965,27 @@ public class FXMLGameController implements Initializable {
 
     }
 
-    private void insertHighScore() {
-        
+    private void insertHighScore() throws SQLException {
+
         if (leaderboardCheatCodeBlock == false) {
-               try {
-            if(connector.getResult(connector.getHighestScoreFromLeaderBoard(DataStorage.getInstance().getRoundLimit())).next()){
-                
+            try {
+
+                // if(connector.getResult(connector.getHighestScoreFromLeaderBoard(DataStorage.getInstance().getRoundLimit())).next()){
+                if (connector.getResult(connector.getGenericCommand("MAX(Score)", "leaderboard", "Round_Limit", DataStorage.getInstance().getRoundLimit())).next()) {
+
                     System.out.println(connector.getResultSet().getInt("Max(Score)"));
-                    
-                   if(DataStorage.getInstance().getScore() > connector.getResultSet().getInt("Max(Score)")){
-                        System.out.println("HIGHEST SCORE!!");      
+
+                    if (DataStorage.getInstance().getScore() > connector.getResultSet().getInt("Max(Score)")) {
+                        System.out.println("HIGHEST SCORE!!");
                         DataStorage.getInstance().setHighestScoreCheck(true);
                     }
-                    
-                   System.out.println("END!");
-               
+
+                    System.out.println("END!");
+
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLGameCompletedController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(FXMLGameCompletedController.class.getName()).log(Level.SEVERE, null, ex);
-        }
             int leaderBoardObjectCounter = 0;
             int iDSave = 0;
 
@@ -1003,11 +1005,14 @@ public class FXMLGameController implements Initializable {
                     }
                     iDSave++;
 
-                      //    connector.close();
+                    //    connector.close();
                 }
 
                 System.out.println(leaderBoardObjectCounter);
-                PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getInsertHighScoreCommand());
+                //    PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getInsertHighScoreCommand());
+                PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getGenericInsertCommand("leaderboard", "ID",
+                        "Accounts_Username", "Score", "Difficulty", "Round_Limit"));
+
                 prepSt.setInt(1, leaderBoardObjectCounter);
                 prepSt.setString(2, DataStorage.getInstance().getNewActiveUser());
                 prepSt.setInt(3, DataStorage.getInstance().getScore());

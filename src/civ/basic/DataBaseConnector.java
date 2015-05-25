@@ -16,7 +16,6 @@ public class DataBaseConnector {
     private Connection c;
     private ResultSet rs;
     private PreparedStatement prepSt;
-    
 
     public Connection getConnection() throws SQLException {
         c = DriverManager.getConnection(URL);
@@ -24,7 +23,7 @@ public class DataBaseConnector {
     }
 
     public ResultSet getResult(String command) throws SQLException {
-       // if(c != null)  c.close(); 
+        // if(c != null)  c.close(); 
         // if(prepSt != null)  prepSt.close(); 
         c = getConnection();
         prepSt = c.prepareStatement(command);
@@ -46,9 +45,9 @@ public class DataBaseConnector {
         return rs;
     }
 
-    public String getInputUserDataCommand() {
-        String inputUserDataCommand = "INSERT INTO accounts (Username,Password,Security_Question,Answer,Privilege) VALUES (?,?,?,?,?)";
-        return inputUserDataCommand;
+    public String getGenericInsertCommand(String table, String attributeOne, String attributeTwo, String attributeThree, String attributeFour, String attributeFive) {
+        String insertHighScoreCommand = "INSERT INTO " + table + " (" + attributeOne + "," + attributeTwo + "," + attributeThree + "," + attributeFour + "," + attributeFive + ") VALUES (?,?,?,?,?)";
+        return insertHighScoreCommand;
     }
 
     public void close() throws SQLException {
@@ -68,11 +67,6 @@ public class DataBaseConnector {
         return rescourseCommand;
     }
 
-    public <T> String getGenericCommand(String attribute, String table, String whereCondition,T value) {
-        String genericCommand = " SELECT " + attribute + " FROM " + table + " WHERE " + whereCondition + " = '" + value + "'";
-        return genericCommand;
-    }
-
     public String getGenericAndCommand(String attribute, String table, String whereCondition, String name, String whereCondition2, String password) {
         String genericAndCommand = " SELECT " + attribute + " FROM " + table + " WHERE " + whereCondition + " = '" + name + "' AND " + whereCondition2 + " = '" + password + "'";
         return genericAndCommand;
@@ -82,28 +76,18 @@ public class DataBaseConnector {
         String genericHighScoreComand = "SELECT Accounts_Username,Score, Difficulty FROM leaderboard WHERE round_Limit = '" + roundLimit + "'ORDER BY Score DESC LIMIT 5";
         return genericHighScoreComand;
     }
- 
-       public String getOneAttributeCommand(String attribute, String Table) {
-        String OneAttributeCommand = "SELECT " + attribute + " FROM " + Table + "";
-        return OneAttributeCommand;
-    }
-
-    public String getInsertHighScoreCommand() {
-        String insertHighScoreComman = "INSERT INTO leaderboard (ID,Accounts_Username,Score,Difficulty,Round_Limit) VALUES (?,?,?,?,?)";
-        return insertHighScoreComman;
-    }
 
     public String getDeleteFromTableCommand(String name, int score, String difficulty) {
         String deleteFromTableCommand = "DELETE FROM leaderboard WHERE Accounts_Username = '" + name + "' AND Score = '" + score + "' AND Difficulty = '" + difficulty + "'";
         return deleteFromTableCommand;
     }
-    
-    public String getHighestScoreFromLeaderBoard(int roundLimit){
-        String highscore = "SELECT MAX(Score) FROM leaderboard WHERE Round_Limit = " + roundLimit + ";";
-        
-     //   int integerScore = Integer.parseInt(highscore);
-        
-        return highscore;
+    public String getOneAttributeCommand(String attribute, String Table) {
+        String OneAttributeCommand = "SELECT " + attribute + " FROM " + Table + "";
+        return OneAttributeCommand;
+    }
+        public <T> String getGenericCommand(String attribute, String table, String whereCondition,T value) {
+        String genericCommand = " SELECT " + attribute + " FROM " + table + " WHERE " + whereCondition + " = '" + value + "'";
+        return genericCommand;
     }
 
 }
