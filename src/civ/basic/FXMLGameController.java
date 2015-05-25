@@ -41,7 +41,7 @@ public class FXMLGameController implements Initializable {
     private int amountOfGold = 10;
     private int amountOfWood = 25;
     private int amountOfStone = 15;
-    private int amountOfFood = 130;
+    private int amountOfFood = 15;
     private int amountOfHuman = 4;
     private int amountOfIron = 0;
     private int amountOfCoal = 0;
@@ -939,7 +939,7 @@ public class FXMLGameController implements Initializable {
         }
     }
 
-    private int scoreCalculator() {
+    private void scoreCalculator() {
         int score = 0;
         for (int i = 0; i < 14; i++) {
 
@@ -949,7 +949,7 @@ public class FXMLGameController implements Initializable {
             }
 
         }
-        if (currentTurn == DataStorage.getInstance().getRoundLimit()) {
+        if (currentTurn == DataStorage.getInstance().getRoundLimit() + 1) {
             score += (((amountOfGold * 2) + amountOfWood + amountOfStone + amountOfFood + (amountOfHuman * 10) + (amountOfIron * 2) + (amountOfCoal * 3) + (amountOfSteel * 4) / 15));
         }
         if (DataStorage.getInstance().getDifficulty().equals("noob")) {
@@ -961,7 +961,6 @@ public class FXMLGameController implements Initializable {
         scoreLabel.setText("Score: " + score);
         DataStorage.getInstance().setScore(score);
         System.out.println("The score" + score);
-        return score;
 
     }
 
@@ -972,50 +971,41 @@ public class FXMLGameController implements Initializable {
 
             try {
 
-           // Statement sta = connector.getConnection().createStatement();
+                // Statement sta = connector.getConnection().createStatement();
                 // ResultSet res = sta.executeQuery(connector.getOneAttributeCommand("ID","leaderboard"));
                 // while (res.next()) {
                 //   leaderBoardObjectCounter++;
                 //}
-                while((iDSave == leaderBoardObjectCounter)) {
-                 
+                while ((iDSave == leaderBoardObjectCounter)) {
+
                     if (connector.getResult(connector.getGenericCommand("ID", "leaderboard", "ID", leaderBoardObjectCounter)).next()) {
-                      leaderBoardObjectCounter++;
+                        leaderBoardObjectCounter++;
                         System.out.println(leaderBoardObjectCounter);
-                         iDSave = connector.getResultSet().getInt("ID");
+                        iDSave = connector.getResultSet().getInt("ID");
                     }
                     iDSave++;
-                 
-                    
+
                       //    connector.close();
-                      
-                      
-                } 
-            
-          
+                }
 
-            System.out.println(leaderBoardObjectCounter);
-            PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getInsertHighScoreCommand());
-            prepSt.setInt(1, leaderBoardObjectCounter);
-            prepSt.setString(2, DataStorage.getInstance().getNewActiveUser());
-            prepSt.setInt(3, scoreCalculator());
-            prepSt.setString(4, DataStorage.getInstance().getDifficulty());
-            prepSt.setInt(5, DataStorage.getInstance().getRoundLimit());
-            prepSt.executeUpdate();
-            connector.close();
-            System.out.println("Highscore lagrat");
+                System.out.println(leaderBoardObjectCounter);
+                PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getInsertHighScoreCommand());
+                prepSt.setInt(1, leaderBoardObjectCounter);
+                prepSt.setString(2, DataStorage.getInstance().getNewActiveUser());
+                prepSt.setInt(3, DataStorage.getInstance().getScore());
+                prepSt.setString(4, DataStorage.getInstance().getDifficulty());
+                prepSt.setInt(5, DataStorage.getInstance().getRoundLimit());
+                prepSt.executeUpdate();
+                connector.close();
+                System.out.println("Highscore lagrat");
+            } catch (Exception ex) {
+                System.out.println("Error vid sparning av highscore");
+                Logger.getLogger(FXMLLeaderboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        catch (Exception ex
-
-    
-        ) {
-            System.out.println("Error vid sparning av highscore");
-        Logger.getLogger(FXMLLeaderboardController.class.getName()).log(Level.SEVERE, null, ex);
     }
-    }
-}
 
-private void hideCheatCodeTools() {
+    private void hideCheatCodeTools() {
         cheatCodeLabel.setText("");
         cheatCodeField.setVisible(false);
         cheatCodesOkButton.setVisible(false);

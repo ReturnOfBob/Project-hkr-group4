@@ -88,7 +88,7 @@ public class FXMLMainMenuController implements Initializable {
 
     private void readOptionSettingFromFile() {
         OptionObject objectload = new OptionObject();
-        try (ObjectInputStream oIn = new ObjectInputStream(new FileInputStream("./SaveFiles/" + DataStorage.getInstance().getNewActiveUser() + ".txt"))) {
+        try (ObjectInputStream oIn = new ObjectInputStream(new FileInputStream("./AccountSettings/" + DataStorage.getInstance().getNewActiveUser() + ".txt"))) {
             objectload = (OptionObject) oIn.readObject();
             System.out.println("Filöppning lyckades");
             DataStorage.getInstance().setDifficulty(objectload.getDifficulty());

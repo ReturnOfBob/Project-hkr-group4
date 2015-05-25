@@ -98,7 +98,7 @@ public class FXMLOptionController implements Initializable, Serializable {
     }
 
     private void writeOptionSettingToFile() {
-        File file = new File("./SaveFiles/" + DataStorage.getInstance().getNewActiveUser() + ".txt");
+        File file = new File("./AccountSettings/" + DataStorage.getInstance().getNewActiveUser() + ".txt");
         try (ObjectOutputStream oOut = new ObjectOutputStream(new FileOutputStream(file))) {
             oOut.writeObject(objectSave);
             oOut.close();
