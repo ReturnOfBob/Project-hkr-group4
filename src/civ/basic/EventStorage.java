@@ -1,7 +1,7 @@
 package civ.basic;
 
 public class EventStorage {
-    
+
 //--------------------------------VARIABLES-----------------------------------\\
     private static EventStorage eventStorage;
     private String eventText;
@@ -15,7 +15,7 @@ public class EventStorage {
     private int eventChangeIron = 0;
     private int eventChangeCoal = 0;
     private int eventChangeSteel = 0;
-    
+
     private double eventChangeGoldMultiplier = 1;
     private double eventChangeWoodMultiplier = 1;
     private double eventChangeStoneMultiplier = 1;
@@ -32,32 +32,34 @@ public class EventStorage {
     private double eventPercentageChangeIron = 1;
     private double eventPercentageChangeCoal = 1;
     private double eventPercentageChangeSteel = 1;
-            
-    private EventStorage(){
-    
+
+    private EventStorage() {
+
     }
 //---------------------GETS INFORMATION FROM EVENTSTORAGE---------------------\\    
-    public static EventStorage getInstance(){
-        if(eventStorage == null){
+
+    public static EventStorage getInstance() {
+        if (eventStorage == null) {
             eventStorage = new EventStorage();
         }
-        
+
         return eventStorage;
     }
 //-------------------------------------EVENTS---------------------------------\\
-    public void Events(int eventID){
-    switch (eventID) {
-            case 1:   
+
+    public void Events(int eventID) {
+        switch (eventID) {
+            case 1:
                 eventActive = true;
                 eventText = "Event: \nOne of your citys guards helps a old man on the road, as a reward \nthe old man give your city 10 Gold pices.\n+10 Gold";
                 eventChangeGold = 10;
                 break;
             case 2:
                 eventActive = true;
-                eventText ="Event: \nA evil little dwarf comes and steals 20% of your gold! All you can \ndo is with a sobbing voice screm: You have violated the law, come back here you little lawbreaking halfman!! At which you can hear a fleeting voice answer back: I'm guilty of a far more monstrous crime: I'm guilty of being a dwarf!\n-20% Gold";
+                eventText = "Event: \nA evil little dwarf comes and steals 20% of your gold! All you can \ndo is with a sobbing voice screm: You have violated the law, come back here you little lawbreaking halfman!! At which you can hear a fleeting voice answer back: I'm guilty of a far more monstrous crime: I'm guilty of being a dwarf!\n-20% Gold";
                 eventPercentageChangeGold = 0.8;
                 break;
-            case 3:   
+            case 3:
                 eventActive = true;
                 eventText = "Event: \nIt's been a very good year for wood, so you get extra.\n+10 Wood";
                 eventChangeWood = 10;
@@ -67,7 +69,7 @@ public class EventStorage {
                 eventText = "Event: \nOh nooes, 20% of all your stored wood just went bad, so you have \nto throw it away!";
                 eventPercentageChangeFood = 0.8;
                 break;
-            case 5: 
+            case 5:
                 eventActive = true;
                 eventText = "Event: \nThe holy Bob have arived, you get 20 of all resources!";
                 eventChangeSteel = 20;
@@ -78,9 +80,9 @@ public class EventStorage {
                 eventChangeCoal = 20;
                 eventChangeGold = 20;
                 break;
-            case 6:  
+            case 6:
                 eventActive = true;
-                eventText ="Event: \nSacrifice 40 food to appease the holy Bob!!";
+                eventText = "Event: \nSacrifice 40 food to appease the holy Bob!!";
                 eventChangeFood = -40;
                 break;
             case 7:
@@ -129,7 +131,7 @@ public class EventStorage {
                 eventActive = true;
                 eventText = "Event: \nBandits attack and steals all your food!";
                 eventPercentageChangeFood = 0;
-                break;            
+                break;
             case 16:
                 eventActive = true;
                 eventText = "Event: \nYou found a shit-ton of loggs by the gate! \nBetter put them in the storage... \n+15 wood.";
@@ -140,20 +142,19 @@ public class EventStorage {
                 eventText = "Event: \nA astroid was sighted by your astrologs, the end time is coming!! \nYou lose 20 food!";
                 eventChangeFood = -20;
                 break;
-            case 18:   
+            case 18:
                 eventActive = true;
                 eventText = "Event: \nYou where fishing, when you caught the whale in the lake! You chopp it up for 40 food!";
                 eventChangeFood = 40;
                 break;
             default:
-                eventActive = false;  
+                eventActive = false;
                 break;
         }
     }
-    
+
 //----------------------------NON-FXML METHODS--------------------------------\\
-    
-    public void resetEventResources(){
+    public void resetEventResources() {
         eventChangeGold = 0;
         eventChangeWood = 0;
         eventChangeStone = 0;
@@ -162,7 +163,7 @@ public class EventStorage {
         eventChangeIron = 0;
         eventChangeCoal = 0;
         eventChangeSteel = 0;
-    
+
         eventPercentageChangeGold = 1;
         eventPercentageChangeWood = 1;
         eventPercentageChangeStone = 1;
@@ -170,11 +171,11 @@ public class EventStorage {
         eventPercentageChangeHuman = 1;
         eventPercentageChangeIron = 1;
         eventPercentageChangeCoal = 1;
-        eventPercentageChangeSteel= 1;
-        
+        eventPercentageChangeSteel = 1;
+
     }
-    
-    public void resetTimedEvents(){
+
+    public void resetTimedEvents() {
         eventChangeGoldMultiplier = 1;
         eventChangeWoodMultiplier = 1;
         eventChangeStoneMultiplier = 1;
@@ -185,6 +186,7 @@ public class EventStorage {
         eventChangeSteelMultiplier = 1;
     }
 //--------------------------GETTERS & SETTERS---------------------------------\\
+
     public String getEventText() {
         return eventText;
     }
@@ -391,5 +393,5 @@ public class EventStorage {
 
     public void setEventActive(boolean eventActive) {
         this.eventActive = eventActive;
-    }   
+    }
 }

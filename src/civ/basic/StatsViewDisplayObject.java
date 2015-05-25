@@ -1,23 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package civ.basic;
 
-/**
- *
- * @author Nicklas
- */
-//1bd5f6
 public class StatsViewDisplayObject {
+
     private String resourceName;
     private String normalBuildingCost;
     private String normalBuildingProduces;
     private String uniqueBuildingCost;
     private String uniqueBuildingProduces;
-    
-    public StatsViewDisplayObject(String resourceName, String normalBuildingCost, String normalBuildingProduces, String uniqueBuildingCost, String uniqueBuildingProduces){
+
+    public StatsViewDisplayObject(String resourceName, String normalBuildingCost, String normalBuildingProduces, String uniqueBuildingCost, String uniqueBuildingProduces) {
         this.resourceName = resourceName;
         this.normalBuildingCost = normalBuildingCost;
         this.normalBuildingProduces = normalBuildingProduces;
@@ -64,6 +55,5 @@ public class StatsViewDisplayObject {
     public void setUniqueBuildingProduces(String uniqueBuildingProduces) {
         this.uniqueBuildingProduces = uniqueBuildingProduces;
     }
-    
-    
+
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package civ.basic;
 
 import java.net.URL;
@@ -17,11 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-/**
- * FXML Controller class
- *
- * @author Henrik
- */
+
 public class FXMLLostPasswordController implements Initializable {
 //------------------------------VARIABLES-------------------------------------\\    
 

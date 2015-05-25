@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package civ.basic;
 
 import java.net.URL;
@@ -15,10 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-/**
- *
- * @author Henrik
- */
 public class FXMLLogInMenuController implements Initializable {
 //------------------------------VARIABLES-------------------------------------\\
 
@@ -40,7 +31,7 @@ public class FXMLLogInMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    DataStorage.getInstance().setLoadOnceCheck(false);
+        DataStorage.getInstance().setLoadOnceCheck(false);
     }
 //------------------------------FXML METHODS----------------------------------\\    
 

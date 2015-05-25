@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package civ.basic;
 
 import java.io.FileInputStream;
@@ -16,41 +11,30 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 
-/**
- * FXML Controller class
- *
- * @author Sweetpink
- */
 public class FXMLMainMenuController implements Initializable {
 //--------------------------------VARIABLES-----------------------------------\\    
-    
+
     @FXML
     private TextArea informationArea;
     @FXML
     private AnchorPane helpAnchorpane;
     @FXML
     private Button backButton;
-            
-    private String buttonText;
-    
-//---------------------------ON SCENE LOAD-UP---------------------------------\\    
 
+    private String buttonText;
+
+//---------------------------ON SCENE LOAD-UP---------------------------------\\    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         if(DataStorage.getInstance().isLoadOnceCheck()==false){
-        readOptionSettingFromFile();
-        
-         if (DataStorage.getInstance().isMusicSet()==false){
-              SoundPlayer.getInstance().playMusic(DataStorage.getInstance().getMusicChoice());
-         }
-         }
-         backToMenuFromHelp();
-        
-        //if(DataStorage.getInstance().isMusicSet().equals(false)){
-       
-        
-        //}
-        
+        if (DataStorage.getInstance().isLoadOnceCheck() == false) {
+            readOptionSettingFromFile();
+
+            if (DataStorage.getInstance().isMusicSet() == false) {
+                SoundPlayer.getInstance().playMusic(DataStorage.getInstance().getMusicChoice());
+            }
+        }
+        backToMenuFromHelp();
+
     }
 //------------------------------FXML METHODS----------------------------------\\    
 
@@ -77,9 +61,9 @@ public class FXMLMainMenuController implements Initializable {
             } catch (Exception ex) {
                 System.out.println("ERROR EXIT!");
             }
-        } else if(buttonText.equals("Help")){
+        } else if (buttonText.equals("Help")) {
             helpViewer();
-        } else if(buttonText.equals("Back")){
+        } else if (buttonText.equals("Back")) {
             backToMenuFromHelp();
         } else {
             System.out.println("ERROR!");
@@ -101,23 +85,23 @@ public class FXMLMainMenuController implements Initializable {
 
         }
     }
-    
-    private void helpViewer(){
+
+    private void helpViewer() {
         helpAnchorpane.setVisible(true);
         informationArea.setVisible(true);
         informationArea.setText("This game is about building a civi\n"
-                            + "-lization and being the best at it.\n"
-                            + "You control the game with the mouse \n"
-                            + "and in order to build new buildings \n"
-                            + "you press a button which has a\n"
-                            + "name of a building. \n\n"
-                            + "If you have forgotten your\n"
-                            + "password, please return to log-in\n"
-                            + "menu and click lost password button\n");
+                + "-lization and being the best at it.\n"
+                + "You control the game with the mouse \n"
+                + "and in order to build new buildings \n"
+                + "you press a button which has a\n"
+                + "name of a building. \n\n"
+                + "If you have forgotten your\n"
+                + "password, please return to log-in\n"
+                + "menu and click lost password button\n");
         backButton.setVisible(true);
     }
- 
-    private void backToMenuFromHelp(){
+
+    private void backToMenuFromHelp() {
         helpAnchorpane.setVisible(false);
         informationArea.setVisible(false);
         backButton.setVisible(false);

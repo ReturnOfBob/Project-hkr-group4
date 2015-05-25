@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package civ.basic;
 
 import java.net.URL;
@@ -18,16 +13,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-/**
- * FXML Controller class
- *
- * @author Henrik
- */
 public class FXMLLeaderboardController implements Initializable {
 
     private final DataBaseConnector connector = new DataBaseConnector();
@@ -47,26 +36,6 @@ public class FXMLLeaderboardController implements Initializable {
 
     ResultSet res;
 
-    /**
-     * Initializes the controller class.
-     */
-    /*public int calculateRescourseScore(int gold, int wood, int stone, int food, int human, int iron, int coal, int steel) {
-     int rescourseScore = gold * 2 + wood * 2 + stone * 2 + +food * 2 + human * 3 + iron * 2 + coal * 2 + steel * 2;
-     return rescourseScore;
-     }
-
-     public int calculateBuildingAmountScore(int bankAmount, int coalMineAmount, int cottageAmmount,
-     int farmAmmount, int houseAmmount, int ironMineAmmount, int marketAmmount, int steelWorksAmmount, int stoneMasonAmmount, int storageAmmount, int woodMillAmmount) {
-     int buildingAmountScore = bankAmount * 4 + coalMineAmount * 4 + cottageAmmount * 4 + farmAmmount * 4 + houseAmmount * 4 + ironMineAmmount * 4 + marketAmmount * 4 + steelWorksAmmount * 4 + stoneMasonAmmount * 4 + storageAmmount * 4 + woodMillAmmount * 4;
-     return buildingAmountScore;
-     }
-
-     public int calculateFinalScore(int rescourseScore, int buildingAmountScore, int technologyScore, int ArmyScore) {
-     int finalScore = rescourseScore + buildingAmountScore + technologyScore + ArmyScore;
-     return finalScore;
-     }
-
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -99,8 +68,6 @@ public class FXMLLeaderboardController implements Initializable {
     }
 
     private void changeLeaderboard() {
-        //if ("Admin".equals(DataStorage.getInstance().getNewActiveUser())) { //Bortkommenterad så länge
-        //  LeaderboardObject markedRow = (LeaderboardObject)delete.
 
         try {
             if (connector.getResult(connector.getGenericCommand("Privilege", "accounts", "Username", DataStorage.getInstance().getNewActiveUser())).next()) {
@@ -114,9 +81,10 @@ public class FXMLLeaderboardController implements Initializable {
                     System.out.println("Test");
                     //setLeaderBoard();
                     connector.close();
-               
+
+                } else {
+                    System.out.println("Require admin right");
                 }
-                 else System.out.println("Require admin right"); 
             }
 
         } catch (SQLException ex) {
@@ -126,20 +94,7 @@ public class FXMLLeaderboardController implements Initializable {
 
     private void setLeaderBoard(int roundChoice) throws SQLException {
         leaderboardListd.removeAll(leaderboardListd);
-        //Det funkar inte av någon anleding om man använder preparedstatement eller vanligt statement från databaseconnector. den skriver bara ut samma massa gånger. skriver man kodskiten här sp fungerar det konstigt nog.
-        /* String test = "SELECT Username,Score FROM leaderboard ORDER BY Score DESC LIMIT 5";
-         //connector.getConnection();
-     
-        
-         while (connector.getResult(connector.getGenericHighScoreCommand()).next()){
-         // leaderboardListd.add(connector.getResultSet().getInt("Score"),connector.getResultSet().getString("Username"));  
-  
-         System.out.println(connector.getResultSet().getInt("Score")+ connector.getResultSet().getString("Username"));
-         }
-         // leaderboardList.setItems(leaderboardListd);
-         }
-   
-         */
+
         Statement sta = connector.getConnection().createStatement();
 
         if (roundChoice == 50) {
@@ -150,7 +105,6 @@ public class FXMLLeaderboardController implements Initializable {
             res = sta.executeQuery(connector.getGenericHighScoreCommand(20));
         }
 
-        //connector.getConnection();
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
         difficultyColumn.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
@@ -159,8 +113,7 @@ public class FXMLLeaderboardController implements Initializable {
         while (res.next()) {
 
             System.out.println(res.getInt("Score") + res.getString("Accounts_Username") + res.getString("Difficulty"));
-            LeaderboardObject leaderboardObject = new LeaderboardObject(res.getString("Accounts_Username"), res.getInt("Score"), res.getString("Difficulty")); //Fast värden för svårighetsgrad så länge. Ska tas från fil eller från datastorage
-            //DataStorage.getInstance().getDifficulty()
+            LeaderboardObject leaderboardObject = new LeaderboardObject(res.getString("Accounts_Username"), res.getInt("Score"), res.getString("Difficulty"));
             leaderboardListd.add(leaderboardObject);
 
         }

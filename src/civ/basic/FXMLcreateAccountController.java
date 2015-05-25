@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package civ.basic;
 
 import java.net.URL;
@@ -17,12 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-/**
- * FXML Controller class
- *
- * @author Henrik
- *
- */
 public class FXMLcreateAccountController implements Initializable {
 //--------------------------------VARIABLES-----------------------------------\\     
 
@@ -70,19 +59,9 @@ public class FXMLcreateAccountController implements Initializable {
 
             if (!"".equals(name.getText()) && !"".equals(password.getText()) && !"".equals(question.getText()) && !"".equals(questionAnswer.getText()) && password.getText().equals(passwordAgain.getText())) {
 
-                //PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getInputUserDataCommand());
-                PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getGenericInsertCommand("accounts", "Username","Password" ,
+                PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getGenericInsertCommand("accounts", "Username", "Password",
                         "Security_Question", "Answer", "Privilege"));
-                        
-                          /*public String getInputUserDataCommand() {
-        String inputUserDataCommand = "INSERT INTO accounts (Username,Password,Security_Question,Answer,Privilege) VALUES (?,?,?,?,?)";
-        return inputUserDataCommand;
-    }
-                                  */
-                        
-                        
-                        
-                        
+
                 prepSt.setString(1, name.getText());
                 prepSt.setString(2, password.getText());
                 prepSt.setString(3, question.getText());
@@ -105,7 +84,7 @@ public class FXMLcreateAccountController implements Initializable {
                 System.out.println("Du måste fylla i alla fält!");
                 createAccountErrorLabel.setText("Du måste fylla i alla fält!");
             }
-        
+
         } catch (Exception e) {
             System.err.println("ERROR: " + e);
         }

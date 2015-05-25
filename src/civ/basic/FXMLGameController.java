@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package civ.basic;
 
 import java.net.URL;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -30,11 +23,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-/**
- * FXML Controller class
- *
- * @author Sweetpink
- */
 public class FXMLGameController implements Initializable {
 //------------------------------VARIABLES-------------------------------------\\    
 
@@ -62,7 +50,6 @@ public class FXMLGameController implements Initializable {
     private String eventLogDisplayText;
 
     private boolean resourceAmountCheck = false;
-    private boolean leaderboardCheatCodeBlock = false;
 
     final private ObservableList<Resource> resourceList = FXCollections.observableArrayList();
     final private ObservableList<NormalBuilding> normalBuildingList = FXCollections.observableArrayList();
@@ -967,7 +954,7 @@ public class FXMLGameController implements Initializable {
 
     private void insertHighScore() throws SQLException {
 
-        if (leaderboardCheatCodeBlock == false) {
+        if (DataStorage.getInstance().isLeaderboardCheatCodeBlock() == false) {
             try {
 
                 // if(connector.getResult(connector.getHighestScoreFromLeaderBoard(DataStorage.getInstance().getRoundLimit())).next()){
@@ -991,11 +978,6 @@ public class FXMLGameController implements Initializable {
 
             try {
 
-                // Statement sta = connector.getConnection().createStatement();
-                // ResultSet res = sta.executeQuery(connector.getOneAttributeCommand("ID","leaderboard"));
-                // while (res.next()) {
-                //   leaderBoardObjectCounter++;
-                //}
                 while ((iDSave == leaderBoardObjectCounter)) {
 
                     if (connector.getResult(connector.getGenericCommand("ID", "leaderboard", "ID", leaderBoardObjectCounter)).next()) {
@@ -1009,7 +991,6 @@ public class FXMLGameController implements Initializable {
                 }
 
                 System.out.println(leaderBoardObjectCounter);
-                //    PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getInsertHighScoreCommand());
                 PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getGenericInsertCommand("leaderboard", "ID",
                         "Accounts_Username", "Score", "Difficulty", "Round_Limit"));
 
@@ -1037,7 +1018,7 @@ public class FXMLGameController implements Initializable {
 
     private void codeSuccessfull() {
         hideCheatCodeTools();
-        leaderboardCheatCodeBlock = true;
+        DataStorage.getInstance().setLeaderboardCheatCodeBlock(true);
         System.out.println("Cheat Code used. Score will not be saved");
         cheatCodeField.setText("");
         cheatCodeLabel.setText("Success!");

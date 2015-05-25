@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package civ.basic;
 
 import java.net.URL;
@@ -16,11 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-/**
- * FXML Controller class
- *
- * @author Nicklas
- */
+
 public class FXMLGameCompletedController implements Initializable {
 
     private final DataBaseConnector connector = new DataBaseConnector();
@@ -28,7 +20,7 @@ public class FXMLGameCompletedController implements Initializable {
     private String buttonText;
     
     @FXML
-    private Label congratulationsLabel, scoreLabel, highestScoreLabel;
+    private Label congratulationsLabel, scoreLabel, highestScoreLabel,cheatCodeLabel;
     
     /**
      * Initializes the controller class.
@@ -37,6 +29,9 @@ public class FXMLGameCompletedController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         if(DataStorage.getInstance().isHighestScoreCheck() == true){
             highestScoreLabel.setVisible(true);
+        }
+        if(DataStorage.getInstance().isLeaderboardCheatCodeBlock() == true){
+            cheatCodeLabel.setVisible(true);
         }
         
         if(DataStorage.getInstance().getNewActiveUser().length() < 3){

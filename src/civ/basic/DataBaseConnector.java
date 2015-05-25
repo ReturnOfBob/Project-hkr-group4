@@ -6,10 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author Henrik
- */
+
 public class DataBaseConnector {
 
     private final String URL = "jdbc:mysql://127.0.0.1:3306/civ-basic?user=root&password=root";
@@ -23,8 +20,6 @@ public class DataBaseConnector {
     }
 
     public ResultSet getResult(String command) throws SQLException {
-        // if(c != null)  c.close(); 
-        // if(prepSt != null)  prepSt.close(); 
         c = getConnection();
         prepSt = c.prepareStatement(command);
         rs = prepSt.executeQuery();
@@ -39,9 +34,7 @@ public class DataBaseConnector {
 
     }
 
-    public ResultSet getResultSet() throws SQLException {
-        //if(c != null)  c.close(); 
-        //if(prepSt != null)  prepSt.close();
+    public ResultSet getResultSet() throws SQLException{
         return rs;
     }
 

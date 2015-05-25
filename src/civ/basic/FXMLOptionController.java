@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package civ.basic;
 
 import java.io.File;
@@ -17,18 +12,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 
-/**
- * FXML Controller class
- *
- * @author Henrik
- */
 public class FXMLOptionController implements Initializable, Serializable {
 //--------------------------------VARIABLES-----------------------------------\\ 
 
     @FXML
     private RadioButton noobDifficulty, normalDifficulty, asianDifficulty, lowTurnLimit, mediumTurnLimit, highTurnLimit, musicOn, musicOff, musicPack1, musicPack2, musicPack3;
     private String buttonText;
-    //private final SoundPlayer player = new SoundPlayer();
     OptionObject objectSave = new OptionObject();
 //---------------------------ON SCENE LOAD-UP---------------------------------\\
 
@@ -37,6 +26,7 @@ public class FXMLOptionController implements Initializable, Serializable {
 
     }
 //------------------------------FXML METHODS----------------------------------\\    
+
     @FXML //This method handles all of the clicks in on buttons in this scene
     private void optionButtonClick(ActionEvent event) {
         buttonText = ((Button) event.getSource()).getText();
@@ -49,7 +39,7 @@ public class FXMLOptionController implements Initializable, Serializable {
         } else {
             System.out.println("ERROR!");
         }
-        
+
     }
 
     private void submitOption() {
@@ -57,14 +47,14 @@ public class FXMLOptionController implements Initializable, Serializable {
             DataStorage.getInstance().setDifficulty("noob");
         } else if (normalDifficulty.isSelected()) {
             DataStorage.getInstance().setDifficulty("normal");
-        } else if(asianDifficulty.isSelected()){
+        } else if (asianDifficulty.isSelected()) {
             DataStorage.getInstance().setDifficulty("asian");
         }
         if (lowTurnLimit.isSelected()) {
             DataStorage.getInstance().setRoundLimit(20);
         } else if (mediumTurnLimit.isSelected()) {
             DataStorage.getInstance().setRoundLimit(50);
-        } else if(highTurnLimit.isSelected()){
+        } else if (highTurnLimit.isSelected()) {
             DataStorage.getInstance().setRoundLimit(100);
         }
 
@@ -78,7 +68,7 @@ public class FXMLOptionController implements Initializable, Serializable {
             DataStorage.getInstance().setMusicChoice(2);
             SoundPlayer.getInstance().playMusic(DataStorage.getInstance().getMusicChoice());
 
-        }else if (musicPack3.isSelected()) {
+        } else if (musicPack3.isSelected()) {
             SoundPlayer.getInstance().setMusicStop();
             DataStorage.getInstance().setMusicChoice(3);
             SoundPlayer.getInstance().playMusic(DataStorage.getInstance().getMusicChoice());
@@ -86,7 +76,7 @@ public class FXMLOptionController implements Initializable, Serializable {
         }
         if (musicOn.isSelected()) {
             SoundPlayer.getInstance().setMusicMute(false);
-        } else if(musicOff.isSelected()) {
+        } else if (musicOff.isSelected()) {
             SoundPlayer.getInstance().setMusicMute(true);
         }
         objectSave.setDifficulty(DataStorage.getInstance().getDifficulty());
