@@ -1,12 +1,8 @@
 package civ.basic;
 
-/**
- *
- * @author Erik
- */
 public class EventStorage {
     
-    //--------------------------------VARIABLES-----------------------------------\\
+//--------------------------------VARIABLES-----------------------------------\\
     private static EventStorage eventStorage;
     private String eventText;
     private boolean eventActive = false;
@@ -149,111 +145,13 @@ public class EventStorage {
                 eventText = "Event: \nYou where fishing, when you caught the whale in the lake! You chopp it up for 40 food!";
                 eventChangeFood = 40;
                 break;
-          /*  case 19:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
-                break;
-            case 20:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
-                break;
-    
-            case 21:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
-                break;
-            case 22:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
-                break;
-            case 23:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
-                break;
-            case 24:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
-                break;
-    
-            case 25:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
-                break;
-            case 26:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
-                break;
-            case 27:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
-                break;
-            case 28:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
-                break;
-            case 29:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
-                break;
-            case 30:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
-                break;
-            case 31:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
-                break;
-            case 32:
-    
-                eventText =
-                eventResult =
-                eventResultProcentage =
-    
-                break;*/
             default:
                 eventActive = false;  
                 break;
         }
     }
+    
+//----------------------------NON-FXML METHODS--------------------------------\\
     
     public void resetEventResources(){
         eventChangeGold = 0;
@@ -493,8 +391,5 @@ public class EventStorage {
 
     public void setEventActive(boolean eventActive) {
         this.eventActive = eventActive;
-    }
-    
-    
-    
+    }   
 }

@@ -11,11 +11,11 @@ package civ.basic;
  */
 //1bd5f6
 public class StatsViewDisplayObject {
-    String resourceName;
-    String normalBuildingCost;
-    String normalBuildingProduces;
-    String uniqueBuildingCost;
-    String uniqueBuildingProduces;
+    private String resourceName;
+    private String normalBuildingCost;
+    private String normalBuildingProduces;
+    private String uniqueBuildingCost;
+    private String uniqueBuildingProduces;
     
     public StatsViewDisplayObject(String resourceName, String normalBuildingCost, String normalBuildingProduces, String uniqueBuildingCost, String uniqueBuildingProduces){
         this.resourceName = resourceName;
