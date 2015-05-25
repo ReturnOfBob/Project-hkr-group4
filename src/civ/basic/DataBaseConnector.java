@@ -75,7 +75,6 @@ public class DataBaseConnector {
 
     public String getGenericAndCommand(String attribute, String table, String whereCondition, String name, String whereCondition2, String password) {
         String genericAndCommand = " SELECT " + attribute + " FROM " + table + " WHERE " + whereCondition + " = '" + name + "' AND " + whereCondition2 + " = '" + password + "'";
-
         return genericAndCommand;
     }
 
@@ -83,6 +82,7 @@ public class DataBaseConnector {
         String genericHighScoreComand = "SELECT Accounts_Username,Score, Difficulty FROM leaderboard WHERE round_Limit = '" + roundLimit + "'ORDER BY Score DESC LIMIT 5";
         return genericHighScoreComand;
     }
+ 
        public String getOneAttributeCommand(String attribute, String Table) {
         String OneAttributeCommand = "SELECT " + attribute + " FROM " + Table + "";
         return OneAttributeCommand;
