@@ -53,12 +53,12 @@ public class EventStorage {
     switch (eventID) {
             case 1:   
                 eventActive = true;
-                eventText = "Event: \nOne of your citys guards helps a old man on the road, as a reward the old man give your city 10 Gold pices.\n+10 Gold";
+                eventText = "Event: \nOne of your citys guards helps a old man on the road, as a reward \nthe old man give your city 10 Gold pices.\n+10 Gold";
                 eventChangeGold = 10;
                 break;
             case 2:
                 eventActive = true;
-                eventText ="Event: \nA evil little dwarf comes and steals 20% of your gold! All you can do is with a sobbing voice screm: You have violated the law, come back here you little lawbreaking halfman!! At which you can hear a fleeting voice answer back: I'm guilty of a far more monstrous crime: I'm guilty of being a dwarf!\n-20% Gold";
+                eventText ="Event: \nA evil little dwarf comes and steals 20% of your gold! All you can \ndo is with a sobbing voice screm: You have violated the law, come back here you little lawbreaking halfman!! At which you can hear a fleeting voice answer back: I'm guilty of a far more monstrous crime: I'm guilty of being a dwarf!\n-20% Gold";
                 eventPercentageChangeGold = 0.8;
                 break;
             case 3:   
@@ -68,7 +68,7 @@ public class EventStorage {
                 break;
             case 4:
                 eventActive = true;
-                eventText = "Event: \nOh nooes, 20% of all your stored wood just went bad, so you have to throw it away!";
+                eventText = "Event: \nOh nooes, 20% of all your stored wood just went bad, so you have \nto throw it away!";
                 eventPercentageChangeFood = 0.8;
                 break;
             case 5: 
@@ -89,12 +89,12 @@ public class EventStorage {
                 break;
             case 7:
                 eventActive = true;
-                eventText = "Event: \nOne of the kids in the town found a chest under a rock outside of the town, he now wants to give the town all 10 iron ingots that was inside!";
+                eventText = "Event: \nOne of the kids in the town found a chest under a rock outside of \nthe town, he now wants to give the town all 10 iron ingots that was \ninside!";
                 eventChangeSteel = 10;
                 break;
             case 8:
                 eventActive = true;
-                eventText = "Event: \nThe traders that was in the town forgot 15 steel, none would care... right? RIGHT??";
+                eventText = "Event: \nThe traders that was in the town forgot 15 steel, none \nwould care... right? RIGHT??";
                 eventChangeSteel = 15;
                 break;
             case 9:
@@ -104,7 +104,7 @@ public class EventStorage {
                 break;
             case 10:
                 eventActive = true;
-                eventText = "Event: \nYou where out and walking, when it hit you! The pebbels on the ground is made out of... stone, so you gather some and takes it home in your pockets, you recive 15 stone!";
+                eventText = "Event: \nYou where out and walking, when it hit you! The pebbels on the \nground is made out of... stone, so you gather some and \ntakes it home in your pockets, you recive 15 stone!";
                 eventChangeStone = 15;
                 break;
             case 11:
@@ -116,7 +116,7 @@ public class EventStorage {
                 eventActive = true;
                 EventHandler.getInstance().setEventIsActive(true);
                 EventHandler.getInstance().setEventDuration(5);
-                eventText = "Event: \nYour lumberjack have found a huge forest with plenty of trees in it, you will have 20% more wood per turn for 5 turns.\n+20% Wood/p turn";
+                eventText = "Event: \nYour lumberjack have found a huge forest with plenty of trees \nin it, you will have 20% more wood per turn for 5 turns.\n+20% Wood/p turn";
                 eventChangeWoodMultiplier = 1.2;
                 break;
             case 13:
@@ -136,12 +136,12 @@ public class EventStorage {
                 break;            
             case 16:
                 eventActive = true;
-                eventText = "Event: \nYou found a shit-ton of loggs by the gate! Better put them in the storage...";
+                eventText = "Event: \nYou found a shit-ton of loggs by the gate! \nBetter put them in the storage... \n+15 wood.";
                 eventChangeWood = 15;
                 break;
             case 17:
                 eventActive = true;
-                eventText = "Event: \nA astroid was sighted by your astrologs, the end time is coming!! You lose 20 food!";
+                eventText = "Event: \nA astroid was sighted by your astrologs, the end time is coming!! \nYou lose 20 food!";
                 eventChangeFood = -20;
                 break;
             case 18:   
