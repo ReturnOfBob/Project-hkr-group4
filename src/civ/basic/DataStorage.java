@@ -29,6 +29,7 @@ public class DataStorage {
     private Boolean musicSet = false;
     private Integer musicChoice = 1;
     private Boolean loadOnceCheck;
+    private boolean highestScoreCheck;
 
 //------------------------------CONSTRUCTOR-----------------------------------\\    
     private DataStorage() {
@@ -125,6 +126,14 @@ public class DataStorage {
 
     public void setLoadOnceCheck(Boolean loadOnceCheck) {
         this.loadOnceCheck = loadOnceCheck;
+    }
+
+    public boolean isHighestScoreCheck() {
+        return highestScoreCheck;
+    }
+
+    public void setHighestScoreCheck(boolean highestScoreCheck) {
+        this.highestScoreCheck = highestScoreCheck;
     }
     
 }

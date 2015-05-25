@@ -117,6 +117,7 @@ public class FXMLGameController implements Initializable {
 //----------------------------ON SCENE LOADUP---------------------------------\\    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        DataStorage.getInstance().setHighestScoreCheck(false);
         resourceAdder();  //method calls must be in this order, otherwise a crash will occur
         try {
             buildingAdder();
@@ -167,7 +168,7 @@ public class FXMLGameController implements Initializable {
 
         if (currentTurn > DataStorage.getInstance().getRoundLimit()) {
             insertHighScore();
-            DataStorage.getInstance().sceneSwitch(event, "FXMLMainMenu.fxml");
+            DataStorage.getInstance().sceneSwitch(event, "FXMLGameCompleted.fxml");
         }
 
     }
@@ -965,7 +966,24 @@ public class FXMLGameController implements Initializable {
     }
 
     private void insertHighScore() {
+        
         if (leaderboardCheatCodeBlock == false) {
+               try {
+            if(connector.getResult(connector.getHighestScoreFromLeaderBoard(DataStorage.getInstance().getRoundLimit())).next()){
+                
+                    System.out.println(connector.getResultSet().getInt("Max(Score)"));
+                    
+                   if(DataStorage.getInstance().getScore() > connector.getResultSet().getInt("Max(Score)")){
+                        System.out.println("HIGHEST SCORE!!");      
+                        DataStorage.getInstance().setHighestScoreCheck(true);
+                    }
+                    
+                   System.out.println("END!");
+               
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLGameCompletedController.class.getName()).log(Level.SEVERE, null, ex);
+        }
             int leaderBoardObjectCounter = 0;
             int iDSave = 0;
 

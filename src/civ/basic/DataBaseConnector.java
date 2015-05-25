@@ -97,5 +97,13 @@ public class DataBaseConnector {
         String deleteFromTableCommand = "DELETE FROM leaderboard WHERE Accounts_Username = '" + name + "' AND Score = '" + score + "' AND Difficulty = '" + difficulty + "'";
         return deleteFromTableCommand;
     }
+    
+    public String getHighestScoreFromLeaderBoard(int roundLimit){
+        String highscore = "SELECT MAX(Score) FROM leaderboard WHERE Round_Limit = " + roundLimit + ";";
+        
+     //   int integerScore = Integer.parseInt(highscore);
+        
+        return highscore;
+    }
 
 }
