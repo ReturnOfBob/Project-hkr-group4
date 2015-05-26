@@ -50,14 +50,16 @@ public class FXMLcreateAccountController implements Initializable {
 //----------------------------NON-FXML METHODS--------------------------------\\     
 
     private void handleButtonCreateAccount() throws SQLException {
+        boolean createAccountBlocker = false;
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
 
             if (connector.getResult(connector.getGenericCommand("*", "accounts", "Username", name.getText())).next()) {
-                System.out.println("Användare finns redan");
+                System.out.println("Användare finns redan"); //Ska skrivas som label också!!
+                createAccountBlocker = true;
             }
 
-            if (!"".equals(name.getText()) && !"".equals(password.getText()) && !"".equals(question.getText()) && !"".equals(questionAnswer.getText()) && password.getText().equals(passwordAgain.getText())) {
+            if (createAccountBlocker == false && !"".equals(name.getText()) && !"".equals(password.getText()) && !"".equals(question.getText()) && !"".equals(questionAnswer.getText()) && password.getText().equals(passwordAgain.getText())) {
 
                 PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getGenericInsertCommand("accounts", "Username", "Password",
                         "Security_Question", "Answer", "Privilege"));
