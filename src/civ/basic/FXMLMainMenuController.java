@@ -41,7 +41,7 @@ public class FXMLMainMenuController implements Initializable {
       }
         catch (Exception e) {
             System.out.println("ERROR: " + e);
-            errorLabel.setText("ERROR: " + e);
+            errorLabel.setText("Initialzine error");
         }
 
     }
@@ -90,7 +90,7 @@ public class FXMLMainMenuController implements Initializable {
             DataStorage.getInstance().setMusicSet(objectload.isMusicSet());
             DataStorage.getInstance().setLoadOnceCheck(true);
         } catch (Exception ex) {
-            System.out.println("Ingen fil skapad");
+            System.out.println("No file created");
 
         }
     }

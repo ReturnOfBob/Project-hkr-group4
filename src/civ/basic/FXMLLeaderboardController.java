@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -33,13 +34,14 @@ private final DataBaseConnector connector = new DataBaseConnector();
     private TableColumn<LeaderboardObject, String> difficultyColumn;
     @FXML
     private TableView<LeaderboardObject> leaderboardTabelView;
+    @FXML
+    private Label errorLabel;
 
     final private ObservableList<LeaderboardObject> leaderboardList = FXCollections.observableArrayList();
 
 //--------------------------------VARIABLES-----------------------------------\\
     
     private String buttonText;
-
     private ResultSet res;
 
 //----------------------------ON SCENE LOADUP---------------------------------\\
@@ -85,13 +87,13 @@ private final DataBaseConnector connector = new DataBaseConnector();
                     LeaderboardObject markedRow = leaderboardTabelView.getSelectionModel().getSelectedItem();
                     System.out.println(markedRow.getName() + markedRow.getScore() + markedRow.getDifficulty());
                     connector.getDelete(connector.getDeleteFromTableCommand(markedRow.getName(), markedRow.getScore(), markedRow.getDifficulty())).execute();
-                    System.out.println("Deleted");
+                    System.out.println("Deleted score");
                     leaderboardList.remove(leaderboardTabelView.getSelectionModel().getSelectedItem());
-                    System.out.println("Test");
                     connector.close();
 
                 } else {
-                    System.out.println("Require admin right");
+                    System.out.println("Require admin rights");
+                    errorLabel.setVisible(true);
                 }
             }
 

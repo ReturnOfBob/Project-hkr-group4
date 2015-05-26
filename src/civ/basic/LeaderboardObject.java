@@ -4,9 +4,9 @@ public class LeaderboardObject {
     
 //--------------------------------VARIABLES-----------------------------------\\
 
-    private String name;
-    private int score;
-    private String difficulty;
+    private final String name;
+    private final int score;
+    private final String difficulty;
     
 //----------------------------NON-FXML METHODS--------------------------------\\
 

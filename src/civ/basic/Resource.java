@@ -9,7 +9,7 @@ public class Resource {
 
 //--------------------------------VARIABLES-----------------------------------\\
     
-    private StringProperty name;
+    private final StringProperty name;
     private IntegerProperty byTurn;
 
 //----------------------------NON-FXML METHODS--------------------------------\\

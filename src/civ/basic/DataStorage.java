@@ -54,8 +54,6 @@ public class DataStorage {
 
         } catch (IOException ex) {
             System.out.println("ERROR SCENESWITCH!");
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
     }
 //-------------------------GETTERS AND SETTERS--------------------------------\\    
@@ -78,7 +76,6 @@ public class DataStorage {
 
     public String getDifficulty() {
         return difficulty;
-
     }
 
     public Integer getRoundLimit() {

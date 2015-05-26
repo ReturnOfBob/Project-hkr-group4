@@ -36,5 +36,6 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
+      <Label fx:id="errorLabel" layoutX="432.0" layoutY="344.0" prefHeight="17.0" prefWidth="165.0" text="You need admin rights for this!" textFill="#f20404" visible="false" />
    </children>
 </AnchorPane>

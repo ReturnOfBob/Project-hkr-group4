@@ -64,8 +64,7 @@ public class FXMLGameController implements Initializable {
     private Label goldLabel, woodLabel, stoneLabel, foodLabel, humanLabel, ironLabel, coalLabel, steelLabel, currentTurnLabel, activeUserLabel, statsViewBuildingLabel, statsViewNoteLabel, scoreLabel, cheatCodeLabel, cheatCodeErrorLabel, errorLabel;
 
     @FXML
-    private Button houseButton, woodmillButton, farmButton, stonemasonryButton, bankButton, marketButton, ironMineButton, coalMineButton, storageButton, steelworksButton, cottageButton, nextTurnButton,
-            graneryButton, sawmillButton, bazaarButton, stoneworksButton, lumberjackButton, schoolButton, aqueductButton, workshopButton, ingameMenuButton, resumeGameButton, cheatCodeButton, backToMainMenuButton, exitGame, cheatCodesOkButton;
+    private Button bankButton, cottageButton,graneryButton, sawmillButton, bazaarButton, stoneworksButton, lumberjackButton, schoolButton, aqueductButton, workshopButton, cheatCodesOkButton;
 
     @FXML
     private TextArea eventlogTextArea;
@@ -75,9 +74,6 @@ public class FXMLGameController implements Initializable {
 
     @FXML
     private AnchorPane popUp, ingameMenuPopUp, ingameMenuBlocker;
-
-    @FXML
-    private Button popUpButton;
 
     @FXML
     private TextArea popUpText;
@@ -644,25 +640,25 @@ public class FXMLGameController implements Initializable {
         nameList.add("Aqueduct");
         nameList.add("Workshop");
 
-        scoreList.add(5); //Score house
-        scoreList.add(10); //Score farm 
-        scoreList.add(13); //Score market
-        scoreList.add(8); //Score woodmill
-        scoreList.add(26); //Score steelworks
-        scoreList.add(36); //Score storage
-        scoreList.add(9); //Score stonemason
-        scoreList.add(16); //Score iron mine
-        scoreList.add(20); //Score coal mine
-        scoreList.add(13); //Score cottage
-        scoreList.add(21); //Score granery
-        scoreList.add(19); //Score stoneworks
-        scoreList.add(28); //Score bazaar
-        scoreList.add(18); //Score sawmill
-        scoreList.add(40); //Score bank
-        scoreList.add(43); //Score lumberjack school
-        scoreList.add(52); //Score school
-        scoreList.add(63); //Score aqueduct
-        scoreList.add(71); //Score workshop
+        scoreList.add(25); //Score house
+        scoreList.add(25); //Score farm 
+        scoreList.add(33); //Score market
+        scoreList.add(18); //Score woodmill
+        scoreList.add(56); //Score steelworks
+        scoreList.add(56); //Score storage
+        scoreList.add(29); //Score stonemason
+        scoreList.add(36); //Score iron mine
+        scoreList.add(40); //Score coal mine
+        scoreList.add(90); //Score cottage
+        scoreList.add(91); //Score granery
+        scoreList.add(29); //Score stoneworks
+        scoreList.add(68); //Score bazaar
+        scoreList.add(78); //Score sawmill
+        scoreList.add(80); //Score bank
+        scoreList.add(143); //Score lumberjack school
+        scoreList.add(152); //Score school
+        scoreList.add(163); //Score aqueduct
+        scoreList.add(171); //Score workshop
 
         buildingsTableview.setItems(normalBuildingList);
         buildingNameColumn.setCellValueFactory(cellData -> cellData.getValue().getName());
@@ -971,24 +967,18 @@ public class FXMLGameController implements Initializable {
     }
 
     private void insertHighScore() throws SQLException {
-
         if (DataStorage.getInstance().isLeaderboardCheatCodeBlock() == false) {
             try {
-
                 if (connector.getResult(connector.getGenericCommand("MAX(Score)", "leaderboard", "Round_Limit", DataStorage.getInstance().getRoundLimit())).next()) {
-
-                    System.out.println(connector.getResultSet().getInt("Max(Score)"));
 
                     if (DataStorage.getInstance().getScore() > connector.getResultSet().getInt("Max(Score)")) {
                         System.out.println("HIGHEST SCORE!!");
                         DataStorage.getInstance().setHighestScoreCheck(true);
                     }
-
-                    System.out.println("END!");
-
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(FXMLGameCompletedController.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Error with receiving the highest score");
             }
             int leaderBoardObjectCounter = 0;
             int iDSave = 0;
@@ -1003,12 +993,12 @@ public class FXMLGameController implements Initializable {
                         iDSave = connector.getResultSet().getInt("ID");
                     }
                     iDSave++;
-
+                    connector.close();
                 }
 
                 System.out.println(leaderBoardObjectCounter);
                 PreparedStatement prepSt = connector.getConnection().prepareStatement(connector.getGenericInsertCommand("leaderboard", "ID",
-                        "Accounts_Username", "Score", "Difficulty", "Round_Limit"));
+                "Accounts_Username", "Score", "Difficulty", "Round_Limit"));
 
                 prepSt.setInt(1, leaderBoardObjectCounter);
                 prepSt.setString(2, DataStorage.getInstance().getNewActiveUser());
@@ -1017,9 +1007,9 @@ public class FXMLGameController implements Initializable {
                 prepSt.setInt(5, DataStorage.getInstance().getRoundLimit());
                 prepSt.executeUpdate();
                 connector.close();
-                System.out.println("Highscore lagrat");
+                System.out.println("High score stored");
             } catch (Exception ex) {
-                System.out.println("Error vid sparning av highscore");
+                System.out.println("Error with saving of high score");
                 Logger.getLogger(FXMLLeaderboardController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

@@ -8,12 +8,15 @@ import java.sql.SQLException;
 
 
 public class DataBaseConnector {
+    //-----------------------------------VARIABLES--------------------------------------\\ 
 
     private final String URL = "jdbc:mysql://127.0.0.1:3306/civ-basic?user=root&password=root";
     private Connection c;
     private ResultSet rs;
     private PreparedStatement prepSt;
-
+    
+    //-----------------------------------DATABASE CODE--------------------------------------\\ 
+    
     public Connection getConnection() throws SQLException {
         c = DriverManager.getConnection(URL);
         return c;
@@ -31,16 +34,10 @@ public class DataBaseConnector {
         prepSt = c.prepareStatement(command);
         prepSt.executeUpdate(command);
         return prepSt;
-
     }
 
     public ResultSet getResultSet() throws SQLException{
         return rs;
-    }
-
-    public String getGenericInsertCommand(String table, String attributeOne, String attributeTwo, String attributeThree, String attributeFour, String attributeFive) {
-        String insertHighScoreCommand = "INSERT INTO " + table + " (" + attributeOne + "," + attributeTwo + "," + attributeThree + "," + attributeFour + "," + attributeFive + ") VALUES (?,?,?,?,?)";
-        return insertHighScoreCommand;
     }
 
     public void close() throws SQLException {
@@ -54,7 +51,8 @@ public class DataBaseConnector {
             prepSt.close();
         }
     }
-
+    //-----------------------------------MYSQL COMMANDS--------------------------------------\\ 
+    
     public String getRescourseCommand(String attribute, String nameList, String rescourseNames) {
         String rescourseCommand = " SELECT " + attribute + " FROM buildings_manages_resources WHERE Buildings_Name = '" + nameList + "' AND Resources_Name = '" + rescourseNames + "'";
         return rescourseCommand;
@@ -66,7 +64,7 @@ public class DataBaseConnector {
     }
 
     public String getGenericHighScoreCommand(int roundLimit) {
-        String genericHighScoreComand = "SELECT Accounts_Username,Score, Difficulty FROM leaderboard WHERE round_Limit = '" + roundLimit + "'ORDER BY Score DESC LIMIT 5";
+        String genericHighScoreComand = "SELECT Accounts_Username,Score, Difficulty FROM leaderboard WHERE round_Limit = '" + roundLimit + "'ORDER BY Score DESC LIMIT 20";
         return genericHighScoreComand;
     }
 
@@ -74,13 +72,20 @@ public class DataBaseConnector {
         String deleteFromTableCommand = "DELETE FROM leaderboard WHERE Accounts_Username = '" + name + "' AND Score = '" + score + "' AND Difficulty = '" + difficulty + "'";
         return deleteFromTableCommand;
     }
+    
     public String getOneAttributeCommand(String attribute, String table) {
         String oneAttributeCommand = "SELECT " + attribute + " FROM " + table + "";
         return oneAttributeCommand;
     }
-        public <T> String getGenericCommand(String attribute, String table, String whereCondition,T value) {
+    
+    public <T> String getGenericCommand(String attribute, String table, String whereCondition,T value) {
         String genericCommand = " SELECT " + attribute + " FROM " + table + " WHERE " + whereCondition + " = '" + value + "'";
         return genericCommand;
+    }
+    
+    public String getGenericInsertCommand(String table, String attributeOne, String attributeTwo, String attributeThree, String attributeFour, String attributeFive) {
+        String insertHighScoreCommand = "INSERT INTO " + table + " (" + attributeOne + "," + attributeTwo + "," + attributeThree + "," + attributeFour + "," + attributeFive + ") VALUES (?,?,?,?,?)";
+        return insertHighScoreCommand;
     }
 
 }

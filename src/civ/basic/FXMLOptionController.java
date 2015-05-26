@@ -18,7 +18,7 @@ public class FXMLOptionController implements Initializable, Serializable {
     @FXML
     private RadioButton noobDifficulty, normalDifficulty, asianDifficulty, lowTurnLimit, mediumTurnLimit, highTurnLimit, musicOn, musicOff, musicPack1, musicPack2, musicPack3;
     private String buttonText;
-    OptionObject objectSave = new OptionObject();
+    private OptionObject objectSave = new OptionObject();
 //---------------------------ON SCENE LOAD-UP---------------------------------\\
 
     @Override
@@ -84,7 +84,7 @@ public class FXMLOptionController implements Initializable, Serializable {
         objectSave.setMusicSet(DataStorage.getInstance().isMusicSet());
         objectSave.setRoundLimit(DataStorage.getInstance().getRoundLimit());
         writeOptionSettingToFile();
-        System.out.println("submitOption");
+        System.out.println("Options submitted");
     }
 
     private void writeOptionSettingToFile() {
@@ -92,10 +92,10 @@ public class FXMLOptionController implements Initializable, Serializable {
         try (ObjectOutputStream oOut = new ObjectOutputStream(new FileOutputStream(file))) {
             oOut.writeObject(objectSave);
             oOut.close();
-            System.out.println("Filsparning lyckades");
+            System.out.println("File saving completed");
 
         } catch (Exception ex) {
-            System.out.println("Informationen kunde inte sparas till fil!");
+            System.out.println("The information could not be saved to file");
 
         }
     }

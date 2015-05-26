@@ -3,14 +3,14 @@ package civ.basic;
 public class UniqueBuilding extends Building {
 //--------------------------------VARIABLES-----------------------------------\\     
 
-    private double bonusGold;
-    private double bonusWood;
-    private double bonusStone;
-    private double bonusIron;
-    private double bonusCoal;
-    private double bonusSteel;
-    private double bonusFood;
-    private double bonusHuman;
+    private final double bonusGold;
+    private final double bonusWood;
+    private final double bonusStone;
+    private final double bonusIron;
+    private final double bonusCoal;
+    private final double bonusSteel;
+    private final double bonusFood;
+    private final double bonusHuman;
 //------------------------------CONSTRUCTOR-----------------------------------\\        
 
     public UniqueBuilding(String name, int initialGold, int initialWood, int initialStone, int initialIron, int initialCoal,

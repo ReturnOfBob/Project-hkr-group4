@@ -71,6 +71,7 @@ public class FXMLLostPasswordController implements Initializable {
             connector.close();
         } catch (SQLException ex) {
             Logger.getLogger(FXMLLostPasswordController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error with receiving clue");
         }
     }
 
@@ -87,6 +88,7 @@ public class FXMLLostPasswordController implements Initializable {
             connector.close();
         } catch (Exception ex) {
             ex.printStackTrace();
+            System.out.println("Error with receiving password");
         }
     }
 

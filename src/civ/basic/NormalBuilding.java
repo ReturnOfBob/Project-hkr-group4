@@ -3,14 +3,14 @@ package civ.basic;
 public class NormalBuilding extends Building {
 //--------------------------------VARIABLES-----------------------------------\\ 
 
-    private int gold;
-    private int wood;
-    private int stone;
-    private int iron;
-    private int coal;
-    private int steel;
-    private int food;
-    private int human;
+    private final int gold;
+    private final int wood;
+    private final int stone;
+    private final int iron;
+    private final int coal;
+    private final int steel;
+    private final int food;
+    private final int human;
 //------------------------------CONSTRUCTOR-----------------------------------\\        
 
     public NormalBuilding(String name, int initialGold, int initialWood, int initialStone, int initialIron, int initialCoal,
