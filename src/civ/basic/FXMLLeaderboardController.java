@@ -40,7 +40,7 @@ private final DataBaseConnector connector = new DataBaseConnector();
     
     private String buttonText;
 
-    ResultSet res;
+    private ResultSet res;
 
 //----------------------------ON SCENE LOADUP---------------------------------\\
     
@@ -127,9 +127,7 @@ private final DataBaseConnector connector = new DataBaseConnector();
             System.out.println(res.getInt("Score") + res.getString("Accounts_Username") + res.getString("Difficulty"));
             LeaderboardObject leaderboardObject = new LeaderboardObject(res.getString("Accounts_Username"), res.getInt("Score"), res.getString("Difficulty"));
             leaderboardListd.add(leaderboardObject);
-
         }
         connector.close();
     }
-
 }
