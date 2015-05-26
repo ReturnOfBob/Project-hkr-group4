@@ -4,6 +4,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class SoundPlayer {
+    
+//--------------------------------VARIABLES-----------------------------------\\
 
     private static SoundPlayer soundPlayer;
     private MediaPlayer musicPlayer;
@@ -12,7 +14,8 @@ public class SoundPlayer {
     private SoundPlayer() {
 
     }
-
+//----------------------------NON-FXML METHODS--------------------------------\\
+    
     public static SoundPlayer getInstance() {
         if (soundPlayer == null) {
             soundPlayer = new SoundPlayer();
@@ -75,10 +78,6 @@ public class SoundPlayer {
 
     public void setMusicOn() {
         musicPlayer.play();
-    }
-
-    public void setMusicVolume(double volumeValue) {
-        musicPlayer.setVolume(volumeValue);
     }
 
     private void createMusic(Media musicChoice) {
