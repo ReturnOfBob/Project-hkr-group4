@@ -35,7 +35,9 @@ public abstract class Building {
         this.amount = new SimpleIntegerProperty(amount);
         this.scoreValue = scoreValue;
     }
-
+    
+//-------------------------GETTERS AND SETTERS--------------------------------\\ 
+    
     public void setAmount(int add) {
         int amount = add + this.amount.getValue();
         this.amount.set(amount);

@@ -19,8 +19,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class FXMLLeaderboardController implements Initializable {
 
-    private final DataBaseConnector connector = new DataBaseConnector();
+//-----------------------------MYSQL CONNECTION-------------------------------\\
+    
+private final DataBaseConnector connector = new DataBaseConnector();
+    
 
+//-----------------------------------GUI--------------------------------------\\ 
     @FXML
     private TableColumn<LeaderboardObject, String> nameColumn;
     @FXML
@@ -32,10 +36,14 @@ public class FXMLLeaderboardController implements Initializable {
 
     final private ObservableList<LeaderboardObject> leaderboardListd = FXCollections.observableArrayList();
 
+//--------------------------------VARIABLES-----------------------------------\\
+    
     private String buttonText;
 
     ResultSet res;
 
+//----------------------------ON SCENE LOADUP---------------------------------\\
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -44,6 +52,8 @@ public class FXMLLeaderboardController implements Initializable {
             Logger.getLogger(FXMLLeaderboardController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+//------------------------------FXML METHODS----------------------------------\\
 
     @FXML //This method handles all of the clicks in the menu clicks in this scene
     private void buttonClicks(ActionEvent event) throws SQLException {
@@ -91,7 +101,9 @@ public class FXMLLeaderboardController implements Initializable {
             Logger.getLogger(FXMLLeaderboardController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+//----------------------------NON-FXML METHODS--------------------------------\\
+    
     private void setLeaderBoard(int roundChoice) throws SQLException {
         leaderboardListd.removeAll(leaderboardListd);
 

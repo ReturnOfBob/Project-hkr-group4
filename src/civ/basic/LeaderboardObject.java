@@ -1,10 +1,14 @@
 package civ.basic;
 
 public class LeaderboardObject {
+    
+//--------------------------------VARIABLES-----------------------------------\\
 
     private String name;
     private int score;
     private String difficulty;
+    
+//----------------------------NON-FXML METHODS--------------------------------\\
 
     public LeaderboardObject(String name, int score, String difficulty) {
         this.name = name;

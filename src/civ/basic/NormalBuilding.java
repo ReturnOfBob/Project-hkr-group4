@@ -28,7 +28,7 @@ public class NormalBuilding extends Building {
         this.food = food;
         this.human = human;
     }
-
+//----------------------------NON-FXML METHODS--------------------------------\\
     public int getGold() {
         return gold;
     }

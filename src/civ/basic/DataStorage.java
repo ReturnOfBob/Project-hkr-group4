@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class DataStorage {
+    
 //------------------------------VARIABLES-------------------------------------\\   
 
     private static DataStorage dataStorage;

@@ -6,9 +6,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Resource {
+
+//--------------------------------VARIABLES-----------------------------------\\
     
     private StringProperty name;
     private IntegerProperty byTurn;
+
+//----------------------------NON-FXML METHODS--------------------------------\\
     
     public Resource(String name, int byTurn){
         this.name = new SimpleStringProperty(name);

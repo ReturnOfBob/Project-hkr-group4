@@ -3,12 +3,16 @@ package civ.basic;
 import java.io.Serializable;
 
 public class OptionObject implements Serializable {
+      
+//--------------------------------VARIABLES-----------------------------------\\
 
     private String difficulty;
     private int roundLimit;
     private Boolean musicSet;
     private Integer musicChoice;
 
+//----------------------------NON-FXML METHODS--------------------------------\\
+    
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
     }

@@ -15,7 +15,9 @@ public class FXMLLogInMenuController implements Initializable {
 
     private String buttonText;
     private boolean userCorrectCheck = false;
-//---------------------------------GUI----------------------------------------\\   
+    
+//---------------------------------GUI----------------------------------------\\ 
+    
     @FXML
     private TextField userName;
 
@@ -25,14 +27,17 @@ public class FXMLLogInMenuController implements Initializable {
     @FXML
     private Label loginErrorLabel;
 
-//-----------------------------MYSQL CONNECTION-------------------------------\\     
+//-----------------------------MYSQL CONNECTION-------------------------------\\ 
+    
     private final DataBaseConnector connector = new DataBaseConnector();
+    
 //----------------------------ON SCENE LOADUP---------------------------------\\
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         DataStorage.getInstance().setLoadOnceCheck(false);
     }
+    
 //------------------------------FXML METHODS----------------------------------\\    
 
     @FXML //This method handles all of the clicks in the menu in this scene

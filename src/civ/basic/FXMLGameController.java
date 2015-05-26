@@ -24,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class FXMLGameController implements Initializable {
+    
 //------------------------------VARIABLES-------------------------------------\\    
 
     private int amountOfGold = 10;
@@ -56,6 +57,7 @@ public class FXMLGameController implements Initializable {
     final private ObservableList<UniqueBuilding> uniqueBuildingList = FXCollections.observableArrayList();
     final private ObservableList<StatsViewDisplayObject> statsViewDisplayList = FXCollections.observableArrayList();
     final private DataBaseConnector connector = new DataBaseConnector();
+    
 //---------------------------------GUI----------------------------------------\\    
     @FXML
     private Label goldLabel, woodLabel, stoneLabel, foodLabel, humanLabel, ironLabel, coalLabel, steelLabel, currentTurnLabel, activeUserLabel, statsViewBuildingLabel, statsViewNoteLabel, scoreLabel, cheatCodeLabel, cheatCodeErrorLabel;
@@ -80,6 +82,7 @@ public class FXMLGameController implements Initializable {
     private TextArea popUpText;
 
 //------------------------RESOURCES TABLEVIEW---------------------------------\\
+    
     @FXML
     private TableColumn<Resource, String> resourceNameColumn;
     @FXML
@@ -87,13 +90,15 @@ public class FXMLGameController implements Initializable {
     @FXML
     private TableView<Resource> resourcesTableview;
 
-//----------------------BUILDINGS TABLEVIEW-----------------------------------\\    
+//----------------------BUILDINGS TABLEVIEW-----------------------------------\\   
+    
     @FXML
     private TableColumn<NormalBuilding, String> buildingNameColumn;
     @FXML
     private TableColumn<NormalBuilding, Number> buildingAmountColumn;
     @FXML
     private TableView<NormalBuilding> buildingsTableview;
+    
 //--------------------------BUILDING STATSVIEW TABLE--------------------------\\ 
 
     @FXML
@@ -101,7 +106,8 @@ public class FXMLGameController implements Initializable {
     @FXML
     private TableColumn<StatsViewDisplayObject, String> statsViewResource, statsViewCost, statsViewProduces;
 
-//----------------------------ON SCENE LOADUP---------------------------------\\    
+//----------------------------ON SCENE LOADUP---------------------------------\\ 
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         DataStorage.getInstance().setHighestScoreCheck(false);
@@ -121,6 +127,7 @@ public class FXMLGameController implements Initializable {
         resourceList.get(1).setByTurn(2);
 
     }
+    
 //------------------------------FXML METHODS----------------------------------\\
 
     @FXML
@@ -164,11 +171,6 @@ public class FXMLGameController implements Initializable {
     private void buttonBuilderHandler(ActionEvent event) {
         String buttonText;
         buttonText = ((Button) event.getSource()).getText();
-        /*for(NormalBuilding building : buildingList){
-         if(building.getName().getValue().equals(buttonText)){
-         building.setAmount(1);
-         }
-         }*/
         resourceReducter(event);
         resourcePerTurnCalc();
         refreshResources();
@@ -187,7 +189,6 @@ public class FXMLGameController implements Initializable {
     private void showStatsViewColumns(MouseEvent event) {
 
         statsViewBuildingName = ((Button) event.getSource()).getText();
-        System.out.println("In");
 
         switch (statsViewBuildingName) {
             case "House":
@@ -254,7 +255,6 @@ public class FXMLGameController implements Initializable {
 
     @FXML
     private void hideStatsViewColumns() {
-        System.out.println("Out");
 
         statsViewDisplayList.removeAll(statsViewDisplayList);
         statsViewDisplayList.add(new StatsViewDisplayObject("", "", "", "", ""));
@@ -321,6 +321,7 @@ public class FXMLGameController implements Initializable {
     }
 
 //----------------------------NON-FXML METHODS--------------------------------\\
+    
     private void refreshResources() {
         goldLabel.setText("Gold: " + amountOfGold + "/" + resourceCap);
         woodLabel.setText("Wood: " + amountOfWood + "/" + resourceCap);
@@ -765,7 +766,6 @@ public class FXMLGameController implements Initializable {
                     connector.close();
                 }
 
-                System.out.println(changeBuildingTypeChecker);
                 if (changeBuildingTypeChecker < 14) {
                     normalBuildingList.add(new NormalBuilding(nameList.get(i), initialGoldint, initialWoodint, initialStoneint, initialIronint, initialCoalint,
                             initialSteelint, initialFoodint, initialHumanint, amount, scoreList.get(i), goldint, woodint, stoneint, ironint, coalint, steelint,
@@ -783,10 +783,7 @@ public class FXMLGameController implements Initializable {
             } finally {
                 connector.close();
             }
-
         }
-        System.out.println(normalBuildingList.get(2).getGold());
-
     }
 
     private void addEventResources() {
@@ -957,7 +954,6 @@ public class FXMLGameController implements Initializable {
         if (DataStorage.getInstance().isLeaderboardCheatCodeBlock() == false) {
             try {
 
-                // if(connector.getResult(connector.getHighestScoreFromLeaderBoard(DataStorage.getInstance().getRoundLimit())).next()){
                 if (connector.getResult(connector.getGenericCommand("MAX(Score)", "leaderboard", "Round_Limit", DataStorage.getInstance().getRoundLimit())).next()) {
 
                     System.out.println(connector.getResultSet().getInt("Max(Score)"));
@@ -987,7 +983,6 @@ public class FXMLGameController implements Initializable {
                     }
                     iDSave++;
 
-                    //    connector.close();
                 }
 
                 System.out.println(leaderBoardObjectCounter);

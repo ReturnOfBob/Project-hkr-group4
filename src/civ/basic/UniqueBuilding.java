@@ -29,6 +29,8 @@ public class UniqueBuilding extends Building {
 
     }
 
+//----------------------------NON-FXML METHODS--------------------------------\\
+    
     public double getBonusGold() {
         return bonusGold;
     }

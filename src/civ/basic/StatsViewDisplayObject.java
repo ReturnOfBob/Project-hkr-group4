@@ -1,12 +1,16 @@
 package civ.basic;
 
 public class StatsViewDisplayObject {
+    
+//--------------------------------VARIABLES-----------------------------------\\
 
     private String resourceName;
     private String normalBuildingCost;
     private String normalBuildingProduces;
     private String uniqueBuildingCost;
     private String uniqueBuildingProduces;
+    
+//----------------------------NON-FXML METHODS--------------------------------\\
 
     public StatsViewDisplayObject(String resourceName, String normalBuildingCost, String normalBuildingProduces, String uniqueBuildingCost, String uniqueBuildingProduces) {
         this.resourceName = resourceName;

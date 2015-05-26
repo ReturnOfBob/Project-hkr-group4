@@ -17,14 +17,17 @@ public class FXMLGameCompletedController implements Initializable {
 
     private final DataBaseConnector connector = new DataBaseConnector();
     
+//--------------------------------VARIABLES-----------------------------------\\ 
+    
     private String buttonText;
+
+//-----------------------------------GUI--------------------------------------\\  
     
     @FXML
     private Label congratulationsLabel, scoreLabel, highestScoreLabel,cheatCodeLabel;
     
-    /**
-     * Initializes the controller class.
-     */
+//---------------------------ON SCENE LOAD-UP---------------------------------\\
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         if(DataStorage.getInstance().isHighestScoreCheck() == true){
@@ -70,18 +73,13 @@ public class FXMLGameCompletedController implements Initializable {
         else{
             congratulationsLabel.setLayoutX(178);
         }
-        
-        
-        
-      //  if(DataStorage.getInstance().getScore() > connector.getHighestScoreFromLeaderBoard(DataStorage.getInstance().getRoundLimit())){
-       //     highestScoreLabel.setVisible(true);
-        //}
-        
-        
+    
         congratulationsLabel.setText("Congratulations " + DataStorage.getInstance().getNewActiveUser() + "!");
         scoreLabel.setText("Your score: " + DataStorage.getInstance().getScore());
         
-    }    
+    }   
+    
+//------------------------------FXML METHODS----------------------------------\\ 
     
     @FXML
     private void menuClick(ActionEvent event){

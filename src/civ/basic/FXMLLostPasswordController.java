@@ -14,17 +14,23 @@ import javafx.scene.control.TextField;
 
 
 public class FXMLLostPasswordController implements Initializable {
+    
 //------------------------------VARIABLES-------------------------------------\\    
 
     private String storedName;
     private String buttonText;
-//---------------------------------GUI----------------------------------------\\     
+    
+//---------------------------------GUI----------------------------------------\\ 
+    
     @FXML
     private Label showInfo;
     @FXML
     private TextField inputRequiredText;
-//-----------------------------MYSQL CONNECTION-------------------------------\\    
+    
+//-----------------------------MYSQL CONNECTION-------------------------------\\ 
+    
     private final DataBaseConnector connector = new DataBaseConnector();
+    
 //----------------------------ON SCENE LOADUP---------------------------------\\
 
     @Override

@@ -13,11 +13,14 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class FXMLcreateAccountController implements Initializable {
+    
 //--------------------------------VARIABLES-----------------------------------\\     
 
     private String buttonText;
+    
 //-----------------------------------GUI--------------------------------------\\     
     @FXML
+    
     private TextField name, question, questionAnswer;
 
     @FXML
@@ -25,8 +28,11 @@ public class FXMLcreateAccountController implements Initializable {
 
     @FXML
     private Label createAccountDoneLabel, createAccountErrorLabel;
+    
 //-----------------------------MYSQL CONNECTION-------------------------------\\ 
+    
     private final DataBaseConnector connector = new DataBaseConnector();
+    
 //---------------------------ON SCENE LOAD-UP---------------------------------\\
 
     @Override
@@ -56,6 +62,7 @@ public class FXMLcreateAccountController implements Initializable {
 
             if (connector.getResult(connector.getGenericCommand("*", "accounts", "Username", name.getText())).next()) {
                 System.out.println("Användare finns redan"); //Ska skrivas som label också!!
+                createAccountErrorLabel.setText("Användare finns redan");
                 createAccountBlocker = true;
             }
 
@@ -81,10 +88,12 @@ public class FXMLcreateAccountController implements Initializable {
                 createAccountErrorLabel.setText("");
                 createAccountErrorLabel.setText("Lösenorden matchar inte!");
             } else {
+                if (createAccountBlocker == false){
                 createAccountDoneLabel.setText("");
                 createAccountErrorLabel.setText("");
                 System.out.println("Du måste fylla i alla fält!");
                 createAccountErrorLabel.setText("Du måste fylla i alla fält!");
+                }
             }
 
         } catch (Exception e) {
