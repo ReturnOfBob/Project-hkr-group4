@@ -23,3 +23,79 @@ and open the template in the editor.
     -fx-border-color: black;
     -fx-border-width:  1.5px;
 }
+#houseButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/houseButton.png");
+}
+#marketButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/marketButton.png");
+}
+#steelworksButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/steelworksButton.png");
+}
+#farmButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/farmButton.png");
+}
+#stonemasonButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/stonemasonButton.png");
+}
+#ironmineButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/ironmineButton.png");
+}
+#coalmineButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/coalmineButton.png");
+}
+#woodmillButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/woodmillButton.png");
+}
+#schoolButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/schoolButton.png");
+}
+#storageButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/storageButton.png");
+}
+#bazaarButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/bazaarButton.png");
+}
+#sawmillButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/sawmillButton.png");
+}
+#bankButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/bankButton.png");
+}
+#workshopButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/workshopButton.png");
+}
+#lumberjackschoolButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/lumberjackschoolButton.png");
+}
+#cottageButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/cottageButton.png");
+}
+#graneryButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/graneryButton.png");
+}
+#stoneworksButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/stoneworksButton.png");
+}
+#aqueductButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../../Resources/Images/Buttons/aqueductButton.png");
+}

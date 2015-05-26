@@ -189,7 +189,8 @@ public class FXMLGameController implements Initializable {
     private void showStatsViewColumns(MouseEvent event) {
 
         statsViewBuildingName = ((Button) event.getSource()).getText();
-
+        ((Button) event.getSource()).setOpacity(0.5);
+        
         switch (statsViewBuildingName) {
             case "House":
                 refreshStatsViewColumns(true, 0);
@@ -254,8 +255,9 @@ public class FXMLGameController implements Initializable {
     }
 
     @FXML
-    private void hideStatsViewColumns() {
-
+    private void hideStatsViewColumns(MouseEvent event) {
+        
+        ((Button) event.getSource()).setOpacity(1);
         statsViewDisplayList.removeAll(statsViewDisplayList);
         statsViewDisplayList.add(new StatsViewDisplayObject("", "", "", "", ""));
         statviewTableview.setItems(statsViewDisplayList);
