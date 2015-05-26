@@ -122,7 +122,7 @@ public class FXMLGameController implements Initializable {
         statviewTableview.setItems(statsViewDisplayList);
         refreshEventLogText("Turn: " + currentTurn);
         resourceList.get(1).setByTurn(2);
-
+        System.out.println("Game started!");
     }
     
 //------------------------------FXML METHODS----------------------------------\\
