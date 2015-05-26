@@ -51,6 +51,7 @@ public class FXMLGameController implements Initializable {
     private String eventLogDisplayText;
 
     private boolean resourceAmountCheck = false;
+    private boolean uniqueBuildingBuilt = false;
 
     final private ObservableList<Resource> resourceList = FXCollections.observableArrayList();
     final private ObservableList<NormalBuilding> normalBuildingList = FXCollections.observableArrayList();
@@ -256,15 +257,27 @@ public class FXMLGameController implements Initializable {
 
     @FXML
     private void hideStatsViewColumns(MouseEvent event) {
+        String buttonText;
+        buttonText = ((Button) event.getSource()).getText();
         
-        ((Button) event.getSource()).setOpacity(1);
-        statsViewDisplayList.removeAll(statsViewDisplayList);
-        statsViewDisplayList.add(new StatsViewDisplayObject("", "", "", "", ""));
-        statviewTableview.setItems(statsViewDisplayList);
+        for(UniqueBuilding building: uniqueBuildingList){
+            if(building.getName().getValue().equals(buttonText)){
+                if(building.getAmount().getValue() > 0){
+                    uniqueBuildingBuilt = true;
+                }
+            }
+        }
+        if(uniqueBuildingBuilt == false){
+            ((Button) event.getSource()).setOpacity(1);
+            statsViewDisplayList.removeAll(statsViewDisplayList);
+            statsViewDisplayList.add(new StatsViewDisplayObject("", "", "", "", ""));
+            statviewTableview.setItems(statsViewDisplayList);
 
-        statsViewBuildingLabel.setText("");
-        statsViewNoteLabel.setText("");
-
+            statsViewBuildingLabel.setText("");
+            statsViewNoteLabel.setText("");
+        }
+        uniqueBuildingBuilt = false;
+        
     }
 
     @FXML
