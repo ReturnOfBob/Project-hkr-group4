@@ -426,7 +426,8 @@ public class FXMLGameController implements Initializable {
 
                 if (amountGoldCheck < 0 || amountWoodCheck < 0 || amountStoneCheck < 0 || amountFoodCheck < 0 || amountHumanCheck < 0
                         || amountIronCheck < 0 || amountCoalCheck < 0 || amountSteelCheck < 0) {
-
+                    
+                    errorLabel.setText("Not enough resources!");                    
                     resourceAmountCheck = true;
                 }
 
@@ -439,7 +440,8 @@ public class FXMLGameController implements Initializable {
                     amountOfIron -= (building.getInitialIron() * multiplier * difficultyMultiplier);
                     amountOfCoal -= (building.getInitialCoal() * multiplier * difficultyMultiplier);
                     amountOfSteel -= (building.getInitialSteel() * multiplier * difficultyMultiplier);
-
+                    errorLabel.setText("");
+                    
                     if (building.getName().getValue().equals("Storage")) {
                         resourceCap += 100;
                     }
@@ -578,7 +580,7 @@ public class FXMLGameController implements Initializable {
     }
             catch (Exception e) {
             System.out.println("ERROR: " + e);
-            errorLabel.setText("ERROR: " + e);
+            errorLabel.setText("ERROR");
         }
     }
 

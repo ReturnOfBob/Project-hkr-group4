@@ -53,7 +53,7 @@ public class FXMLLogInMenuController implements Initializable {
             }
 
         } else if (buttonText.equals("Create new account")) {
-            DataStorage.getInstance().sceneSwitch(event, "FXMLcreateAccount.fxml");
+            DataStorage.getInstance().sceneSwitch(event, "FXMLCreateAccount.fxml");
         } else if (buttonText.equals("Lost my password")) {
             DataStorage.getInstance().sceneSwitch(event, "FXMLLostPassword.fxml");
         } else {
