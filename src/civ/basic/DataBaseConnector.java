@@ -74,9 +74,9 @@ public class DataBaseConnector {
         String deleteFromTableCommand = "DELETE FROM leaderboard WHERE Accounts_Username = '" + name + "' AND Score = '" + score + "' AND Difficulty = '" + difficulty + "'";
         return deleteFromTableCommand;
     }
-    public String getOneAttributeCommand(String attribute, String Table) {
-        String OneAttributeCommand = "SELECT " + attribute + " FROM " + Table + "";
-        return OneAttributeCommand;
+    public String getOneAttributeCommand(String attribute, String table) {
+        String oneAttributeCommand = "SELECT " + attribute + " FROM " + table + "";
+        return oneAttributeCommand;
     }
         public <T> String getGenericCommand(String attribute, String table, String whereCondition,T value) {
         String genericCommand = " SELECT " + attribute + " FROM " + table + " WHERE " + whereCondition + " = '" + value + "'";

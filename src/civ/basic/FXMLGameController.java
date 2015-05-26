@@ -60,7 +60,7 @@ public class FXMLGameController implements Initializable {
     
 //---------------------------------GUI----------------------------------------\\    
     @FXML
-    private Label goldLabel, woodLabel, stoneLabel, foodLabel, humanLabel, ironLabel, coalLabel, steelLabel, currentTurnLabel, activeUserLabel, statsViewBuildingLabel, statsViewNoteLabel, scoreLabel, cheatCodeLabel, cheatCodeErrorLabel;
+    private Label goldLabel, woodLabel, stoneLabel, foodLabel, humanLabel, ironLabel, coalLabel, steelLabel, currentTurnLabel, activeUserLabel, statsViewBuildingLabel, statsViewNoteLabel, scoreLabel, cheatCodeLabel, cheatCodeErrorLabel, errorLabel;
 
     @FXML
     private Button houseButton, woodmillButton, farmButton, stonemasonryButton, bankButton, marketButton, ironMineButton, coalMineButton, storageButton, steelworksButton, cottageButton, nextTurnButton,
@@ -536,6 +536,7 @@ public class FXMLGameController implements Initializable {
 
     private void generateEvent() {
 
+        try {
         Random random = new Random();
         int randomNum = random.nextInt(500);
         System.out.println(randomNum);
@@ -563,6 +564,11 @@ public class FXMLGameController implements Initializable {
         }
         EventStorage.getInstance().setEventText(null);
         EventStorage.getInstance().setEventActive(false);
+    }
+            catch (Exception e) {
+            System.out.println("ERROR: " + e);
+            errorLabel.setText("ERROR: " + e);
+        }
     }
 
     private void resourceAdder() {

@@ -32,9 +32,9 @@ private final DataBaseConnector connector = new DataBaseConnector();
     @FXML
     private TableColumn<LeaderboardObject, String> difficultyColumn;
     @FXML
-    private TableView<LeaderboardObject> leaderboardList;
+    private TableView<LeaderboardObject> leaderboardTabelView;
 
-    final private ObservableList<LeaderboardObject> leaderboardListd = FXCollections.observableArrayList();
+    final private ObservableList<LeaderboardObject> leaderboardList = FXCollections.observableArrayList();
 
 //--------------------------------VARIABLES-----------------------------------\\
     
@@ -82,14 +82,12 @@ private final DataBaseConnector connector = new DataBaseConnector();
         try {
             if (connector.getResult(connector.getGenericCommand("Privilege", "accounts", "Username", DataStorage.getInstance().getNewActiveUser())).next()) {
                 if (connector.getResultSet().getString(1).equals("Admin")) {
-                    LeaderboardObject markedRow = leaderboardList.getSelectionModel().getSelectedItem();
+                    LeaderboardObject markedRow = leaderboardTabelView.getSelectionModel().getSelectedItem();
                     System.out.println(markedRow.getName() + markedRow.getScore() + markedRow.getDifficulty());
                     connector.getDelete(connector.getDeleteFromTableCommand(markedRow.getName(), markedRow.getScore(), markedRow.getDifficulty())).execute();
                     System.out.println("Deleted");
-                    leaderboardListd.remove(leaderboardList.getSelectionModel().getSelectedItem());
-                    // leaderboardListd.removeAll(leaderboardListd);
+                    leaderboardList.remove(leaderboardTabelView.getSelectionModel().getSelectedItem());
                     System.out.println("Test");
-                    //setLeaderBoard();
                     connector.close();
 
                 } else {
@@ -105,7 +103,7 @@ private final DataBaseConnector connector = new DataBaseConnector();
 //----------------------------NON-FXML METHODS--------------------------------\\
     
     private void setLeaderBoard(int roundChoice) throws SQLException {
-        leaderboardListd.removeAll(leaderboardListd);
+        leaderboardList.removeAll(leaderboardList);
 
         Statement sta = connector.getConnection().createStatement();
 
@@ -120,13 +118,13 @@ private final DataBaseConnector connector = new DataBaseConnector();
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
         difficultyColumn.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
-        leaderboardList.setItems(leaderboardListd);
+        leaderboardTabelView.setItems(leaderboardList);
 
         while (res.next()) {
 
             System.out.println(res.getInt("Score") + res.getString("Accounts_Username") + res.getString("Difficulty"));
             LeaderboardObject leaderboardObject = new LeaderboardObject(res.getString("Accounts_Username"), res.getInt("Score"), res.getString("Difficulty"));
-            leaderboardListd.add(leaderboardObject);
+            leaderboardList.add(leaderboardObject);
         }
         connector.close();
     }

@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 
@@ -20,12 +21,15 @@ public class FXMLMainMenuController implements Initializable {
     private AnchorPane helpAnchorpane;
     @FXML
     private Button backButton;
-
+    @FXML
+    private Label errorLabel;
+    
     private String buttonText;
 
 //---------------------------ON SCENE LOAD-UP---------------------------------\\    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+      try{
         if (DataStorage.getInstance().isLoadOnceCheck() == false) {
             readOptionSettingFromFile();
 
@@ -34,6 +38,11 @@ public class FXMLMainMenuController implements Initializable {
             }
         }
         backToMenuFromHelp();
+      }
+        catch (Exception e) {
+            System.out.println("ERROR: " + e);
+            errorLabel.setText("ERROR: " + e);
+        }
 
     }
 //------------------------------FXML METHODS----------------------------------\\    

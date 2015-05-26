@@ -8,17 +8,17 @@ import javafx.beans.property.StringProperty;
 public abstract class Building {
 //------------------------------VARIABLES-------------------------------------\\ 
 
-    private StringProperty name;
-    private int initialGold;
-    private int initialWood;
-    private int initialStone;
-    private int initialIron;
-    private int initialCoal;
-    private int initialSteel;
-    private int initialFood;
-    private int initialHuman;
-    private IntegerProperty amount;
-    private int scoreValue;
+    private final StringProperty name;
+    private final int initialGold;
+    private final int initialWood;
+    private final int initialStone;
+    private final int initialIron;
+    private final int initialCoal;
+    private final int initialSteel;
+    private final int initialFood;
+    private final int initialHuman;
+    private final IntegerProperty amount;
+    private final int scoreValue;
 //------------------------------CONSTRUCTOR-----------------------------------\\
 
     public Building(String name, int initialGold, int initialWood, int initialStone, int initialIron, int initialCoal,
