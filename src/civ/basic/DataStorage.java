@@ -18,9 +18,9 @@ public class DataStorage {
     private String difficulty = "normal";
     private int roundLimit = 50;
     private int score;
-    private Boolean musicSet = false;
-    private Integer musicChoice = 1;
-    private Boolean loadOnceCheck;
+    private boolean musicSet = false;
+    private int musicChoice = 1;
+    private boolean loadOnceCheck;
     private boolean highestScoreCheck;
     private boolean leaderboardCheatCodeBlock;
 
