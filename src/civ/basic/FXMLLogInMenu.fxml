@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="createCheck" prefHeight="200" prefWidth="320" styleClass="root" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLLogInMenuController">
+    <children>
+      <TextField fx:id="userName" layoutX="14.0" layoutY="14.0" promptText="User" />
+      <PasswordField fx:id="userPassword" layoutX="14.0" layoutY="54.0" promptText="Password" />
+      <Button id="menuButton" fx:id="button" layoutX="223.0" layoutY="12.0" onAction="#menuClick" stylesheets="@Style.css" text="Log in" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button id="menuButton" fx:id="createAccount" layoutX="185.0" layoutY="50.0" mnemonicParsing="false" onAction="#menuClick" stylesheets="@Style.css" text="Create new account" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button id="menuButton" fx:id="lostPassword" layoutX="185.0" layoutY="88.0" mnemonicParsing="false" onAction="#menuClick" prefHeight="29.0" prefWidth="131.0" stylesheets="@Style.css" text="Lost my password" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label fx:id="loginErrorLabel" layoutX="3.0" layoutY="96.0" prefHeight="17.0" prefWidth="181.0" textFill="RED" />
+      <ImageView fitHeight="78.0" fitWidth="121.0" layoutX="28.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Resources/Images/logo.png" />
+         </image>
+      </ImageView>
+    </children>
+</AnchorPane>

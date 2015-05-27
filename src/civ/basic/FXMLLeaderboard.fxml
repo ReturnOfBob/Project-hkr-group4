@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLLeaderboardController">
+   <children>
+      <TableView id="menuButton" fx:id="leaderboardTabelView" layoutX="44.0" layoutY="48.0" prefHeight="304.0" prefWidth="383.0" stylesheets="@Style.css">
+        <columns>
+          <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
+          <TableColumn fx:id="scoreColumn" prefWidth="75.0" text="Score" />
+            <TableColumn fx:id="difficultyColumn" prefWidth="75.0" text="Difficulty" />
+        </columns>
+      </TableView>
+      <Button id="menuButton" layoutX="76.0" layoutY="365.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="To main menu" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button id="menuButton" layoutX="427.0" layoutY="365.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="Delete selected row" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button id="menuButton" layoutX="482.0" layoutY="23.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="20 rounds" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button id="menuButton" layoutX="482.0" layoutY="59.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="50 rounds" textFill="#fcfcfc">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button id="menuButton" layoutX="482.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonClicks" stylesheets="@Style.css" text="100 rounds" textFill="#f8f8f8">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label fx:id="errorLabel" layoutX="432.0" layoutY="344.0" prefHeight="17.0" prefWidth="165.0" text="You need admin rights for this!" textFill="#f20404" visible="false" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="680.0" prefWidth="1024.0" styleClass="root" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="civ.basic.FXMLGameCompletedController">
+   <children>
+      <Button id="menuButton" layoutX="200.0" layoutY="544.0" mnemonicParsing="false" onAction="#menuClick" prefHeight="40.0" prefWidth="160.0" text="Back to main menu" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button id="menuButton" layoutX="664.0" layoutY="544.0" mnemonicParsing="false" onAction="#menuClick" prefHeight="40.0" prefWidth="160.0" text="Go to leaderboard" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Label fx:id="congratulationsLabel" layoutX="178.0" layoutY="90.0">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Label>
+      <Label fx:id="scoreLabel" layoutX="391.0" layoutY="287.0">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="110.0" layoutY="431.0" text="Created by: Nicklas Brisendal, Henrik Åsman,  Joakim Johansson, Erik Ryberg">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="highestScoreLabel" layoutX="294.0" layoutY="204.0" text="You got the new highscore!" textFill="#21bc21" visible="false">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="cheatCodeLabel" layoutX="138.0" layoutY="55.0" prefHeight="70.0" prefWidth="805.0" text="Cheater! You used a cheat code. You score will not be saved! Noob!" textFill="RED" visible="false">
+         <font>
+            <Font name="Arial" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
